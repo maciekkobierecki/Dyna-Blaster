@@ -39,7 +39,8 @@ public class Game extends JFrame{
 	/**
 	 * Lista obiektów u¿ywana do wczytywana mapy z pliku.
 	 */
-	private ArrayList<String> configData;
+	private ArrayList<String> configMapData;
+	private ArrayList<String> configEnemyData;
 	
 	/**
 	 * Konstruktor klasy.
@@ -61,10 +62,12 @@ public class Game extends JFrame{
 		infoLabel.repaint();
 		this.add(infoLabel, BorderLayout.NORTH);
 		this.add(gameField);
-		configData=new ArrayList<String>();
+		configMapData=new ArrayList<String>();
+		configEnemyData= new ArrayList<String>();
 		read();
 		pack();
-		gameField.createMap(configData);
+		gameField.createMap(configMapData, configEnemyData);
+		
 	
 	
 	}
@@ -84,7 +87,7 @@ public class Game extends JFrame{
 	}*/
 	
 	/**
-	 * Metoda odpowiedzialna za wczytywanie mapy z pliku.
+	 * Metoda odpowiedzialna za wczytywanie mapy oraz ustawieñ gry z pliku.
 	 * <p>
 	 * @throws IOException w przypadku niepowodzenia z wczytywaniem pliku.
 	 */
@@ -96,7 +99,7 @@ public class Game extends JFrame{
 			   String line;
 			   
 			   while((line = bufferReader.readLine()) != null) {
-				  configData.add(line);
+				  configMapData.add(line);
 				  System.out.println(line); 
 			   }
 			   fileReader.close();
@@ -107,6 +110,26 @@ public class Game extends JFrame{
 			  catch (IOException e) {
 			   e.printStackTrace();
 			  }
+		try {
+			   FileReader fileReader = new FileReader("enemies.txt");
+			   BufferedReader bufferReader = new BufferedReader(fileReader);
+			   
+			   String line;
+			   
+			   while((line = bufferReader.readLine()) != null) {
+				  configEnemyData.add(line);
+				  System.out.println(line); 
+			   }
+			   fileReader.close();
+			  }
+			  catch (FileNotFoundException e) {
+			   e.printStackTrace();
+			  } 
+			  catch (IOException e) {
+			   e.printStackTrace();
+			  }
+		
+	
 	}
 }
 	

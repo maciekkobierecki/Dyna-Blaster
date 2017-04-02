@@ -27,13 +27,13 @@ public abstract class Obiekt {
 	static int licznik=0;
 	Plansza plansza;
 	
-	public Obiekt(Plansza plansza,int x, int y)
+	public Obiekt(Plansza plansza,int x, int y,int xwidth,int xheight)
 	{
 		this.x=x;
 		this.y=y;
 		this.plansza=plansza;
-		width=0;
-		height=0;		
+		width=xwidth;
+		height=xheight;		
 	}
 	
 
@@ -42,8 +42,7 @@ public abstract class Obiekt {
 		width=xwidth;
 		height=xheight;
 	}
-	abstract void draw(Graphics g);
-	
+	abstract void draw(Graphics g);	
 	public void setX(int x) { this.x=x; }
 	public void setY(int y) { this.y=y; }
 	public int getX() { return x; }

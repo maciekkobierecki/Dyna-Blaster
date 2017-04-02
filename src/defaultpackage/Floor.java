@@ -17,7 +17,7 @@ public class Floor extends Obiekt {
 	private Color color;
 	public Floor(Plansza plansza, int x, int y, Color color, int xwidth, int xheight) 
 	{
-		super(plansza,x,y);
+		super(plansza,x,y, xwidth, xheight);
 		this.color=color;
 		System.out.println("utworzono podloge");
 		width=xwidth;

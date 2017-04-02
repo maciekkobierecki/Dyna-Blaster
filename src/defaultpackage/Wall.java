@@ -15,10 +15,8 @@ public class Wall extends Obiekt{
 	
 	public Wall(Plansza gameField, int x, int y,int xwidth, int xheight)
 	{
-		super(gameField, x, y);
-		width=xwidth;
-		height=xheight;
-		System.out.println("utworzono sciane");
+		super(gameField, x, y, xwidth, xheight);
+
 	}
 	
 	
@@ -26,7 +24,7 @@ public class Wall extends Obiekt{
 	public void draw(Graphics g)
 	{
 		Dimension sizeOfGameField=plansza.getSize();
-		g.setColor(Color.cyan);
+		g.setColor(Color.BLACK);
 		//System.out.println("draw wall X" + x+"y"+y+ "width"+width+"height"+height);
 		g.fillRect(getX(),getY(), width,height);
 		
