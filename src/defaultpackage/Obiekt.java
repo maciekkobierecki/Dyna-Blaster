@@ -36,6 +36,12 @@ public abstract class Obiekt {
 		height=0;		
 	}
 	
+
+	public  static void setDimension(int xwidth, int xheight)
+	{ 
+		width=xwidth;
+		height=xheight;
+	}
 	abstract void draw(Graphics g);
 	
 	public void setX(int x) { this.x=x; }

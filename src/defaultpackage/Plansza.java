@@ -1,9 +1,12 @@
 package defaultpackage;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -23,8 +26,8 @@ import javax.swing.JPanel;
 public class Plansza extends JPanel implements KeyListener {
 
 	
-	private Image dbImage;
-	private Graphics dbg;
+	
+	
 	private int rows;
 	private int columns;
 	private Player player;
@@ -41,10 +44,25 @@ public class Plansza extends JPanel implements KeyListener {
        	mapList=new ArrayList<>();
        	addKeyListener(this);
        	setFocusable(true);
+       
+       	this.addComponentListener(new ComponentAdapter(){
+       		public void componentResized(ComponentEvent e){
+       			Component c=(Component)e.getSource();
+       			int width=getWidth();
+       			int height=getHeight();
+       			Obiekt.setDimension(width/columns, height/rows);
+       			
+       			for(int i=0; i<mapList.size();i++){
+       				mapList.get(i).setX((i%columns)*width/columns);
+       				mapList.get(i).setY((i%rows)*height/rows);
+       			}
+       		}
+       	});
+       	}
        	
        	
 
-    }
+    
    
     
     public int getAmountOfRows() { return rows; }
@@ -74,7 +92,16 @@ public class Plansza extends JPanel implements KeyListener {
     }
     
 
-    
+   public void paint(Graphics g)
+   {
+	   
+	   BufferedImage dbImage=new BufferedImage(getWidth(), getHeight(),BufferedImage.TYPE_INT_ARGB);
+	   Graphics dbg=dbImage.getGraphics();
+	   System.out.println("paint plansza w:"+getWidth()+"h:"+getHeight());
+	   paintComponent(dbg);
+	   
+	   g.drawImage(dbImage, 0,0,this);
+   }
     
     public void paintComponent(Graphics g)
     {

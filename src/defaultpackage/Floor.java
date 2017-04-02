@@ -28,17 +28,13 @@ public class Floor extends Obiekt {
 		
 	}
 	
-	public static void setDimension(int xwidth, int xheight)
-	{ 
-		width=xwidth;
-		height=xheight;
-	}
-
 	public void draw(Graphics g)
 	{
+		
 		Dimension sizeOfGameField=plansza.getSize();
 		g.setColor(color);
-		System.out.println("draw floor" +x+"y"+y+ "width"+width+"height"+height);
+		//System.out.println("draw floor" +x+"y"+y+ "width"+width+"height"+height);
+		
 		g.fillRect(getX(),getY(), width,height);
 		
 	}
