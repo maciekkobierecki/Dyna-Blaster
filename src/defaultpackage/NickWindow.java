@@ -104,9 +104,8 @@ public class NickWindow extends JFrame implements ActionListener{
 				field.requestFocus();
 			}
 			else {
-				Game game = new Game();
+				GameWindow game = new GameWindow();
 				game.setVisible(true);
-				game.read();
 				//JFrame frame = new JFrame();
 				game.setTitle(Config.gameName + " - ROZGRYWKA");
 				//frame.add(game);

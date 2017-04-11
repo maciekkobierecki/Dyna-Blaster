@@ -13,7 +13,7 @@ import java.awt.Graphics;
  */
 public class Wall extends Obiekt{
 	
-	public Wall(Plansza gameField, int x, int y,int xwidth, int xheight)
+	public Wall(Board gameField, int x, int y,int xwidth, int xheight)
 	{
 		super(gameField, x, y, xwidth, xheight);
 

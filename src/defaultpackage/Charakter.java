@@ -7,7 +7,7 @@ public abstract class Charakter extends Obiekt{
 	
 	private int dx, dy;
 	
-	public Charakter(Plansza plansza, int x, int y, int xwidth, int xheight) {
+	public Charakter(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);
 		// TODO Auto-generated constructor stub
 	}

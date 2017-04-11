@@ -25,9 +25,9 @@ public abstract class Obiekt {
 	protected int x;
 	protected int y;
 	static int licznik=0;
-	Plansza plansza;
+	Board plansza;
 	
-	public Obiekt(Plansza plansza,int x, int y,int xwidth,int xheight)
+	public Obiekt(Board plansza,int x, int y,int xwidth,int xheight)
 	{
 		this.x=x;
 		this.y=y;

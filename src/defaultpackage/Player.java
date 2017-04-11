@@ -15,8 +15,9 @@ import java.awt.Graphics;
  */
 public class Player extends Charakter{
 
+	private int score;
 	
-	public Player(Plansza plansza, int x,int y, int width, int height)
+	public Player(Board plansza, int x,int y, int width, int height)
 	{
 		super(plansza,x,y, width, height);
 		

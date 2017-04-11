@@ -1,106 +1,76 @@
 package defaultpackage;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
+import javax.swing.Timer;
 
-/**
- * Klasa okna rozgrywki.
+
+/* 
+ Klasa zarz¹dzaj¹ca rozgrywk¹
  * 
- * @author Patryk Gozdera
- * @author Maciej Kobierecki
- *
- */
-public class Game extends JFrame{
-
-	private static final long serialVersionUID = 1L;
-	
+ * */
+ 
+public class Game implements ActionListener{
 	/**
 	 * Deklaracja pola rozgrywki.
 	 */
-	private Plansza gameField;
 	
-	/**
-	 * Etykieta z wyœwietlanym stanem gry.
-	 */
-	private JLabel infoLabel;
-	
+	private Board board;
+	private int remainingTime;
 	/**
 	 * Lista obiektów u¿ywana do wczytywana mapy z pliku.
 	 */
 	private ArrayList<String> configMapData;
-	private ArrayList<String> configEnemyData;
+	private ArrayList<String> mapNameList;
 	
-	/**
-	 * Konstruktor klasy.
+	/*
+	 timer zajmuj¹cy sie odœwie¿aniem ekranu
 	 */
-	public Game()
-	{
-		Dimension dimension = new Dimension(Config.windowWidth, Config.windowHeight);
-		setPreferredSize(dimension);
-		//setMinimumSize(dimension);
-		//setMaximumSize(dimension);
-		setBackground(Color.black);
-		gameField=new Plansza(2,2);
-		this.setLayout(new BorderLayout());
-		infoLabel=new JLabel(" NICK " + "Zdobyte punkty: 12  " + "Pozosta³y czas: 1:23");
-		infoLabel.setPreferredSize(new Dimension(200,40));
-		infoLabel.setForeground(Color.yellow);
-		infoLabel.setBackground(Color.black);
-		infoLabel.setOpaque(true);
-		infoLabel.repaint();
-		this.add(infoLabel, BorderLayout.NORTH);
-		this.add(gameField);
+	Timer timer;
+	
+	
+	
+	Game(){
+		remainingTime=0;
 		configMapData=new ArrayList<String>();
-		configEnemyData= new ArrayList<String>();
-		read();
-		pack();
-		gameField.createMap(configMapData, configEnemyData);
+		mapNameList=new ArrayList<String>();
+		read("maps.txt", mapNameList); //wczytywanie nazw plików z definicja kolejnych map 
+		read(mapNameList.get(0), configMapData);
+		board=new Board();			
+		timer=new Timer(30,this);
 		
-	
-	
 	}
 	
+	public void run(){
+		board.createMap(configMapData);
+		timer.start();
+	}
 	
-/*	public void render(){
-		BufferStrategy bs = getBufferStrategy();
-		if(bs == null){
-			createBufferStrategy(3);
-			return;
-		}
-		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.black);
-		g.fillRect(0, 0, Config.windowWidth, Config.windowHeight);
-		g.dispose();
-		bs.show();
-	}*/
+
 	
 	/**
 	 * Metoda odpowiedzialna za wczytywanie mapy oraz ustawieñ gry z pliku.
 	 * <p>
 	 * @throws IOException w przypadku niepowodzenia z wczytywaniem pliku.
 	 */
-	public void read(){
+	
+	
+	public void read(String fileName, ArrayList<String> list){
 		try {
-			   FileReader fileReader = new FileReader("map.txt");
+			   FileReader fileReader = new FileReader(fileName);
 			   BufferedReader bufferReader = new BufferedReader(fileReader);
 			   
 			   String line;
 			   
 			   while((line = bufferReader.readLine()) != null) {
-				  configMapData.add(line);
-				  System.out.println(line); 
+				  list.add(line);
+				
 			   }
 			   fileReader.close();
 			  }
@@ -110,59 +80,20 @@ public class Game extends JFrame{
 			  catch (IOException e) {
 			   e.printStackTrace();
 			  }
-		try {
-			   FileReader fileReader = new FileReader("enemies.txt");
-			   BufferedReader bufferReader = new BufferedReader(fileReader);
-			   
-			   String line;
-			   
-			   while((line = bufferReader.readLine()) != null) {
-				  configEnemyData.add(line);
-				  System.out.println(line); 
-			   }
-			   fileReader.close();
-			  }
-			  catch (FileNotFoundException e) {
-			   e.printStackTrace();
-			  } 
-			  catch (IOException e) {
-			   e.printStackTrace();
-			  }
+	}
+	
 		
 	
-	}
-}
 	
 	
+	public Board getBoard() { return board; }
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		 board.moveEnemies();
+		 board.repaint();
+	}
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+}
