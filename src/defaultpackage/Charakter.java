@@ -1,23 +1,24 @@
 package defaultpackage;
 
 import java.awt.Graphics;
+import java.util.Random;
 
 public abstract class Charakter extends Obiekt{
 	
-	
-	private int dx, dy;
-	
-	public Charakter(Board plansza, int x, int y, int xwidth, int xheight) {
+	//zmienne mówi¹ce o ile przy nastepnym move ma sie ruszyc obiekt
+	protected int dx, dy;
+	//losowanie liczb potrzebnych do okreslania kolejnego kierunku ruchu obiektu graficznego po napotkaniu kolizji 
+	protected Random rand;
+	public Charakter(Board plansza, int x, int y, int xwidth, int xheight,int dx,int dy) {
 		super(plansza, x, y, xwidth, xheight);
-		// TODO Auto-generated constructor stub
+		this.dx=dx;
+		this.dy=dy;
+		rand=new Random();
 	}
 	
 	
-	protected void move()
-	{
-		this.setX(this.getX()+dx);
-		this.setY(this.getY()+dy);
-	}
+	abstract public void move();
+	
 	public void setPosition(int x, int y)
 	{
 		this.setX(x);

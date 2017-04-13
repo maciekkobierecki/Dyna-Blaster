@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Rectangle;
 
 import javax.swing.JComponent;
 
@@ -20,8 +21,8 @@ import javafx.scene.image.*;
  *
  */
 public abstract class Obiekt {
-	protected static int  width;
-	protected static int height;
+	protected int  width;
+	protected int height;
 	protected int x;
 	protected int y;
 	static int licznik=0;
@@ -35,9 +36,12 @@ public abstract class Obiekt {
 		width=xwidth;
 		height=xheight;		
 	}
-	
+	//zwraca prostok¹t o koordynatach i rozmiarach obiektu graficznego
+		public Rectangle getShape(){
+			return new Rectangle(x,y,width,height);
+		}
 
-	public  static void setDimension(int xwidth, int xheight)
+	public void setDimension(int xwidth, int xheight)
 	{ 
 		width=xwidth;
 		height=xheight;

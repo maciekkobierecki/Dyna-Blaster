@@ -18,17 +18,22 @@ public class Player extends Charakter{
 	private int score;
 	
 	public Player(Board plansza, int x,int y, int width, int height)
-	{
-		super(plansza,x,y, width, height);
+	{	//ustawia zerow¹ przedkoœæ poczatkowa
+		super(plansza,x,y, width, height,0,0);
 		
 		
+	}
+	
+	public void move()
+	{		
+		this.setX(this.getX()+dx);
+		this.setY(this.getY()+dy);
 	}
 	
 	public void draw(Graphics g)
 	{
 		
 		this.move();
-		//Dimension sizeOfGameField=plansza.getSize();
 		g.setColor(Color.ORANGE);
 		g.fillOval(getX(),getY(), width/2, height/2);
 	}

@@ -43,7 +43,7 @@ public class Game implements ActionListener{
 		read("maps.txt", mapNameList); //wczytywanie nazw plików z definicja kolejnych map 
 		read(mapNameList.get(0), configMapData);
 		board=new Board();			
-		timer=new Timer(30,this);
+		timer=new Timer(15,this);
 		
 	}
 	

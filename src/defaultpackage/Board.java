@@ -31,7 +31,8 @@ public class Board extends JPanel implements KeyListener, ActionListener{
 	private int rows;
 	private int columns;
 	private Player player;
-    ArrayList<Obiekt> mapList;
+    ArrayList<Wall> wallList;
+    ArrayList<Floor>floorList;
     ArrayList<Enemy>enemyList;
     BufferedImage bimage;
     private int panelWidth;
@@ -43,7 +44,8 @@ public class Board extends JPanel implements KeyListener, ActionListener{
     	columns=0;
        	this.setPreferredSize(new Dimension(300,300));
        	player= new Player(this,200,100, 15,15);
-       	mapList=new ArrayList<>();
+        wallList=new ArrayList<>();
+       	floorList=new ArrayList<>();
        	enemyList=new ArrayList<>();
        	addKeyListener(this);
        	setFocusable(true);
@@ -56,6 +58,7 @@ public class Board extends JPanel implements KeyListener, ActionListener{
 
     public int getPanelWidth() { return panelWidth; }
     public int getPanelHeight() { return panelHeight; }
+    public ArrayList<Wall> getWallList() { return wallList; }
     
    
     
@@ -80,14 +83,14 @@ public class Board extends JPanel implements KeyListener, ActionListener{
     			switch(str.charAt(i))
     			{
     				case '0':
-    					 mapList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 	
+    					 floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 	
     					 break;
     				case '1':
-    					mapList.add(new Wall(this, i*width, j*height, width, height));   
+    					wallList.add(new Wall(this, i*width, j*height, width, height));   
     					break;
     				case '2':
-    					 mapList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 	
-    					 enemyList.add(new Enemy(this, i*width, j*height, width/2, height/2));   
+    					 floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 	
+    					 enemyList.add(new Enemy(this, i*width+(int)(0.1*width), j*height+(int)(0.1*height), 4*width/5, 4*height/5));   
     					 break;
     					
     			}
@@ -125,7 +128,9 @@ public class Board extends JPanel implements KeyListener, ActionListener{
     	g.setColor(Color.BLACK);
     	g.fillRect(0, 0, getWidth(), getHeight());
     	
-    	for (Obiekt ob : mapList)
+    	for (Obiekt ob : wallList)
+    		ob.draw(g);
+    	for (Obiekt ob : floorList)
     		ob.draw(g);
     	for (Obiekt ob: enemyList)
     		ob.draw(g);
