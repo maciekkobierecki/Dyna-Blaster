@@ -3,6 +3,9 @@ package defaultpackage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 
 /**
  * Klasa gracza, dziedzicz¹ca po klasie obiekt.
@@ -25,17 +28,21 @@ public class Player extends Charakter{
 	}
 	
 	public void move()
-	{		
-		this.setX(this.getX()+dx);
-		this.setY(this.getY()+dy);
+	{	
+		if(!willCollide(dx,dy)){
+			this.setX(this.getX()+dx);
+			this.setY(this.getY()+dy);			
+		}
 	}
+	
+	
 	
 	public void draw(Graphics g)
 	{
 		
 		this.move();
 		g.setColor(Color.ORANGE);
-		g.fillOval(getX(),getY(), width/2, height/2);
+		g.fillOval(getX(),getY(), width, height);
 	}
 	
 	

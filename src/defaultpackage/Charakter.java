@@ -1,6 +1,9 @@
 package defaultpackage;
 
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.Random;
 
 public abstract class Charakter extends Obiekt{
@@ -14,6 +17,32 @@ public abstract class Charakter extends Obiekt{
 		this.dx=dx;
 		this.dy=dy;
 		rand=new Random();
+	}
+	
+	//zwraca punkt lewego górnego rogu obiektu z ktorym zachodzi kolizja
+	
+	public Point Collision(int dx, int dy){
+		Point point=new Point(-1,-1);
+		ArrayList<Wall> mapObjects=plansza.getWallList();
+		for(int i=0; i<mapObjects.size(); i++){
+			Rectangle thisrect=this.getShape();
+			thisrect.x+=dx;
+			thisrect.y+=dy;
+			Rectangle obrect=mapObjects.get(i).getShape();
+			if(thisrect.intersects(obrect)){
+				point.x=mapObjects.get(i).x;
+				point.y=mapObjects.get(i).y;
+			}
+		}
+		return point;
+	}
+	
+	//zwraca boola mówi¹cego czy nast¹pi³a kolizja
+	
+	public Boolean willCollide(int dx, int dy){
+		if(Collision(dx,dy).getX()!=-1 && Collision(dx,dy).getY()!=-1)
+			return true;
+		else return false;
 	}
 	
 	

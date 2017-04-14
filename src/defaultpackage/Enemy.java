@@ -25,115 +25,36 @@ public class Enemy extends Charakter{
 		
 	}	
 	
-	public Point Colided()
-	{
-		Point point=new Point(-1,-1);
-		ArrayList<Wall> mapObjects=plansza.getWallList();
-		for(int i=0; i<mapObjects.size(); i++){
-			Rectangle thisrect=this.getShape();
-			Rectangle obrect=mapObjects.get(i).getShape();
-			if(thisrect.intersects(obrect)){
-				point.x=mapObjects.get(i).x;
-				point.y=mapObjects.get(i).y;
-			}
-		}
-		return point;
-	}
 	
 	
 	//metoda odpowiadaj¹ca za ruch obiektu 
 	public void move()
 	{	
-		int panelWidth=plansza.getPanelWidth();
-		int panelHeight=plansza.getPanelHeight();
 		int number=this.rand.nextInt();
-		
-		if(Colided().getX()!=-1 && Colided().getY()!=-1)
-		{
-			Point CoordinatesOfColidedObject=Colided();
-			x-=2*dx;
-			y-=2*dy;
-			switch (number % 3) {
-			case 1: 
-				if(dx!=0)
-					dy=dx;
-				else 
-					dy=-dy;
-				dx=0;
-				break;
-			case 2:
-				if(dx!=0)
-					dy=-dx;
-				else 
-					dy=-dy;
-				dx=0; 
-				break;
-			default:
-				if(dx!=0)
-					dx=-dx;
-				else 
-					dx=speed;
+		if(willCollide(dx,dy)){
+			switch (number % 4) {
+			case 0: 
+				dx=speed;
 				dy=0;
 				break;
-
+			case 1:
+				dx=-speed;
+				dy=0;
+				break;
+			case 2:
+				dx=0;
+				dy=speed;
+				break;
+			case 3:
+				dx=0;
+				dy=-speed;
 			}
-
-			
-				
-				
 		}
 		
-		
-		//instrukcja obslugujaca zachowanie obiektu w rogu panelu
-		if(((x+width+dx>panelWidth|| x+dx<0) && y==0)||((y+height+dy>panelHeight|| y+dy<0)&& x==0)|| ((x+width+dx>panelWidth|| x+dx<0) && y>panelHeight-1/10*height)||((y+height+dy>panelHeight|| y+dy<0)&& x>panelWidth-1/10*width))
+		if(!willCollide(dx,dy))
 		{
-			if(dx==0){
-				dy=-dy;							
-			}
-			else
-				dx=-dx;
-		}
-		//instrukcja obejmujaca pozosta³e sytuacje
-		else{
-			if(x+width+dx>panelWidth|| x+dx<0){
-				switch (number % 3) {
-				case 1: 
-					dy=dx;
-					dx=0;
-					break;
-				case 2:
-					dy=-dx;
-					dx=0; 
-					break;
-				default:
-					dx=-dx;
-					dy=0;
-					break;
-	
-				}
-			}
-				
-			if(y+height+dy>panelHeight|| y+dy<0){
-				switch (number % 3) {
-				case 1: 
-					dx=dy;
-					dy=0;
-					break;
-				case 2:
-					dx=-dy;
-					dy=0;
-					break;
-				default:
-					dy=-dy;
-					dx=0;
-					break;
-				
-				}
-			}
-		}
-			
-		this.y+=dy;
-		this.x+=dx;
-	}
-	
+			this.y+=dy;
+			this.x+=dx;
+		}				
+	}	
 }

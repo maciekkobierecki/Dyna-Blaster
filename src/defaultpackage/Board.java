@@ -43,7 +43,6 @@ public class Board extends JPanel implements KeyListener, ActionListener{
     	rows=0;
     	columns=0;
        	this.setPreferredSize(new Dimension(300,300));
-       	player= new Player(this,200,100, 15,15);
         wallList=new ArrayList<>();
        	floorList=new ArrayList<>();
        	enemyList=new ArrayList<>();
@@ -67,14 +66,15 @@ public class Board extends JPanel implements KeyListener, ActionListener{
   
     public void createMap(ArrayList<String> mapData)
     {
+    	
     	rows=mapData.size();
     	columns=mapData.get(0).length();
     	int width=this.getWidth()/columns;
     	int height=this.getHeight()/rows;
     	panelWidth=this.getWidth();
     	panelHeight=this.getHeight();
-    	System.out.println("create map");
-    	//0 oznacza brak sciany, 1 oznacza, ¿e jest sciana
+    
+    	//0 oznacza brak sciany, 1 oznacza, ¿e jest sciana, 2 oznacza ze jest potwor, 3 player
     	for(int j=0; j<mapData.size(); j++)
     	{
     		String str=mapData.get(j);
@@ -90,13 +90,18 @@ public class Board extends JPanel implements KeyListener, ActionListener{
     					break;
     				case '2':
     					 floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 	
-    					 enemyList.add(new Enemy(this, i*width+(int)(0.1*width), j*height+(int)(0.1*height), 4*width/5, 4*height/5));   
+    					 enemyList.add(new Enemy(this, i*width, j*height, width, height));   
     					 break;
+    				case '3':
+    					player= new Player(this,i*width,j*height, (int)(0.75*width), (int)(0.75*height));
+    					floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 	
+    					break;
+    					
     					
     			}
     		}
     	}
-    	repaint();
+       	
     }
     public int getColumns() { return columns; }
     public int getRows() { return rows; }
