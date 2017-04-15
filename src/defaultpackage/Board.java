@@ -23,7 +23,7 @@ import javax.swing.JPanel;
  * @author Maciej Kobierecki
  *
  */
-public class Board extends JPanel implements KeyListener, ActionListener{
+public class Board extends JPanel implements ActionListener{
 
 	
 	
@@ -46,7 +46,7 @@ public class Board extends JPanel implements KeyListener, ActionListener{
         wallList=new ArrayList<>();
        	floorList=new ArrayList<>();
        	enemyList=new ArrayList<>();
-       	addKeyListener(this);
+        
        	setFocusable(true);
        	panelWidth=0;
        	panelHeight=0;
@@ -58,11 +58,12 @@ public class Board extends JPanel implements KeyListener, ActionListener{
     public int getPanelWidth() { return panelWidth; }
     public int getPanelHeight() { return panelHeight; }
     public ArrayList<Wall> getWallList() { return wallList; }
-    
-   
-    
+    public ArrayList<Enemy> getEnemyList() { return enemyList; }
     public int getAmountOfRows() { return rows; }
     public int getAmountOfColumns() { return columns; }
+    public Player getPlayer() { return player; }
+    
+    
   
     public void createMap(ArrayList<String> mapData)
     {
@@ -93,8 +94,9 @@ public class Board extends JPanel implements KeyListener, ActionListener{
     					 enemyList.add(new Enemy(this, i*width, j*height, width, height));   
     					 break;
     				case '3':
-    					player= new Player(this,i*width,j*height, (int)(0.75*width), (int)(0.75*height));
-    					floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 	
+    					player= new Player(this,i*width,j*height, (int)(0.75*width), (int)(0.75*height), Config.getPlayerSpeed());
+    					floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 
+    					addKeyListener(player);
     					break;
     					
     					
@@ -103,6 +105,16 @@ public class Board extends JPanel implements KeyListener, ActionListener{
     	}
        	
     }
+    
+    public void recreate(ArrayList<String> mapData) {
+		floorList.clear();
+		wallList.clear();
+		enemyList.clear();
+		
+		createMap(mapData);//tworzy sie nowy player ZMIENIC
+		
+	}
+
     public int getColumns() { return columns; }
     public int getRows() { return rows; }
 
@@ -126,7 +138,7 @@ public class Board extends JPanel implements KeyListener, ActionListener{
 	   gg.drawImage(dbImage, 0, 0, getWidth(), getHeight(), null);
 	   g.drawImage(scaled, 0, 0, this);
    }
-    
+    wwww
     public void paintComponent(Graphics g)
     {
     	super.paintComponent(g);
@@ -143,44 +155,7 @@ public class Board extends JPanel implements KeyListener, ActionListener{
     	    	
     }
 	
-	@Override
-	public void keyPressed(KeyEvent arg0)
-	{
-		int c=arg0.getKeyCode();
-		if(c== KeyEvent.VK_W)
-		{
-			player.setDY(-3);
-			repaint();
-		}
-		if(c== KeyEvent.VK_S)
-		{
-			player.setDY(3);
-			repaint();
-		}
-		if(c== KeyEvent.VK_A)
-		{
-			player.setDX(-3);
-			repaint();
-		}
-		if(c== KeyEvent.VK_D)
-		{
-			player.setDX(3);
-			repaint();
-		}
-		
-	}
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		player.setDX(0);
-		player.setDY(0);
-		
-	}
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 
 
 
@@ -191,6 +166,13 @@ public class Board extends JPanel implements KeyListener, ActionListener{
 		// TODO Auto-generated method stub
 		
 	}
+
+
+
+	
+
+
+	
 	
 	
     

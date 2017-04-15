@@ -2,6 +2,8 @@ package defaultpackage;
 
 
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -20,6 +22,7 @@ import javax.swing.JOptionPane;
 public class LevelWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	public static String level;
 	
 	/**
 	 * Deklaracja etykiety, która wyœwietla komunikat o wyborze poziomu trudnoœci.
@@ -50,22 +53,45 @@ public class LevelWindow extends JFrame {
 		});
 		setSize(Config.windowWidth,Config.windowHeight);
 		setLocation(10,10);
-		//setLayout(new BorderLayout());
 		setLayout(new GridLayout(4,1));
-		//setLayout(null);
 		
 		n = new JLabel("Wybierz poziom trudnoœci:");
 		add(n);
 		
 		easy = new JButton(Config.level1);
 		add(easy);
+		easy.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e){
+					level="easy";
+				}
+				});
 		normal = new JButton(Config.level2);
 		add(normal);
+		normal.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e){
+			level="medium";
+		}
+		});
 		hard = new JButton(Config.level3);
 		add(hard);
+		hard.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e){
+			level="hard";
+		}
+		});
+		
+	
+		
+	}
+
+	
+	
 		
 	}
 	
 	
-}
+
 

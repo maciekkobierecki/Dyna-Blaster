@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.Timer;
 
@@ -16,18 +18,26 @@ import javax.swing.Timer;
  * 
  * */
  
-public class Game implements ActionListener{
+public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisionListener{
 	/**
 	 * Deklaracja pola rozgrywki.
 	 */
 	
 	private Board board;
 	private int remainingTime;
+	private int levelTime;
 	/**
 	 * Lista obiektów u¿ywana do wczytywana mapy z pliku.
 	 */
 	private ArrayList<String> configMapData;
+	/**
+	 * Lista przechowuj¹ca nazwy kolejnych plików z mapami
+	 */
 	private ArrayList<String> mapNameList;
+	/**
+	 * Lista parametrów konfiguracyjnych
+	 */
+	private ArrayList<String> configList;
 	
 	/*
 	 timer zajmuj¹cy sie odœwie¿aniem ekranu
@@ -40,16 +50,39 @@ public class Game implements ActionListener{
 		remainingTime=0;
 		configMapData=new ArrayList<String>();
 		mapNameList=new ArrayList<String>();
-		read("maps.txt", mapNameList); //wczytywanie nazw plików z definicja kolejnych map 
-		read(mapNameList.get(0), configMapData);
+		configList=new ArrayList<>();
+		loadConfig();
 		board=new Board();			
-		timer=new Timer(15,this);
-		
+		timer=new Timer(15,this);		
 	}
 	
 	public void run(){
 		board.createMap(configMapData);
+		board.getPlayer().addGameOverListener(this);
+		board.getPlayer().addCollisionListener(this);
 		timer.start();
+	}
+	
+	
+	@Override
+	public void playerIsDead() {
+    	timer.stop();
+		
+	}
+	
+	@Override
+	public void playerEnemyCollided() {
+		board.getPlayer().decrementLive();
+		board.recreate(configMapData);
+		
+	}
+	
+	public void loadConfig(){
+		read("maps.txt", mapNameList); //wczytywanie nazw plików z definicja kolejnych map 
+		read(mapNameList.get(0), configMapData);
+		read("game.txt", configList);
+		levelTime=Config.getLevelTime();
+		Enemy.setSpeed(Config.getEnemySpeed());		
 	}
 	
 
@@ -93,6 +126,8 @@ public class Game implements ActionListener{
 		 board.moveEnemies();
 		 board.repaint();
 	}
+
+	
 	
 	
 	

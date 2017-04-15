@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 public class Enemy extends Charakter{
 	
-	static int speed=1; //DAC DO WCZYTYWANIA Z PLIKU
+	static int speed;
 
 	public Enemy(Board plansza, int x, int y, int width, int height) {
-		super(plansza, x, y, width, height, 1,0);	
+		super(plansza, x, y, width, height, speed,0);	
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class Enemy extends Charakter{
 		
 	}	
 	
-	
+	public static void setSpeed(int xspeed){ speed=xspeed; }
 	
 	//metoda odpowiadaj¹ca za ruch obiektu 
 	public void move()
