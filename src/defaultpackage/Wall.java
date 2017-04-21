@@ -23,9 +23,7 @@ public class Wall extends Obiekt{
 	
 	public void draw(Graphics g)
 	{
-		Dimension sizeOfGameField=plansza.getSize();
 		g.setColor(Color.BLACK);
-		//System.out.println("draw wall X" + x+"y"+y+ "width"+width+"height"+height);
 		g.fillRect(getX(),getY(), width,height);
 		
 	}

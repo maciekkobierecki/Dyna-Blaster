@@ -3,6 +3,7 @@ package defaultpackage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -57,17 +58,15 @@ public class NickWindow extends JFrame implements ActionListener{
 				}
 			}
 		});
-		setSize(Config.windowWidth,Config.windowHeight);
+		this.setPreferredSize(new Dimension(Config.windowWidth/2,Config.windowHeight));
 		setLocation(10,10);
 		setLayout(new GridLayout(4,1));
+
 		
 		n = new JLabel("Wpisz swój nick:");
-		n.setPreferredSize(new Dimension(100, 100));
-		n.setBounds(100, 10, 500, 100);
 		add(n);
 		
 		field = new JTextField("");
-		field.setBounds(150, 10, 500, 100);
 		field.setEditable(true);
 		field.setVisible(true);
 		field.setForeground(Color.yellow);
@@ -76,13 +75,11 @@ public class NickWindow extends JFrame implements ActionListener{
 		add(field);
 		
 		ok = new JButton(Config.OkButton);
-		ok.setBounds(10, 100, 250, 100);
 		ok.addActionListener(this);
 		add(ok);
 		
 		cancel = new JButton(Config.Cancelbutton);
 		cancel.addActionListener(this);
-		cancel.setBounds(270, 100, 250, 100);
 		add(cancel);
 		pack();
 	}
@@ -104,16 +101,15 @@ public class NickWindow extends JFrame implements ActionListener{
 				field.requestFocus();
 			}
 			else {
-				GameWindow game = new GameWindow();
-				game.setVisible(true);
-				//JFrame frame = new JFrame();
-				game.setTitle(Config.gameName + " - ROZGRYWKA");
-				//frame.add(game);
-				game.pack();
-				game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				game.setLocationRelativeTo(null);
-				game.setVisible(true);
+				
+				LevelWindow levelWindow=new LevelWindow();
+				levelWindow.setVisible(true);
 				dispose();
+				
+				
+				/*
+				
+				*/
 			}
 		}
 		

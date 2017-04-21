@@ -74,7 +74,14 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 	public void playerEnemyCollided() {
 		board.getPlayer().decrementLive();
 		board.recreate(configMapData);
-		
+		timer.stop();
+		try {
+			Thread.sleep(3000);
+		}
+		catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
+		}
+		timer.start();
 	}
 	
 	public void loadConfig(){

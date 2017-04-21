@@ -31,7 +31,7 @@ public class Enemy extends Charakter{
 	public void move()
 	{	
 		int number=this.rand.nextInt();
-		if(willCollide(dx,dy)){
+		if(willCollide(dx,dy, plansza.getWallList()) || willCollide(dx,dy,plansza.getObstacleList())){
 			switch (number % 4) {
 			case 0: 
 				dx=speed;
@@ -51,7 +51,7 @@ public class Enemy extends Charakter{
 			}
 		}
 		
-		if(!willCollide(dx,dy))
+		if(!willCollide(dx,dy, plansza.getWallList()) && !willCollide(dx,dy,plansza.getObstacleList()))
 		{
 			this.y+=dy;
 			this.x+=dx;

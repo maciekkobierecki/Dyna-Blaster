@@ -91,6 +91,19 @@ public class Config {
     
     
     //parametry zwi¹zane z rozgrywka
+   /**
+    * szerokoœæ okna gry
+    */
+    public static int gameWindowWidth;
+    
+    
+    /**
+     * wysokosc okna gry
+     */
+     public static int gameWindowHeight;
+     
+     
+     
     /**
      * String przechowujacy predkosc potworow na latwym poziomie
      */
@@ -124,8 +137,27 @@ public class Config {
      */
     private static String levelTime;
     
-    
+    /**
+     * liczba zyc gracza
+     */
     private static String amountOfLives;
+    /**
+     * czas od postawienia bomby do wybuchu
+     */
+    
+    public static int timeToExplodeBomb;
+    /**
+     * zasieg bomby na srednim poziomie
+     */
+    public static int mediumLevelBombRange;
+    /**
+     * zasieg bomby na trudnym poziomie
+     */
+    public static int hardLevelBombRange;
+    /**
+     * zasieg bomby na latwym poziomie
+     */
+    public static int easyLevelBombRange;
     
     /**
      * Metoda parsuj¹ca dane konfiguracyjne.
@@ -171,6 +203,8 @@ public class Config {
         gameName = config.getProperty("gameName");
         windowWidth = Integer.parseInt(config.getProperty("windowWidth"));
         windowHeight = Integer.parseInt(config.getProperty("windowHeight"));
+        gameWindowWidth = Integer.parseInt(config.getProperty("gameWindowWidth"));
+        gameWindowHeight = Integer.parseInt(config.getProperty("gameWindowHeight"));
         newGame = config.getProperty("newGame");
         rank = config.getProperty("rank");
         level = config.getProperty("level");
@@ -191,7 +225,10 @@ public class Config {
         hardLevelPlayerSpeed=config.getProperty("hardLevelPlayerSpeed");
         levelTime=config.getProperty("levelTime");
         amountOfLives=config.getProperty("amountOfLives");
-        
+        timeToExplodeBomb=Integer.parseInt(config.getProperty("timeToExplodeBomb"));
+        easyLevelBombRange=Integer.parseInt(config.getProperty("easyLevelBombRange"));
+        mediumLevelBombRange=Integer.parseInt(config.getProperty("mediumLevelBombRange"));
+        hardLevelBombRange=Integer.parseInt(config.getProperty("hardLevelBombRange"));
         
         
           

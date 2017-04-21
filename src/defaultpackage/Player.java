@@ -95,7 +95,7 @@ public class Player extends Charakter implements KeyListener{
 	}
 	
 	public Boolean isCollidedWithEnemy(){
-		ArrayList<Enemy> enemies=plansza.getEnemyList();
+		ArrayList<Obiekt> enemies=plansza.getEnemyList();
 		for(int i=0; i<enemies.size(); i++){
 			Rectangle thisrect=this.getShape();
 			Rectangle obrect=enemies.get(i).getShape();
@@ -108,7 +108,7 @@ public class Player extends Charakter implements KeyListener{
 	
 	public void move()
 	{	
-		if(!willCollide(dx,dy)){
+		if(!willCollide(dx,dy, plansza.getWallList()) && !willCollide(dx,dy,plansza.getObstacleList())){
 			this.setX(this.getX()+dx);
 			this.setY(this.getY()+dy);			
 		}
@@ -148,6 +148,8 @@ public class Player extends Charakter implements KeyListener{
 			this.dx=speed;
 		}
 		
+		if(c==KeyEvent.VK_SPACE)
+			plansza.addBomb(this.x,this.y);
 		
 	}
 

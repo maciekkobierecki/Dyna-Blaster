@@ -39,7 +39,7 @@ public class GameWindow extends JFrame{
 	 */
 	public GameWindow()
 	{
-		Dimension dimension = new Dimension(Config.windowWidth, Config.windowHeight);
+		Dimension dimension = new Dimension(Config.gameWindowWidth, Config.gameWindowHeight);
 		setPreferredSize(dimension);
 		setBackground(Color.black);
 		game=new Game();

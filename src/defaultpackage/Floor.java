@@ -19,7 +19,6 @@ public class Floor extends Obiekt {
 	{
 		super(plansza,x,y, xwidth, xheight);
 		this.color=color;
-		System.out.println("utworzono podloge");
 		width=xwidth;
 		height=xheight;
 		
@@ -30,13 +29,8 @@ public class Floor extends Obiekt {
 	
 	public void draw(Graphics g)
 	{
-		
-		Dimension sizeOfGameField=plansza.getSize();
 		g.setColor(color);
-		//System.out.println("draw floor" +x+"y"+y+ "width"+width+"height"+height);
-		
 		g.fillRect(getX(),getY(), width,height);
-		
 	}
 	
 	

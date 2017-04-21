@@ -64,6 +64,7 @@ public class LevelWindow extends JFrame {
 				{
 					public void actionPerformed(ActionEvent e){
 					level="easy";
+					play();
 				}
 				});
 		normal = new JButton(Config.level2);
@@ -72,6 +73,7 @@ public class LevelWindow extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e){
 			level="medium";
+			play();
 		}
 		});
 		hard = new JButton(Config.level3);
@@ -80,13 +82,25 @@ public class LevelWindow extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e){
 			level="hard";
+			play();
 		}
 		});
+		
 		
 	
 		
 	}
-
+	
+	public void play(){
+		GameWindow game = new GameWindow();
+		game.setVisible(true);
+		game.setTitle(Config.gameName + " - ROZGRYWKA");
+		game.pack();
+		game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		game.setLocationRelativeTo(null);
+		game.setVisible(true);
+		dispose();
+	}
 	
 	
 		

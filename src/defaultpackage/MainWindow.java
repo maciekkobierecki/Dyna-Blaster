@@ -1,4 +1,5 @@
 package defaultpackage;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,6 +34,7 @@ public class MainWindow extends JFrame implements ActionListener{
 	public MainWindow() {
 		super(Config.gameName);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setPreferredSize(new Dimension(Config.windowWidth,Config.windowHeight));
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e){
 				int x = JOptionPane.showConfirmDialog(null, "Czy na pewno chcesz wyjœæ?","", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
@@ -42,21 +44,20 @@ public class MainWindow extends JFrame implements ActionListener{
 			}
 		});
 		setLocation(100,100);
-		setLayout(new GridLayout(4, 1));
+		setLayout(new GridLayout(3, 1));
 		new_game = new JButton(Config.newGame);
 		new_game.addActionListener(this);
 		add(new_game);
 		rank = new JButton(Config.rank);
 		rank.addActionListener(this);
 		add(rank);
-		level = new JButton(Config.level);
-		level.addActionListener(this);
-		add(level);
+		//level = new JButton(Config.level);
+		//level.addActionListener(this);
+		//add(level);
 		exit = new JButton(Config.exit);
 		exit.addActionListener(this);
 		add(exit);
 		pack();
-		setSize(Config.windowWidth,Config.windowHeight);
 		setVisible(true);
 	}
 
@@ -72,9 +73,9 @@ public class MainWindow extends JFrame implements ActionListener{
 		}else if(source == rank){
 			new Highscores().setVisible(true);
 			dispose();
-		}else if(source == level){
-			new LevelWindow().setVisible(true);
-			dispose();
+		//}else if(source == level){
+			//new LevelWindow().setVisible(true);
+			//dispose();
 		}else if(source == exit){
 			dispose();
 		}

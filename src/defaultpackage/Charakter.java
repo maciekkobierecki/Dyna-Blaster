@@ -21,9 +21,9 @@ public abstract class Charakter extends Obiekt{
 	
 	//zwraca punkt lewego górnego rogu obiektu z ktorym zachodzi kolizja
 	
-	public Point Collision(int dx, int dy){
+	public Point Collision(int dx, int dy, ArrayList<Obiekt>objects){
 		Point point=new Point(-1,-1);
-		ArrayList<Wall> mapObjects=plansza.getWallList();
+		ArrayList<Obiekt> mapObjects=objects;
 		for(int i=0; i<mapObjects.size(); i++){
 			Rectangle thisrect=this.getShape();
 			thisrect.x+=dx;
@@ -39,8 +39,8 @@ public abstract class Charakter extends Obiekt{
 	
 	//zwraca boola mówi¹cego czy nast¹pi³a kolizja
 	
-	public Boolean willCollide(int dx, int dy){
-		if(Collision(dx,dy).getX()!=-1 && Collision(dx,dy).getY()!=-1)
+	public Boolean willCollide(int dx, int dy, ArrayList<Obiekt>objects){
+		if(Collision(dx,dy, objects).getX()!=-1 && Collision(dx,dy, objects).getY()!=-1)
 			return true;
 		else return false;
 	}
@@ -51,7 +51,7 @@ public abstract class Charakter extends Obiekt{
 	public void setPosition(int x, int y)
 	{
 		this.setX(x);
-		this.setX(y);
+		this.setY(y);
 	}
 	
 	public void setDX(int value)

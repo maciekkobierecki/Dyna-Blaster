@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.JPanel;
 
@@ -23,7 +24,7 @@ import javax.swing.JPanel;
  * @author Maciej Kobierecki
  *
  */
-public class Board extends JPanel implements ActionListener{
+public class Board extends JPanel implements ActionListener, BombExplodedListener{
 
 	
 	
@@ -31,9 +32,11 @@ public class Board extends JPanel implements ActionListener{
 	private int rows;
 	private int columns;
 	private Player player;
-    ArrayList<Wall> wallList;
-    ArrayList<Floor>floorList;
-    ArrayList<Enemy>enemyList;
+    ArrayList<Obiekt> wallList;
+    ArrayList<Obiekt>floorList;
+    ArrayList<Obiekt>enemyList;
+    ArrayList<Obiekt>obstacleList;
+    ArrayList<Obiekt>bombList;
     BufferedImage bimage;
     private int panelWidth;
     private int panelHeight;
@@ -46,10 +49,13 @@ public class Board extends JPanel implements ActionListener{
         wallList=new ArrayList<>();
        	floorList=new ArrayList<>();
        	enemyList=new ArrayList<>();
-        
+       	bombList=new ArrayList<>();
+        obstacleList=new ArrayList<>();
        	setFocusable(true);
        	panelWidth=0;
        	panelHeight=0;
+       	player=null;
+       	Bomb.addBombExplodedListener(this);
        	
    }
        	
@@ -57,13 +63,45 @@ public class Board extends JPanel implements ActionListener{
 
     public int getPanelWidth() { return panelWidth; }
     public int getPanelHeight() { return panelHeight; }
-    public ArrayList<Wall> getWallList() { return wallList; }
-    public ArrayList<Enemy> getEnemyList() { return enemyList; }
+    public ArrayList<Obiekt> getWallList() { return wallList; }
+    public ArrayList<Obiekt> getEnemyList() { return enemyList; }
+    public ArrayList<Obiekt> getObstacleList() { return obstacleList; }
     public int getAmountOfRows() { return rows; }
     public int getAmountOfColumns() { return columns; }
     public Player getPlayer() { return player; }
     
     
+    
+    public void addBomb(int x, int y) {
+		bombList.add(new Bomb(this,x,y, getWidth()/(2*columns), getHeight()/(2*rows)));
+		
+	}
+    
+    public void removeBomb(Bomb bomb){
+    	bombList.remove(bomb);
+    }
+    
+    @Override
+	public void BombExploded(Bomb bomb) {
+    	removeDestructedObjects(bomb);
+		removeBomb(bomb);
+		
+	}
+    
+    public void removeDestructedObjects(Bomb bomb){
+    	for(Iterator<Obiekt> it=enemyList.iterator(); it.hasNext();){
+    		Obiekt enemy=it.next();
+    		if(bomb.isCollided(enemy))
+    			it.remove();
+    	}
+    	for(Iterator<Obiekt> iter=obstacleList.iterator(); iter.hasNext();){
+    		Obiekt obstacle=iter.next();
+    		if(bomb.isCollided(obstacle))
+    		iter.remove();
+    	}
+    	
+    }
+
   
     public void createMap(ArrayList<String> mapData)
     {
@@ -74,6 +112,10 @@ public class Board extends JPanel implements ActionListener{
     	int height=this.getHeight()/rows;
     	panelWidth=this.getWidth();
     	panelHeight=this.getHeight();
+    	floorList.clear();
+		wallList.clear();
+		enemyList.clear();
+		obstacleList.clear();
     
     	//0 oznacza brak sciany, 1 oznacza, ¿e jest sciana, 2 oznacza ze jest potwor, 3 player
     	for(int j=0; j<mapData.size(); j++)
@@ -94,10 +136,20 @@ public class Board extends JPanel implements ActionListener{
     					 enemyList.add(new Enemy(this, i*width, j*height, width, height));   
     					 break;
     				case '3':
-    					player= new Player(this,i*width,j*height, (int)(0.75*width), (int)(0.75*height), Config.getPlayerSpeed());
+    					if(player==null){
+    						player= new Player(this,i*width,j*height, (int)(0.75*width), (int)(0.75*height), Config.getPlayerSpeed());
+    						addKeyListener(player);					
+    					}
+    					else
+    					player.setPosition(i*width, j*height);
     					floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 
-    					addKeyListener(player);
+    					
     					break;
+    				case '4':
+    					 floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 
+    					 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
+    					 
+    					
     					
     					
     			}
@@ -107,11 +159,7 @@ public class Board extends JPanel implements ActionListener{
     }
     
     public void recreate(ArrayList<String> mapData) {
-		floorList.clear();
-		wallList.clear();
-		enemyList.clear();
-		
-		createMap(mapData);//tworzy sie nowy player ZMIENIC
+    	createMap(mapData);
 		
 	}
 
@@ -119,9 +167,9 @@ public class Board extends JPanel implements ActionListener{
     public int getRows() { return rows; }
 
     public void moveEnemies(){
-    	for(Enemy enemy : enemyList)
+    	for(Obiekt enemy : enemyList)
     	{
-    		enemy.move();
+    		((Enemy) enemy).move();
     		
     	}
    
@@ -138,7 +186,7 @@ public class Board extends JPanel implements ActionListener{
 	   gg.drawImage(dbImage, 0, 0, getWidth(), getHeight(), null);
 	   g.drawImage(scaled, 0, 0, this);
    }
-    wwww
+    
     public void paintComponent(Graphics g)
     {
     	super.paintComponent(g);
@@ -151,8 +199,11 @@ public class Board extends JPanel implements ActionListener{
     		ob.draw(g);
     	for (Obiekt ob: enemyList)
     		ob.draw(g);
+    	for (Obiekt ob: obstacleList)
+    		ob.draw(g);
+    	for (Obiekt ob: bombList)
+    		ob.draw(g);
     	player.draw(g);
-    	    	
     }
 	
 	
@@ -163,10 +214,16 @@ public class Board extends JPanel implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
+
+
+	
+
+
+	
 
 
 	
