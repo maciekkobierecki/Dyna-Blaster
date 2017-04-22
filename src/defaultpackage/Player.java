@@ -54,6 +54,7 @@ public class Player extends Charakter implements KeyListener{
 		score=0;
 		this.speed=speed;
 		alive=true;
+		amountOfLives=Config.getAmountOfLives();
 		gameOverListeners=new ArrayList<>();
 		collisionListeners=new ArrayList<>();
 		
@@ -71,6 +72,8 @@ public class Player extends Charakter implements KeyListener{
 	}
 	public void decrementLive(){
 		amountOfLives--;
+		if(amountOfLives==0)
+			callGameOverListeners();
 	}
 	
 	

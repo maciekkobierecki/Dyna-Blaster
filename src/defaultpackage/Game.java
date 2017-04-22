@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 
@@ -18,7 +19,7 @@ import javax.swing.Timer;
  * 
  * */
  
-public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisionListener{
+public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisionListener, NextLevelListener{
 	/**
 	 * Deklaracja pola rozgrywki.
 	 */
@@ -26,6 +27,8 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 	private Board board;
 	private int remainingTime;
 	private int levelTime;
+	private int level;
+	Boolean gameRunning;
 	/**
 	 * Lista obiektów u¿ywana do wczytywana mapy z pliku.
 	 */
@@ -54,33 +57,46 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 		loadConfig();
 		board=new Board();			
 		timer=new Timer(15,this);		
+		level=0;
 	}
 	
 	public void run(){
+		level++;
 		board.createMap(configMapData);
 		board.getPlayer().addGameOverListener(this);
 		board.getPlayer().addCollisionListener(this);
+		board.getDoor().addNextLevelListener(this);
 		timer.start();
+		gameRunning=true;
+	}
+	
+	@Override
+	public void loadNextLevel() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	
 	@Override
 	public void playerIsDead() {
     	timer.stop();
-		
+    	JOptionPane.showMessageDialog(null,"KONIEC GRY",null,JOptionPane.WARNING_MESSAGE);
+    	gameRunning=false;
+    	
 	}
 	
 	@Override
 	public void playerEnemyCollided() {
-		board.getPlayer().decrementLive();
 		board.recreate(configMapData);
 		timer.stop();
+		board.getPlayer().decrementLive();
 		try {
 			Thread.sleep(3000);
 		}
 		catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();
-		}
+		} 
+		if(gameRunning)
 		timer.start();
 	}
 	
@@ -133,6 +149,8 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 		 board.moveEnemies();
 		 board.repaint();
 	}
+
+	
 
 	
 	

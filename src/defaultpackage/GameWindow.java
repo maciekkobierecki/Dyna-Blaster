@@ -22,7 +22,7 @@ import javax.swing.JTextArea;
  * @author Maciej Kobierecki
  *
  */
-public class GameWindow extends JFrame{
+public class GameWindow extends JFrame implements GameOverListener{
 
 	private static final long serialVersionUID = 1L;
 	private Game game;
@@ -51,9 +51,18 @@ public class GameWindow extends JFrame{
 		infoLabel.setOpaque(true);
 		this.add(infoLabel, BorderLayout.NORTH);
 		this.add(game.getBoard());	
+		
 		pack();	
 		game.run();
+		game.getBoard().getPlayer().addGameOverListener(this);
 		
+		
+	}
+
+
+	@Override
+	public void playerIsDead() {
+		dispose();
 		
 	}
 }

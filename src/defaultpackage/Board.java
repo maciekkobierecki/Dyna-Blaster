@@ -37,6 +37,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     ArrayList<Obiekt>enemyList;
     ArrayList<Obiekt>obstacleList;
     ArrayList<Obiekt>bombList;
+    Door door;
     BufferedImage bimage;
     private int panelWidth;
     private int panelHeight;
@@ -55,7 +56,9 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
        	panelWidth=0;
        	panelHeight=0;
        	player=null;
+       	door=null;
        	Bomb.addBombExplodedListener(this);
+
        	
    }
        	
@@ -69,6 +72,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     public int getAmountOfRows() { return rows; }
     public int getAmountOfColumns() { return columns; }
     public Player getPlayer() { return player; }
+    public Door getDoor() { return door; }
     
     
     
@@ -117,7 +121,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 		enemyList.clear();
 		obstacleList.clear();
     
-    	//0 oznacza brak sciany, 1 oznacza, ¿e jest sciana, 2 oznacza ze jest potwor, 3 player
+    	//0 oznacza brak sciany, 1 oznacza, ¿e jest sciana, 2 oznacza ze jest potwor, 3 player, 4 przeszkoda, 5 przeszkoda a pod ni� drzwi do nastepnego poziomu
     	for(int j=0; j<mapData.size(); j++)
     	{
     		String str=mapData.get(j);
@@ -148,6 +152,10 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     				case '4':
     					 floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 
     					 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
+    					 break;
+    				case '5':
+    					 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
+    					 door=new Door(this, i*width, j*height,width,height);
     					 
     					
     					
@@ -193,6 +201,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     	g.setColor(Color.BLACK);
     	g.fillRect(0, 0, getWidth(), getHeight());
     	
+    	door.draw(g);
     	for (Obiekt ob : wallList)
     		ob.draw(g);
     	for (Obiekt ob : floorList)
@@ -204,6 +213,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     	for (Obiekt ob: bombList)
     		ob.draw(g);
     	player.draw(g);
+    	
     }
 	
 	
