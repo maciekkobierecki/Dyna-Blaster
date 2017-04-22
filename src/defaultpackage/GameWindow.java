@@ -50,10 +50,9 @@ public class GameWindow extends JFrame implements GameOverListener{
 		infoLabel.setBackground(Color.black);
 		infoLabel.setOpaque(true);
 		this.add(infoLabel, BorderLayout.NORTH);
-		this.add(game.getBoard());	
-		
+		this.add(game.getBoard());		
 		pack();	
-		game.run();
+		game.runLevel();
 		game.getBoard().getPlayer().addGameOverListener(this);
 		
 		

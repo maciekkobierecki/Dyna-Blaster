@@ -59,20 +59,28 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 		timer=new Timer(15,this);		
 		level=0;
 	}
-	
-	public void run(){
-		level++;
+	/**
+	 * metoda wczytuj¹ca kolejne poziomy
+	 */
+
+	public void runLevel(){
+		timer.stop();
+		readMapNb(level);
+
 		board.createMap(configMapData);
+		if(level==0){
 		board.getPlayer().addGameOverListener(this);
 		board.getPlayer().addCollisionListener(this);
-		board.getDoor().addNextLevelListener(this);
-		timer.start();
 		gameRunning=true;
+		}	
+		board.getDoor().addNextLevelListener(this);		
+		level++;
+		timer.start();
 	}
 	
 	@Override
 	public void loadNextLevel() {
-		// TODO Auto-generated method stub
+		runLevel();
 		
 	}
 	
@@ -100,10 +108,13 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 		timer.start();
 	}
 	
+	public void readMapNb(int nb){
+		read(mapNameList.get(nb), configMapData);
+		//read("game.txt", configList);
+	}
+	
 	public void loadConfig(){
 		read("maps.txt", mapNameList); //wczytywanie nazw plików z definicja kolejnych map 
-		read(mapNameList.get(0), configMapData);
-		read("game.txt", configList);
 		levelTime=Config.getLevelTime();
 		Enemy.setSpeed(Config.getEnemySpeed());		
 	}
@@ -121,7 +132,7 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 		try {
 			   FileReader fileReader = new FileReader(fileName);
 			   BufferedReader bufferReader = new BufferedReader(fileReader);
-			   
+			   list.clear();
 			   String line;
 			   
 			   while((line = bufferReader.readLine()) != null) {
