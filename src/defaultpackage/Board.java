@@ -28,18 +28,53 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 
 	
 	
-	
+	/**
+	 * iloœæ rzêdów
+	 */
 	private int rows;
+	/**
+	 * iloœæ kolumn
+	 */
 	private int columns;
+	/**
+	 * obiekt z reprezentacj¹ graficzn¹ gracza
+	 */
 	private Player player;
+	/**
+	 * lista przetrzymuj¹ca obiekty œcian
+	 */
     ArrayList<Obiekt> wallList;
+    /**
+     * lista przetrzymuj¹ca obiekty pod³ogi
+     */
     ArrayList<Obiekt>floorList;
+    /**
+     * lista zawierajaca potwory
+     */
     ArrayList<Obiekt>enemyList;
+    /**
+     * lista przechowuj¹ca przeszkód
+     */
     ArrayList<Obiekt>obstacleList;
+    /**
+     * lista przechowuj¹ca bomby
+     */
     ArrayList<Obiekt>bombList;
+    /**
+     * obiekt reprezentuj¹cy przejscie do nastêpnego poziomu
+     */
     Door door;
+    /**
+     * obraz na którym rysuje siê gra a nastepnie wyœwietlany jest na ekranie
+     */
     BufferedImage bimage;
+    /**
+     * szerokoœæ obszaru gry
+     */
     private int panelWidth;
+    /**
+     * wysokoœæ obszaru gry
+     */
     private int panelHeight;
     public Board()
     {	
@@ -63,35 +98,72 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
    }
        	
        	
-
+    /**
+     * getter zwracaj¹cy szerokoœæ pola gry
+     */
     public int getPanelWidth() { return panelWidth; }
+    /**
+     * getter zwracaj¹cy wysokoœæ pola gry
+     */
     public int getPanelHeight() { return panelHeight; }
+    /**
+     * getter zwracaj¹cy liste œcian
+     */
     public ArrayList<Obiekt> getWallList() { return wallList; }
+    /**
+     * getter zwracaj¹cy liste potworów
+     */
     public ArrayList<Obiekt> getEnemyList() { return enemyList; }
+    /**
+     * getter zwracaj¹cy liste przeszkód
+     */
     public ArrayList<Obiekt> getObstacleList() { return obstacleList; }
+    /**
+     * getter zwracaj¹cy liczbe wierszy pola gry
+     */
     public int getAmountOfRows() { return rows; }
+    /**
+     * getter zwracaj¹cy liczbe kolumn pola gry
+     */
     public int getAmountOfColumns() { return columns; }
+    /**
+     * getter zwracaj¹cy obiekt klasy Player
+     */   
     public Player getPlayer() { return player; }
+    /**
+     * getter zwracaj¹cy referencje do obiektu przejscia do nastepnegu poziomu
+     */
     public Door getDoor() { return door; }
     
     
-    
+    /**
+     * metoda dodaj¹ca bomby do listy bomb
+     * @param x - koordynata x w uk³adzie wspó³rzêdnych
+     * @param y -koordynata y w uk³adzie wspó³rzêdnych
+     */
     public void addBomb(int x, int y) {
 		bombList.add(new Bomb(this,x,y, getWidth()/(2*columns), getHeight()/(2*rows)));
 		
 	}
-    
+    /**
+     * metoda usuwaj¹ca bombe przekazywan¹ w parametrze
+     */
     public void removeBomb(Bomb bomb){
     	bombList.remove(bomb);
     }
     
+    /** 
+     * metoda wywo³ywana podczas eksplozji bomby
+     */
     @Override
 	public void BombExploded(Bomb bomb) {
     	removeDestructedObjects(bomb);
 		removeBomb(bomb);
 		
 	}
-    
+    /**
+     * metoda usuwaj¹ca obiekty, które zosta³y zniszczone przez bombe
+     */
     public void removeDestructedObjects(Bomb bomb){
     	for(Iterator<Obiekt> it=enemyList.iterator(); it.hasNext();){
     		Obiekt enemy=it.next();
@@ -106,7 +178,10 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     	
     }
 
-  
+  /**
+   * metoda tworz¹ca mape
+   * @param mapData- tablica przechowuj¹ca informacje o wygl¹dzie pola gry
+   */
     public void createMap(ArrayList<String> mapData)
     {
     	
@@ -166,10 +241,6 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
        	
     }
     
-    public void recreate(ArrayList<String> mapData) {
-    	createMap(mapData);
-		
-	}
 
     public int getColumns() { return columns; }
     public int getRows() { return rows; }
