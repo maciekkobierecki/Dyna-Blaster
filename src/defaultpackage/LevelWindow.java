@@ -84,13 +84,12 @@ public class LevelWindow extends JFrame {
 			level="hard";
 			play();
 		}
-		});
-		
-		
-	
-		
+		});	
 	}
 	
+	/**
+	 * Metoda tworz¹ca okno gry.
+	 */
 	public void play(){
 		GameWindow game = new GameWindow();
 		game.setVisible(true);

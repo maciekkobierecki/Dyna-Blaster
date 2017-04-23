@@ -13,8 +13,22 @@ import java.awt.Rectangle;
  *
  */
 public class Floor extends Obiekt {
-
+	
+	/**
+	 * Obiekt typu Color
+	 */
 	private Color color;
+	
+	/**
+	 * Konstruktor klasy.
+	 * @param plansza
+	 * @param x
+	 * @param y
+	 * @param color
+	 * @param xwidth
+	 * @param xheight
+	 * 
+	 */
 	public Floor(Board plansza, int x, int y, Color color, int xwidth, int xheight) 
 	{
 		super(plansza,x,y, xwidth, xheight);
@@ -27,6 +41,9 @@ public class Floor extends Obiekt {
 		
 	}
 	
+	/**
+	 * Metoda odpowiedzialna za rysowanie.
+	 */
 	public void draw(Graphics g)
 	{
 		g.setColor(color);

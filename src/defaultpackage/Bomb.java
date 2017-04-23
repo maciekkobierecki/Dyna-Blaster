@@ -8,18 +8,54 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.Timer;
- 
+
+/**
+ * interfejs deklarujacy metode BombExploded() 
+ *
+ */
 interface BombExplodedListener{
 	void BombExploded(Bomb bomb);
 }
 
-
+/**
+ * Klasa bomby.
+ * <p>
+ * Odpowiada za tworzenie bomb i zwiazanych z nimi mechanizmami (wybuchy, niszczenie).
+ * 
+ * @author Patryk Gozdera
+ * @author Maciej Kobierecki
+ *
+ */
 public class Bomb extends Obiekt implements ActionListener{
 	
+	/**
+	 * Czas do wybuchu bomby.
+	 */
 	static int timeToExplode=Config.timeToExplodeBomb;
+	
+	/**
+	 * Lista
+	 */
 	private static ArrayList<BombExplodedListener> bombExplodedListeners=new ArrayList<>();
+	
+	/**
+	 * Zasiêg wybuchu
+	 */
 	private int range;
+	
+	/**
+	 * Timer
+	 */
 	Timer timer;
+	
+	/**
+	 * Konstruktor parametryczny klasy.
+	 * @param plansza
+	 * @param x 
+	 * @param y 
+	 * @param xwidth
+	 * @param xheight
+	 */
 	public Bomb(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);
 		timer=new Timer(timeToExplode, this);
@@ -27,10 +63,16 @@ public class Bomb extends Obiekt implements ActionListener{
 		setRange();		
 	}
 	
+	/**
+	 * metoda dodaj¹ca Listener 
+	 */
 	public static void addBombExplodedListener(BombExplodedListener listener){
 		bombExplodedListeners.add(listener);
 	}
 	
+	/**
+	 * metoda ustalaj¹ca zasiêg wybuchu w zale¿noœci od poziomu trudnoœci
+	 */
 	public void setRange(){
 		if(LevelWindow.level=="easy")
 			range=Config.easyLevelBombRange;
@@ -39,11 +81,17 @@ public class Bomb extends Obiekt implements ActionListener{
 		else range=Config.hardLevelBombRange;
 	}
 	
+	/**
+	 * metoda ³aduj¹cy dany listener
+	 */
 	public void callBombExplodedListeners(){
 		for(BombExplodedListener listener: bombExplodedListeners)
 			listener.BombExploded(this);
 	}
-	
+
+	/**
+	 * metoda logiczna odpowiedzalna za obs³ugê kolizji
+	 */
 	public Boolean isCollided(Obiekt ob){
 		Rectangle strikingDistance=new Rectangle(x-range,y-range,2*range,2*range);
 		Rectangle obRect=new Rectangle(ob.x, ob.y, ob.width,ob.height);
@@ -51,6 +99,10 @@ public class Bomb extends Obiekt implements ActionListener{
 			return true;
 		return false;
 	}
+
+	/**
+	 * Rysowanie
+	 */
 	@Override
 	void draw(Graphics g) {
 		g.setColor(Color.RED);

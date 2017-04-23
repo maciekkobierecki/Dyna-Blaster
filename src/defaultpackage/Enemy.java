@@ -6,15 +6,36 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+/**
+ * Klasa potwora.
+ * 
+ * @author Patryk Gozdera
+ * @author Maciej Kobierecki
+ *
+ */
 public class Enemy extends Charakter{
 	
+	/**
+	 * Prêdkoœæ potwora.
+	 */
 	static int speed;
 
+	/**
+	 * Konstruktor klasy.
+	 * @param plansza
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
 	public Enemy(Board plansza, int x, int y, int width, int height) {
 		super(plansza, x, y, width, height, speed,0);	
 	}
 
 	@Override
+	/**
+	 * Metoda odpowiedzialna za rysowanie
+	 */
 	void draw(Graphics g) {
 		g.setColor(Color.CYAN);
 		g.fillRect(this.x, this.y,this.width, this.height);
@@ -25,9 +46,14 @@ public class Enemy extends Charakter{
 		
 	}	
 	
+	/**
+	 * Metoda ustalaj¹ca szybkoœæ potwora.
+	 */
 	public static void setSpeed(int xspeed){ speed=xspeed; }
 	
-	//metoda odpowiadaj¹ca za ruch obiektu 
+	/**
+	 * metoda odpowiadaj¹ca za ruch obiektu 
+	 */
 	public void move()
 	{	
 		int number=this.rand.nextInt();

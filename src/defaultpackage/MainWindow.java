@@ -85,5 +85,3 @@ public class MainWindow extends JFrame implements ActionListener{
 }
 
 
-
-

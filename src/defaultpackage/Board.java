@@ -3,6 +3,8 @@ package defaultpackage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
@@ -20,13 +22,19 @@ import javax.swing.JPanel;
  * <p>
  * Odpowiada za tworzenie mapy oraz poruszanie gracza.
  * 
+<<<<<<< HEAD
+ * 
+=======
+>>>>>>> origin/master
  * @author Patryk Gozdera
  * @author Maciej Kobierecki
  *
  */
 public class Board extends JPanel implements ActionListener, BombExplodedListener{
 
-	
+
+	private static final long serialVersionUID = 1L;
+
 	
 	/**
 	 * iloœæ rzêdów
@@ -242,9 +250,20 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     }
     
 
+    /**
+     * metoda zwracaj¹ca liczbê kolumn
+     */
     public int getColumns() { return columns; }
+    
+    /**
+     * metoda zwracaj¹ca liczbê rzêdów
+     */
     public int getRows() { return rows; }
 
+    /**
+     * metoda odpowiedzialna za ruch potworów
+     
+     */
     public void moveEnemies(){
     	for(Obiekt enemy : enemyList)
     	{
@@ -253,6 +272,11 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     	}
    
     }
+
+    /**
+     * Rysowanie
+     * 
+     */
    public void paint(Graphics g)
    {
 	   
@@ -266,6 +290,9 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 	   g.drawImage(scaled, 0, 0, this);
    }
     
+   /**
+    * metoda odpowiedzialna za rysowanie obiektów
+    */
     public void paintComponent(Graphics g)
     {
     	super.paintComponent(g);

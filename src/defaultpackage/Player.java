@@ -14,9 +14,7 @@ import java.util.ArrayList;
 /**
  * interfejs deklaruj¹cy metode playerIsDead()
  *
- *
  */
-
 interface GameOverListener {
 	void playerIsDead();
 }
@@ -24,12 +22,12 @@ interface GameOverListener {
 
 /**
  * interfejs deklarujacy metode plyerEnemyCollided() 
- * @author Maciek
  *
  */
 interface PlayerEnemyCollisionListener {
 	void playerEnemyCollided();
 }
+
 /**
  * Klasa gracza, dziedzicz¹ca po klasie obiekt.
  * <p>
@@ -39,15 +37,47 @@ interface PlayerEnemyCollisionListener {
  * @author Maciej Kobierecki
  *
  */
-
 public class Player extends Charakter implements KeyListener{
-
+	
+	/**
+	 * wynik
+	 */
 	private int score;
+	
+	/**
+	 *prêskoœæ 
+	 */
 	private int speed;
+	
+	/**
+	 * zmienna logiczna okreœlaj¹ca czy gracz jest "¿ywy"
+	 */
 	private Boolean alive;
+	
+	/**
+	 * Liczba ¿yæ
+	 */
 	private int amountOfLives;
+	
+	/**
+	 * lista s³uchaczy zdarzenia koñca gry
+	 */
 	private ArrayList<GameOverListener> gameOverListeners;
+	
+	/**
+	 * lista s³uchaczy zdarzenia kolizji 
+	 */
 	private ArrayList<PlayerEnemyCollisionListener>  collisionListeners;
+	
+	/**
+	 * Konstruktor klasy.
+	 * @param plansza
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 * @param speed
+	 */
 	public Player(Board plansza, int x,int y, int width, int height, int speed)
 	{	//ustawia zerow¹ przedkoœæ poczatkowa
 		super(plansza,x,y, width, height,0,0);
@@ -60,23 +90,43 @@ public class Player extends Charakter implements KeyListener{
 		
 	}
 	
+	/**
+	 * metoda dodajaca nowy listener
+	 */
 	public void addGameOverListener(GameOverListener listener){
 		gameOverListeners.add(listener);
 	}
+	
+	/**
+	 * metoda dodajaca nowy listener
+	 */
 	public void addCollisionListener(PlayerEnemyCollisionListener listener){
 		collisionListeners.add(listener);
 	}
 	
+	/**
+	 * metoda dodajaca dodatkowe ¿ycia
+	 */
 	public void incrementLive(){
 		amountOfLives++;
 	}
+	
+	/**
+	 * metoda odejmuj¹ca liczbê ¿yæ
+	 */
 	public void decrementLive(){
 		amountOfLives--;
 		if(amountOfLives==0)
 			callGameOverListeners();
 	}
+	/**
+	 * getter zwracajacy liczbe ¿yæ
+	 */
+	public int getAmountOfLives() { return amountOfLives; }
 	
-	
+	/**
+	 * metoda ustalaj¹ca liczbê ¿yæ
+	 */
 	public void setAmountOfLives(int nb){
 		if(nb==0){
 			alive=false;
@@ -86,17 +136,28 @@ public class Player extends Charakter implements KeyListener{
 			amountOfLives=nb;
 		
 	}
+	
+	/**
+	 * U¿ycie s³uchacza
+	 */
 	public void callGameOverListeners(){
 		for(GameOverListener listener : gameOverListeners){
 			listener.playerIsDead();
 		}
 	}
+	
+	/**
+	 * U¿ycie s³uchacza
+	 */
 	public void callCollisionListeners(){
 		for(PlayerEnemyCollisionListener listener : collisionListeners){
 			listener.playerEnemyCollided();
 		}
 	}
 	
+	/**
+	 * Metoda logiczna okreœlaj¹ca kolizjê gracza z potworem
+	 */
 	public Boolean isCollidedWithEnemy(){
 		ArrayList<Obiekt> enemies=plansza.getEnemyList();
 		for(int i=0; i<enemies.size(); i++){
@@ -109,6 +170,9 @@ public class Player extends Charakter implements KeyListener{
 		return false;
 	}
 	
+	/**
+	 * Metoda odpowiedzialna za ruch
+	 */
 	public void move()
 	{	
 		if(!willCollide(dx,dy, plansza.getWallList()) && !willCollide(dx,dy,plansza.getObstacleList())){
@@ -117,9 +181,19 @@ public class Player extends Charakter implements KeyListener{
 		}
 	}
 	
+	/**
+	 * Metoda ustalaj¹ca wynik.
+	 */
 	public void setScore(int score){ this.score=score; }
+	
+	/**
+	 * Metoda ustalaj¹ca prêdkoœæ.
+	 */
 	public void setSpeed(int speed){ this.speed=speed; }
 	
+	/**
+	 * Metoda odpowiedzialna za rysowanie
+	 */
 	public void draw(Graphics g)
 	{
 		if(isCollidedWithEnemy())
@@ -129,6 +203,9 @@ public class Player extends Charakter implements KeyListener{
 		g.fillOval(getX(),getY(), width, height);
 	}
 
+	/**
+	 * metoda obs³uguj¹ca wciskanie klawiszy
+	 */
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		int c=arg0.getKeyCode();
@@ -156,6 +233,9 @@ public class Player extends Charakter implements KeyListener{
 		
 	}
 
+	/**
+	 * metoda obs³uguj¹ca akcjê zwi¹zan¹ ze zwolnieniem klawisza
+	 */
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		this.dx=0;
@@ -174,3 +254,4 @@ public class Player extends Charakter implements KeyListener{
 	
 	
 }
+

@@ -135,7 +135,7 @@ public class Config {
     /**
      * czas trwania poziomu
      */
-    private static String levelTime;
+    public static String levelTime;
     
     /**
      * liczba zyc gracza
@@ -239,4 +239,5 @@ public class Config {
 
 
 }
+
 

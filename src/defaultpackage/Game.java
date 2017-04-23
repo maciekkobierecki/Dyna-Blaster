@@ -55,7 +55,8 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 		mapNameList=new ArrayList<String>();
 		configList=new ArrayList<>();
 		loadConfig();
-		board=new Board();			
+		board=new Board();		
+		remainingTime=Integer.parseInt(Config.levelTime);
 		timer=new Timer(15,this);		
 		level=0;
 	}
@@ -83,8 +84,14 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 		runLevel();
 		
 	}
-	
-	
+	/**
+	 * getter zwracaj¹cy poosta³y czas gry
+	 */
+	public int getRemainingTime() { return remainingTime; }	
+	/**
+	 * setter ustawij¹cy pozosta³y czas gry
+	 */
+	public void setRemainingTime(int time) { remainingTime=time; }
 	@Override
 	public void playerIsDead() {
     	timer.stop();
@@ -95,7 +102,8 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 	
 	@Override
 	public void playerEnemyCollided() {
-		board.recreate(configMapData);
+		board.createMap(configMapData);
+		board.getDoor().addNextLevelListener(this);		
 		timer.stop();
 		board.getPlayer().decrementLive();
 		try {
@@ -157,6 +165,8 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		 if(remainingTime==0)
+			 board.getPlayer().callGameOverListeners();
 		 board.moveEnemies();
 		 board.repaint();
 	}
