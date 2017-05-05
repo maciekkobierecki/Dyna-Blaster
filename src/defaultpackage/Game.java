@@ -59,6 +59,8 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 		remainingTime=Integer.parseInt(Config.levelTime);
 		timer=new Timer(15,this);		
 		level=0;
+		Enemy.loadFrames();
+		Enemy.timer.start();
 	}
 	/**
 	 * metoda wczytuj¹ca kolejne poziomy
@@ -160,7 +162,10 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 		
 	
 	
-	
+	/**
+	 *
+	 * @return zwraca pole gry
+	 */
 	public Board getBoard() { return board; }
 
 	@Override

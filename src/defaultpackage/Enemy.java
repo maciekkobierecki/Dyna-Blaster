@@ -1,10 +1,18 @@
 package defaultpackage;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
-import java.awt.Rectangle;
+import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.swing.Timer;
 
 /**
  * Klasa potwora.
@@ -13,12 +21,16 @@ import java.util.ArrayList;
  * @author Maciej Kobierecki
  *
  */
-public class Enemy extends Charakter{
+public class Enemy extends Charakter implements ActionListener{
 	
 	/**
 	 * Prêdkoœæ potwora.
 	 */
 	static int speed;
+	static ArrayList<BufferedImage> images;
+	BufferedImage img;
+	private int count;
+	static Timer timer=new Timer(50, null);
 
 	/**
 	 * Konstruktor klasy.
@@ -30,22 +42,44 @@ public class Enemy extends Charakter{
 	 */
 	public Enemy(Board plansza, int x, int y, int width, int height) {
 		super(plansza, x, y, width, height, speed,0);	
+		img=null;
+		count=0;		
+		timer.addActionListener(this);
 	}
+	
 
 	@Override
 	/**
 	 * Metoda odpowiedzialna za rysowanie
 	 */
-	void draw(Graphics g) {
-		g.setColor(Color.CYAN);
-		g.fillRect(this.x, this.y,this.width, this.height);
-		g.setColor(Color.black);
-		g.drawLine(this.x+width/3, this.y+2*height/3, this.x+2*width/3, this.y+2*height/3);
-		g.fillOval(this.x+width/3,this.y+height/3, 5, 5);
-		g.fillOval(this.x+2*width/3,this.y+height/3, 5, 5);
-		
+	void draw(Graphics g) {	
+		g.drawImage(img, this.x,this.y,this.width, this.height, null);		
 	}	
-	
+	/**
+	 * metoda ³aduj¹ca kolejn¹ klatke reprezentacji graficznej obiektu
+	 */
+	public static void loadFrames(){
+		images=new ArrayList<>();
+		for(int i=0; i<10;i++){
+			
+			try 
+			{
+			    images.add(ImageIO.read(new File("enemy"+i+".png")));
+			} 
+			catch (IOException e) 
+			{
+			    e.printStackTrace();
+			}
+	}
+		try 
+		{
+		    images.add(ImageIO.read(new File("enemyisdead.png")));
+		} 
+		catch (IOException e) 
+		{
+		    e.printStackTrace();
+		}
+	}
 	/**
 	 * Metoda ustalaj¹ca szybkoœæ potwora.
 	 */
@@ -82,5 +116,12 @@ public class Enemy extends Charakter{
 			this.y+=dy;
 			this.x+=dx;
 		}				
+	}
+
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		img=images.get(count++%10);
+		
 	}	
 }

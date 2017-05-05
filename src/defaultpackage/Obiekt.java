@@ -5,7 +5,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
 import java.awt.Color;
@@ -53,6 +57,11 @@ public abstract class Obiekt {
 	Board plansza;
 	
 	/**
+	 * reprezentacja graficzna obiektu
+	 */
+	
+	BufferedImage img;
+	/**
 	 * Konstruktor klasy.
 	 * @param plansza
 	 * @param x
@@ -62,6 +71,7 @@ public abstract class Obiekt {
 	 */
 	public Obiekt(Board plansza,int x, int y,int xwidth,int xheight)
 	{
+		
 		this.x=x;
 		this.y=y;
 		this.plansza=plansza;
@@ -109,7 +119,16 @@ public abstract class Obiekt {
 	 */
 	public int getY() { return y; }
 	
-	
+	public void loadImage(String name){
+		try 
+		{
+		    this.img=ImageIO.read(new File(name+".png"));
+		} 
+		catch (IOException e) 
+		{
+		    e.printStackTrace();
+		}
+	}
 	
 
 

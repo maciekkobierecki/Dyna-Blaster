@@ -3,7 +3,13 @@ package defaultpackage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 /**
  * Klasa pod³o¿a, dziedzicz¹ca po obiekcie.
@@ -35,19 +41,20 @@ public class Floor extends Obiekt {
 		this.color=color;
 		width=xwidth;
 		height=xheight;
+		loadImage("floor");
 		
 
 	
 		
 	}
-	
+
 	/**
 	 * Metoda odpowiedzialna za rysowanie.
 	 */
 	public void draw(Graphics g)
 	{
-		g.setColor(color);
-		g.fillRect(getX(),getY(), width,height);
+		g.drawImage(img, this.x,this.y, this.width, this.height,null);
+		
 	}
 	
 	

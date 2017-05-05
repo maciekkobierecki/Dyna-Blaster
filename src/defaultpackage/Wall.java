@@ -3,6 +3,12 @@ package defaultpackage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 /**
  * Klasa œciany labiryntu, dziedzicz¹ca po obiekcie.
@@ -24,17 +30,19 @@ public class Wall extends Obiekt{
 	public Wall(Board gameField, int x, int y,int xwidth, int xheight)
 	{
 		super(gameField, x, y, xwidth, xheight);
-
+		loadImage("wall");
 	}
 
 	/**
 	 * Metoda odpowiedzialna za rysowanie
 	 */
+	
+	/**
+	 * Metoda odpowiedzialna za rysowanie.
+	 */
 	public void draw(Graphics g)
 	{
-		g.setColor(Color.BLACK);
-		g.fillRect(getX(),getY(), width,height);
-		
+		g.drawImage(img, this.x,this.y,  this.width, this.height,null);		
 	}
 
 }

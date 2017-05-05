@@ -1,7 +1,9 @@
 package defaultpackage;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 /**
  * interfejs deklaruj¹cy metode loadNextLevel()
@@ -37,6 +39,7 @@ public class Door extends Obiekt{
 	public Door(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);
 		nextLevelListener=null;
+		loadImage("door");
 	}
 	
 	/**
@@ -66,15 +69,17 @@ public class Door extends Obiekt{
 	}
 	
 	/**
-	 * Rysowanie planszy nowego poziomu w chwili u¿ycia drzwi
+	 *metoda odpowiedzialn a za rysowanie reprezentacji graficznej obiektu
 	 */
-	@Override
+
 	public void draw(Graphics g)
 	{
 		if(playerContains(plansza.getPlayer()))
 			callNextLevelLisntener();
-		g.setColor(java.awt.Color.GREEN);
-		g.fillRect(getX(),getY(), width,height);
+		g.drawImage(img, this.x,this.y,this.width, this.height,  null);
+		
 	}
+	
+	
 
 }

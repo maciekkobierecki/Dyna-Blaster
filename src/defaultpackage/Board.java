@@ -1,5 +1,6 @@
 package defaultpackage;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -101,7 +102,6 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
        	player=null;
        	door=null;
        	Bomb.addBombExplodedListener(this);
-
        	
    }
        	
@@ -213,27 +213,29 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     			switch(str.charAt(i))
     			{
     				case '0':
-    					 floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 	
+    					 floorList.add(new Floor(this, i*width, j*height,Color.white, width,height)); 	
     					 break;
     				case '1':
     					wallList.add(new Wall(this, i*width, j*height, width, height));   
     					break;
     				case '2':
-    					 floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 	
+    					 floorList.add(new Floor(this, i*width, j*height,Color.white, width,height)); 	
     					 enemyList.add(new Enemy(this, i*width, j*height, width, height));   
     					 break;
     				case '3':
     					if(player==null){
-    						player= new Player(this,i*width,j*height, (int)(0.75*width), (int)(0.75*height), Config.getPlayerSpeed());
+    						player= new Player(this,i*width,j*height, (int)(0.85*width), (int)(0.85*height), Config.getPlayerSpeed());
     						addKeyListener(player);					
     					}
-    					else
+    					else{
     					player.setPosition(i*width, j*height);
-    					floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 
+    					player.resize();
+    					}
+    					floorList.add(new Floor(this, i*width, j*height,Color.white, width,height)); 
     					
     					break;
     				case '4':
-    					 floorList.add(new Floor(this, i*width, j*height,Color.GRAY, width,height)); 
+    					 floorList.add(new Floor(this, i*width, j*height,Color.white, width,height)); 
     					 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
     					 break;
     				case '5':
@@ -285,7 +287,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 	   paintComponent(dbg);
 	   
 	   BufferedImage scaled=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
-	   Graphics gg=scaled.createGraphics();
+	   Graphics2D gg=scaled.createGraphics();
 	   gg.drawImage(dbImage, 0, 0, getWidth(), getHeight(), null);
 	   g.drawImage(scaled, 0, 0, this);
    }
@@ -296,22 +298,36 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     public void paintComponent(Graphics g)
     {
     	super.paintComponent(g);
-    	g.setColor(Color.BLACK);
+    	g.setColor(Color.white);
     	g.fillRect(0, 0, getWidth(), getHeight());
-    	
     	door.draw(g);
+    	drawGridOnBoard(g);
     	for (Obiekt ob : wallList)
     		ob.draw(g);
     	for (Obiekt ob : floorList)
+    		ob.draw(g);    	
+    	for (Obiekt ob: obstacleList)
     		ob.draw(g);
     	for (Obiekt ob: enemyList)
-    		ob.draw(g);
-    	for (Obiekt ob: obstacleList)
     		ob.draw(g);
     	for (Obiekt ob: bombList)
     		ob.draw(g);
     	player.draw(g);
     	
+    }
+    /**
+     * rysuje siatke na calej planszy
+     * @param g - kontekst graficzny
+     */
+    public void drawGridOnBoard(Graphics g){
+    	Color color=new Color(153,153,255, 128);
+    	for(int i=10; i<panelWidth; i+=15){
+    		g.setColor(color);
+    		g.drawLine(i, 0, i, panelHeight);
+    	}
+    	for(int i=10; i<panelHeight; i+=15){
+    		g.drawLine(0, i, panelWidth, i);
+    	}
     }
 	
 	

@@ -3,10 +3,12 @@ package defaultpackage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 
@@ -87,6 +89,7 @@ public class Player extends Charakter implements KeyListener{
 		amountOfLives=Config.getAmountOfLives();
 		gameOverListeners=new ArrayList<>();
 		collisionListeners=new ArrayList<>();
+		loadImage("player");
 		
 	}
 	
@@ -199,8 +202,14 @@ public class Player extends Charakter implements KeyListener{
 		if(isCollidedWithEnemy())
 			callCollisionListeners();
 		this.move();
-		g.setColor(Color.ORANGE);
-		g.fillOval(getX(),getY(), width, height);
+		g.drawImage(img, this.x,this.y,this.width, this.height, null);
+	}
+	/**
+	 * metoda zmieniajaca rozmiar do 0.85 rozmairu kafelka po narysowaniu mapy od nowa
+	 */
+	public void resize(){
+		this.width=(int)(0.85*plansza.getPanelWidth()/plansza.getColumns());
+		this.height=(int)(0.85*plansza.getPanelHeight()/plansza.getRows());
 	}
 
 	/**
