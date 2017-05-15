@@ -1,5 +1,6 @@
 package defaultpackage;
 
+import java.util.ArrayList;
 import java.util.Properties;
 
 /**
@@ -37,6 +38,20 @@ public class Config {
 	 */
     public static String exit;
     
+    /**
+   	 * Przycisk wczytywania konfiguracji gry z serwera.
+   	 */
+       public static String configuration;
+       
+    /**
+     * adres serwera 
+     */
+    public static String serverAddress;
+    
+    /**
+     * port 
+     */
+    public static int port;
     /**
 	 * Szerokoœæ okna.
 	 */
@@ -209,6 +224,7 @@ public class Config {
         rank = config.getProperty("rank");
         level = config.getProperty("level");
         exit = config.getProperty("exit");
+        configuration= config.getProperty("config");
         levelWindowName = config.getProperty("levelWindowName");
         level1 = config.getProperty("level1");
         level2 = config.getProperty("level2");
@@ -229,10 +245,13 @@ public class Config {
         easyLevelBombRange=Integer.parseInt(config.getProperty("easyLevelBombRange"));
         mediumLevelBombRange=Integer.parseInt(config.getProperty("mediumLevelBombRange"));
         hardLevelBombRange=Integer.parseInt(config.getProperty("hardLevelBombRange"));
-        
+        serverAddress=config.getProperty("serverAddress");
+        port=Integer.parseInt(config.getProperty("port"));
         
           
     }
+
+	
 
 
     

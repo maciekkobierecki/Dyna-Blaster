@@ -26,7 +26,7 @@ public class MainWindow extends JFrame implements ActionListener{
 	 * Przyciski wykorzystywane w MENU.
 	 */
 	
-	private JButton new_game,rank,level,exit;
+	private JButton new_game,rank,config,exit;
 	
 	/**
 	 * Konstruktor okna g³ównego. Ustala jego parametry i definiuje przyciski.
@@ -44,19 +44,19 @@ public class MainWindow extends JFrame implements ActionListener{
 			}
 		});
 		setLocation(100,100);
-		setLayout(new GridLayout(3, 1));
+		setLayout(new GridLayout(4, 1));
 		new_game = new JButton(Config.newGame);
 		new_game.addActionListener(this);
 		add(new_game);
 		rank = new JButton(Config.rank);
 		rank.addActionListener(this);
 		add(rank);
-		//level = new JButton(Config.level);
-		//level.addActionListener(this);
-		//add(level);
 		exit = new JButton(Config.exit);
 		exit.addActionListener(this);
 		add(exit);
+		config=new JButton(Config.configuration);
+		config.addActionListener(this);
+		add(config);
 		pack();
 		setVisible(true);
 	}
@@ -73,11 +73,11 @@ public class MainWindow extends JFrame implements ActionListener{
 		}else if(source == rank){
 			new Highscores().setVisible(true);
 			dispose();
-		//}else if(source == level){
-			//new LevelWindow().setVisible(true);
-			//dispose();
 		}else if(source == exit){
 			dispose();
+		}else if(source ==config){
+			String[] files={"maps", "highscores","config.properties"};
+			Client client=new Client(files);
 		}
 		
 	}

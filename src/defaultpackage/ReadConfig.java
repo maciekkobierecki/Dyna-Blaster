@@ -3,6 +3,7 @@ package defaultpackage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Properties;
 
 /**
@@ -34,4 +35,21 @@ public class ReadConfig {
         
         
     }
+    
+    /**
+     * metoda s³u¿¹ca do zamiany listy ³añcuchów znaków na obiekt klasy Properties 
+     * @param recievedData - lista stringów z parametrami w formacie key=value
+     */
+
+	public static Properties parseProperties(ArrayList<String> recievedData) {
+		Properties prop=new Properties();
+		for(int i=0; i<recievedData.size(); i++){
+			String[] keyAndValue=new String[2];
+			String line=recievedData.get(i);
+			keyAndValue=line.split("=");
+			prop.setProperty(keyAndValue[0], keyAndValue[1]);
+		}
+		return prop;
+		
+	}
 }

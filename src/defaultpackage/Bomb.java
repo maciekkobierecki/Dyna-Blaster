@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.Timer;
@@ -48,6 +49,8 @@ public class Bomb extends Obiekt implements ActionListener{
 	 */
 	Timer timer;
 	
+	
+	
 	/**
 	 * Konstruktor parametryczny klasy.
 	 * @param plansza
@@ -61,6 +64,7 @@ public class Bomb extends Obiekt implements ActionListener{
 		timer=new Timer(timeToExplode, this);
 		timer.start();
 		setRange();		
+		loadImage("bomb");
 	}
 	
 	/**
@@ -105,8 +109,7 @@ public class Bomb extends Obiekt implements ActionListener{
 	 */
 	@Override
 	void draw(Graphics g) {
-		g.setColor(Color.RED);
-		g.fillOval(getX(),getY(), width, height);
+		g.drawImage(img, this.x,this.y, this.width, this.height,null);
 		
 	}
 

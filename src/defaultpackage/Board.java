@@ -36,7 +36,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 
 	private static final long serialVersionUID = 1L;
 
-	
+
 	/**
 	 * iloœæ rzêdów
 	 */
@@ -76,7 +76,16 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     /**
      * obraz na którym rysuje siê gra a nastepnie wyœwietlany jest na ekranie
      */
-    BufferedImage bimage;
+    BufferedImage bufferedImage;
+   
+    
+    Graphics dbg;
+    
+    
+	Boolean firstDrawing;
+    
+    
+    
     /**
      * szerokoœæ obszaru gry
      */
@@ -102,6 +111,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
        	player=null;
        	door=null;
        	Bomb.addBombExplodedListener(this);
+       	firstDrawing=true;
        	
    }
        	
@@ -279,42 +289,61 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
      * Rysowanie
      * 
      */
-   public void paint(Graphics g)
-   {
-	   
-	   BufferedImage dbImage=new BufferedImage(panelWidth, panelHeight,BufferedImage.TYPE_INT_ARGB);
-	   Graphics dbg=dbImage.createGraphics();
-	   paintComponent(dbg);
-	   
-	   BufferedImage scaled=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
-	   Graphics2D gg=scaled.createGraphics();
-	   gg.drawImage(dbImage, 0, 0, getWidth(), getHeight(), null);
-	   g.drawImage(scaled, 0, 0, this);
-   }
-    
+    public void paint(Graphics g)
+    {
+ 	   /*if(firstDrawing){
+ 		   bufferedImage=new BufferedImage(panelWidth, panelHeight,BufferedImage.TYPE_INT_ARGB);
+ 		   dbg=bufferedImage.createGraphics();
+ 		   paintComponent(dbg);
+ 		   firstDrawing=false;
+ 	   } 
+ 	   else{
+ 		  paintComponent(dbg);
+ 	 	  g.drawImage(bufferedImage, 0, 0,getWidth(), getHeight(), this);
+ 	   }
+ 	   */
+    	  BufferedImage dbImage=new BufferedImage(panelWidth, panelHeight,BufferedImage.TYPE_INT_ARGB);
+   	   Graphics dbg=dbImage.createGraphics();
+   	   paintComponent(dbg);
+   	   
+   	   BufferedImage scaled=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+   	   Graphics2D gg=scaled.createGraphics();
+   	   gg.drawImage(dbImage, 0, 0, getWidth(), getHeight(), null);
+   	   g.drawImage(scaled, 0, 0, this);
+ 	   
+ 	  
+    }
    /**
     * metoda odpowiedzialna za rysowanie obiektów
     */
-    public void paintComponent(Graphics g)
-    {
-    	super.paintComponent(g);
-    	g.setColor(Color.white);
-    	g.fillRect(0, 0, getWidth(), getHeight());
-    	door.draw(g);
-    	drawGridOnBoard(g);
-    	for (Obiekt ob : wallList)
-    		ob.draw(g);
-    	for (Obiekt ob : floorList)
-    		ob.draw(g);    	
-    	for (Obiekt ob: obstacleList)
-    		ob.draw(g);
-    	for (Obiekt ob: enemyList)
-    		ob.draw(g);
-    	for (Obiekt ob: bombList)
-    		ob.draw(g);
-    	player.draw(g);
-    	
-    }
+   
+   
+   public void paintComponent(Graphics g)
+   {
+	super.paintComponent(g); 
+    g.setColor(Color.white);
+   	g.fillRect(0, 0, getWidth(), getHeight());
+   	drawGridOnBoard(g);
+   	for (Obiekt ob : wallList)
+   		ob.draw(g);   	
+  	door.draw(g);
+   	for (Obiekt ob : floorList)
+   		ob.draw(g);    	
+   	for (Obiekt ob: obstacleList)
+   		ob.draw(g);
+   	for (Obiekt ob: enemyList)
+   		ob.draw(g);
+   	for (Obiekt ob: obstacleList)
+   		ob.draw(g);
+   	for (Obiekt ob: bombList)
+   		ob.draw(g);
+   	player.draw(g);
+
+   	
+   }
+   
+    
+   
     /**
      * rysuje siatke na calej planszy
      * @param g - kontekst graficzny

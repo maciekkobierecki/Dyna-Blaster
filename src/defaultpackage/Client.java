@@ -1,0 +1,114 @@
+package defaultpackage;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+/**
+ * klasa implementuj¹ca klienta komunikuj¹cego siê z serwerem w celu pobierania
+ * danych takich jak: konfiguracje map, parametry konfiguracyjne programu, ranking
+ * @author Maciek
+ *
+ */
+
+public class Client {
+
+	/**
+	 * konstruktor przyjmuj¹cy za parametr tablicê nazw plików, które maj¹ zostaæ pobrane z serwera 
+	 * i zaktualizowane (lub jeœli nie istniej¹, utworozne)
+	 * @param fileNames-nazwy plików, które chcemy pobraæ z serwera
+	 */
+	Client(String[] fileNames){
+		for(int i=0; i<fileNames.length; i++){
+			getDataFromServer(fileNames[i]);
+		}
+	}
+	/**
+	 * metoda wysy³aj¹ca ¿¹danie wys³ania danych zawieraj¹cych siê w pliku o danej nazwie
+	 * i wywo³uj¹ca metody zwi¹zane z parsowaniem odebranych danych. Metoda bêdzie czekaæ
+	 * na dane do czasu, a¿ po³aczenie zostanie zamkniête przez serwer.
+	 * @param fileName
+	 */
+	public void getDataFromServer(String fileName){
+		ArrayList<String>recievedData=new ArrayList<>();
+		try {
+			Socket socket=new Socket(Config.serverAddress, Config.port);
+			//socket.setSoTimeout(2000);
+			OutputStream os=socket.getOutputStream();
+			PrintWriter pw= new PrintWriter(os, true);
+			pw.println(fileName);
+			InputStream is=socket.getInputStream();
+			BufferedReader br=new BufferedReader(new InputStreamReader(is));
+			String line;
+			while((line=br.readLine()) != null)
+				recievedData.add(line);
+			switch(fileName){
+			case "config.properties":
+				Config.readConstants(ReadConfig.parseProperties(recievedData));
+				break;
+			case "maps":
+				createFileAndWrite("maps.txt", recievedData);
+				getFromServerEveryMap();
+				break;
+			case "highscores":
+				createFileAndWrite("highscores.txt", recievedData);
+			default:
+				createFileAndWrite(fileName, recievedData);
+			}
+			socket.close();
+	}
+		catch(SocketTimeoutException e){
+			System.out.println("przekroczono czas oczekiwania");
+		}
+		catch (Exception e){
+			System.err.println("Client exception: "+ e);
+		}
+		
+	}
+	/**
+	 * metoda inicjuj¹ca wys³anie ¿¹dania wszystkich map, których nazwy
+	 * zawarte s¹ w pliku maps.txt. Gdy Wczeœniej zostanie wys³ane ¿¹danie
+	 * pobrania zawartoœci pliku maps.txt, z serwera zostan¹ pobran wszystkie
+	 * definicje map znajduj¹ce siê na serwerze
+	 */
+	private void getFromServerEveryMap() {
+		try	(BufferedReader br = new BufferedReader(new FileReader("maps.txt"))) {
+		    	String line;
+			    while ((line = br.readLine()) != null) {
+			      getDataFromServer(line);
+			    }
+			}
+		    catch(Exception e){
+		    	System.out.println("error");
+		    }
+		    
+		}
+		
+	
+/**
+ * metoda zapisuj¹ca/nadpisuj¹ca pliki (konfiguracyjne, rankingu i konfiguracji map)
+ * danymi pobranymi z serwera
+ * @param fileName- nazwa pliku, do którego zostan¹ zapisane dane konfiguracyjne
+ * @param data-Lista danych w postaci ³añcuchów znaków
+ */
+	public void createFileAndWrite(String fileName, ArrayList<String>data){
+		try{
+			PrintWriter writer= new PrintWriter(fileName, "UTF-8");
+			for(String str : data)
+			writer.println(str);
+			writer.close();
+		}
+		catch(IOException e){
+			System.out.println("error");
+		}
+	}
+	
+	
+	
+}
