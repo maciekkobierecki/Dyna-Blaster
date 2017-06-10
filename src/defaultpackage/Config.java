@@ -173,6 +173,18 @@ public class Config {
      * zasieg bomby na latwym poziomie
      */
     public static int easyLevelBombRange;
+    /**
+     * punkty dodawane graczowi za zabicie potwora na latwym poziomie
+     */
+    public static int pointsForEnemyDeathAtEasyLevel;
+    /**
+     * punkty dodawane graczowi za zabicie potwora na srednim poziomie
+     */
+    public static int pointsForEnemyDeathAtMediumLevel;
+    /**
+     * punkty dodawane graczowi za zabicie potwora na trudnym poziomie
+     */
+    public static int pointsForEnemyDeathAtHardLevel;
     
     /**
      * Metoda parsuj¹ca dane konfiguracyjne.
@@ -213,6 +225,22 @@ public class Config {
     }
     	 
     public static int getLevelTime() { return Integer.parseInt(levelTime); }
+    
+    /**
+     * zwraca liczbe punktów za zabicie potwora na wybranym poziomie trudnosci
+     */
+    public static int getPoints(){
+    	switch(LevelWindow.level){
+    	case "easy":
+    		return pointsForEnemyDeathAtEasyLevel;
+    	case "medium":
+    		return pointsForEnemyDeathAtMediumLevel;
+    	case "hard":
+    		return pointsForEnemyDeathAtHardLevel;
+    	default:
+    		return pointsForEnemyDeathAtEasyLevel;
+    	}
+    }
     public static void readConstants(Properties config) {
 
         gameName = config.getProperty("gameName");
@@ -247,6 +275,9 @@ public class Config {
         hardLevelBombRange=Integer.parseInt(config.getProperty("hardLevelBombRange"));
         serverAddress=config.getProperty("serverAddress");
         port=Integer.parseInt(config.getProperty("port"));
+        pointsForEnemyDeathAtEasyLevel=Integer.parseInt(config.getProperty("pointsForEnemyDeathAtEasyLevel"));
+        pointsForEnemyDeathAtMediumLevel=Integer.parseInt(config.getProperty("pointsForEnemyDeathAtMediumLevel"));
+        pointsForEnemyDeathAtHardLevel=Integer.parseInt(config.getProperty("pointsForEnemyDeathAtHardLevel"));
         
           
     }

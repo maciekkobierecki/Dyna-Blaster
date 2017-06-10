@@ -66,7 +66,12 @@ public class Bomb extends Obiekt implements ActionListener{
 		setRange();		
 		loadImage("bomb");
 	}
-	
+	/**
+	 * metoda zwracaj¹ca prostok¹t, który symbolizuje pole ra¿enia wybuchu bomby
+	 */
+	public Rectangle getExplosionRange(){
+		return new Rectangle(x+width/2-range/2, y+height/2-range/2, range,range);
+	}
 	/**
 	 * metoda dodaj¹ca Listener 
 	 */
@@ -94,10 +99,11 @@ public class Bomb extends Obiekt implements ActionListener{
 	}
 
 	/**
-	 * metoda logiczna odpowiedzalna za obs³ugê kolizji
+	 * metoda zwracaj¹ca true gdy obiekt klasy Obiekt jest w zasiêgu
+	 * wybuchu bomby (zasiêg wybuchu definiowany jest w pliku konfiguracyjnym)
 	 */
 	public Boolean isCollided(Obiekt ob){
-		Rectangle strikingDistance=new Rectangle(x-range,y-range,2*range,2*range);
+		Rectangle strikingDistance=new Rectangle(x-range/2,y-range/2,range,range);
 		Rectangle obRect=new Rectangle(ob.x, ob.y, ob.width,ob.height);
 		if(strikingDistance.intersects(obRect))
 			return true;

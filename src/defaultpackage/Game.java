@@ -19,7 +19,7 @@ import javax.swing.Timer;
  * 
  * */
  
-public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisionListener, NextLevelListener{
+public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCollisionListener, NextLevelListener{
 	/**
 	 * Deklaracja pola rozgrywki.
 	 */
@@ -28,6 +28,7 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 	private int remainingTime;
 	private int levelTime;
 	private int level;
+	private int pointsForEnemyKill;
 	Boolean gameRunning;
 	/**
 	 * Lista obiektów u¿ywana do wczytywana mapy z pliku.
@@ -61,6 +62,14 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 		level=0;
 		Enemy.loadFrames();
 		Enemy.timer.start();
+		switch(LevelWindow.level){
+		case "easy":
+			this.pointsForEnemyKill=Config.pointsForEnemyDeathAtEasyLevel;
+		case "medium":
+			this.pointsForEnemyKill=Config.pointsForEnemyDeathAtMediumLevel;
+		case "hard":
+			this.pointsForEnemyKill=Config.pointsForEnemyDeathAtHardLevel;
+		}
 	}
 	/**
 	 * metoda wczytuj¹ca kolejne poziomy
@@ -72,7 +81,7 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 
 		board.createMap(configMapData);
 		if(level==0){
-		board.getPlayer().addGameOverListener(this);
+		board.getPlayer().addPlayerIsDeadListener(this);
 		board.getPlayer().addCollisionListener(this);
 		gameRunning=true;
 		}	
@@ -96,14 +105,22 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 	public void setRemainingTime(int time) { remainingTime=time; }
 	@Override
 	public void playerIsDead() {
-    	timer.stop();
-    	JOptionPane.showMessageDialog(null,"KONIEC GRY",null,JOptionPane.WARNING_MESSAGE);
-    	gameRunning=false;
+		if(board.getPlayer().getAmountOfLives()==0){
+	    	timer.stop();
+	    	JOptionPane.showMessageDialog(null,"KONIEC GRY",null,JOptionPane.WARNING_MESSAGE);
+	    	gameRunning=false;
+		}
+    	else
+    		this.recreateMap();
     	
 	}
 	
 	@Override
 	public void playerEnemyCollided() {
+		recreateMap();
+	}
+	
+	public void recreateMap(){
 		board.createMap(configMapData);
 		board.getDoor().addNextLevelListener(this);		
 		timer.stop();
@@ -171,7 +188,7 @@ public class Game implements ActionListener, GameOverListener,PlayerEnemyCollisi
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		 if(remainingTime==0)
-			 board.getPlayer().callGameOverListeners();
+			 board.getPlayer().callPlayerIsDeadListeners();
 		 board.moveEnemies();
 		 board.repaint();
 	}

@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * interfejs deklaruj¹cy metode playerIsDead()
  *
  */
-interface GameOverListener {
+interface PlayerIsDeadListener {
 	void playerIsDead();
 }
 
@@ -31,7 +31,7 @@ interface PlayerEnemyCollisionListener {
 }
 
 /**
- * Klasa gracza, dziedzicz¹ca po klasie obiekt.
+ * Klasa gracza, dziedzicz¹ca po klasie charakter.
  * <p>
  * Jest odpowiedzialna za stworzenie gracza na planszy.
  * 
@@ -64,7 +64,7 @@ public class Player extends Charakter implements KeyListener{
 	/**
 	 * lista s³uchaczy zdarzenia koñca gry
 	 */
-	private ArrayList<GameOverListener> gameOverListeners;
+	private ArrayList<PlayerIsDeadListener> playerIsDeadListeners;
 	
 	/**
 	 * lista s³uchaczy zdarzenia kolizji 
@@ -87,7 +87,7 @@ public class Player extends Charakter implements KeyListener{
 		this.speed=speed;
 		alive=true;
 		amountOfLives=Config.getAmountOfLives();
-		gameOverListeners=new ArrayList<>();
+		playerIsDeadListeners=new ArrayList<>();
 		collisionListeners=new ArrayList<>();
 		loadImage("player");
 		
@@ -96,8 +96,8 @@ public class Player extends Charakter implements KeyListener{
 	/**
 	 * metoda dodajaca nowy listener
 	 */
-	public void addGameOverListener(GameOverListener listener){
-		gameOverListeners.add(listener);
+	public void addPlayerIsDeadListener(PlayerIsDeadListener listener){
+		playerIsDeadListeners.add(listener);
 	}
 	
 	/**
@@ -120,7 +120,7 @@ public class Player extends Charakter implements KeyListener{
 	public void decrementLive(){
 		amountOfLives--;
 		if(amountOfLives==0)
-			callGameOverListeners();
+			callPlayerIsDeadListeners();
 	}
 	/**
 	 * getter zwracajacy liczbe ¿yæ
@@ -133,7 +133,7 @@ public class Player extends Charakter implements KeyListener{
 	public void setAmountOfLives(int nb){
 		if(nb==0){
 			alive=false;
-			callGameOverListeners();		
+			callPlayerIsDeadListeners();		
 		}
 		else
 			amountOfLives=nb;
@@ -143,8 +143,8 @@ public class Player extends Charakter implements KeyListener{
 	/**
 	 * U¿ycie s³uchacza
 	 */
-	public void callGameOverListeners(){
-		for(GameOverListener listener : gameOverListeners){
+	public void callPlayerIsDeadListeners(){
+		for(PlayerIsDeadListener listener : playerIsDeadListeners){
 			listener.playerIsDead();
 		}
 	}
@@ -157,7 +157,10 @@ public class Player extends Charakter implements KeyListener{
 			listener.playerEnemyCollided();
 		}
 	}
-	
+	/**
+	 * metoda dodaj¹ca punkty do wyniku gracza
+	 */
+	public void addPoints(int amount){ score+=amount; }
 	/**
 	 * Metoda logiczna okreœlaj¹ca kolizjê gracza z potworem
 	 */
@@ -171,6 +174,10 @@ public class Player extends Charakter implements KeyListener{
 			}
 		}
 		return false;
+	}
+	
+	public Rectangle getShape(){
+		return new Rectangle(x+(int)(1.0/12.0*width),y+(int)(1.0/12.0*height),width*5/6,height*5/6);
 	}
 	
 	/**
@@ -238,7 +245,7 @@ public class Player extends Charakter implements KeyListener{
 		}
 		
 		if(c==KeyEvent.VK_SPACE)
-			plansza.addBomb(this.x,this.y);
+			plansza.addBomb(this.x,this.y, this.width, this.height);
 		
 	}
 
@@ -256,6 +263,13 @@ public class Player extends Charakter implements KeyListener{
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	/**
+	 * @return zwraca liczbê punktów uzyskanych przez gracza
+	 */
+	public int getPoints() {
+		return score;
 	}
 	
 	

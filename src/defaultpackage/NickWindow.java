@@ -106,11 +106,6 @@ public class NickWindow extends JFrame implements ActionListener{
 				LevelWindow levelWindow=new LevelWindow();
 				levelWindow.setVisible(true);
 				dispose();
-				
-				
-				/*
-				
-				*/
 			}
 		}
 		

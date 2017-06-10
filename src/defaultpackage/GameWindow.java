@@ -25,7 +25,7 @@ import javax.swing.Timer;
  * @author Maciej Kobierecki
  *
  */
-public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, GameOverListener, ActionListener{
+public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, PlayerIsDeadListener, ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -70,7 +70,7 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 		pack();	
 		game.runLevel();
 		game.getBoard().getPlayer().addCollisionListener(this);
-		game.getBoard().getPlayer().addGameOverListener(this);
+		game.getBoard().getPlayer().addPlayerIsDeadListener(this);
 		levelTime=new Timer(1000, this);
 		levelTime.start();
 		
@@ -84,6 +84,7 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 	 */
 	@Override
 	public void playerIsDead() {
+		if(game.getBoard().getPlayer().getAmountOfLives()==0)
 		dispose();
 		
 	}
@@ -99,7 +100,7 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		game.setRemainingTime(game.getRemainingTime()-1);
-		infoLabel.setText(" " +nick_text+" Pozostaly czas: "+ game.getRemainingTime() + " sekund. Liczba ¿yæ: "+ game.getBoard().getPlayer().getAmountOfLives());
+		infoLabel.setText(" " +nick_text+" Pozostaly czas: "+ game.getRemainingTime() + " sekund. Liczba ¿yæ: "+ game.getBoard().getPlayer().getAmountOfLives()+ "PUNKTÓW:"+ game.getBoard().getPlayer().getPoints());
 		
 	}
 }

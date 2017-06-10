@@ -46,7 +46,7 @@ public abstract class Charakter extends Obiekt{
 	 */
 	public Point Collision(int dx, int dy, ArrayList<Obiekt>objects){
 		Point point=new Point(-1,-1);
-		ArrayList<Obiekt> mapObjects=objects;
+		ArrayList<Obiekt> mapObjects=objects;		
 		for(int i=0; i<mapObjects.size(); i++){
 			Rectangle thisrect=this.getShape();
 			thisrect.x+=dx;
@@ -68,6 +68,7 @@ public abstract class Charakter extends Obiekt{
 			return true;
 		else return false;
 	}
+	
 	
 	/**
 	 * abstrakcyjna metoda odpowiedzialna za ruch

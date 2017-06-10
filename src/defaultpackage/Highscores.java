@@ -3,9 +3,15 @@ package defaultpackage;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -67,7 +73,52 @@ public class Highscores extends JFrame{
 			text.setBackground(Color.black);
 			text.setOpaque(true);
 		}
+	public ArrayList<String> loadHighscoresToArrayList(){
+		ArrayList<String> rank=new ArrayList<>();
+		try(BufferedReader br=new BufferedReader(new FileReader("highscores.txt"))) {
+			String line;
+			while((line=br.readLine())!=null){
+				rank.add(line);
+			}
+		}
+		catch (Exception e){
+			System.out.println(e.getMessage());
+		}
+		return rank;
+	}
+	public void addScore(String name, int score){
+
+		ArrayList<String>rank=loadHighscoresToArrayList();
+		for(int i=0; i<rank.size(); i+=2){
+			if(i+1<rank.size()){
+				int scoreFromHighscores=Integer.parseInt(rank.get(i+1));
+				if(scoreFromHighscores<score)
+					rank.add(i-1, Integer.toString(score));
+					rank.add(i-1, name);
+					break;
+			}
+			else {
+				rank.add(name);
+				rank.add(Integer.toString(score));
+			}				
+		}
+		saveHighscoresToFile(rank);
+	}
 	
+	public void saveHighscoresToFile(ArrayList<String> highscores){
+		File fold = new File("highscores.txt");
+		fold.delete();
+		File fnew= new File("highscores.txt");
+		try{
+			FileWriter f2=new FileWriter(fnew, false);
+			for(int i=0; i<highscores.size(); i++)
+				f2.write(highscores.get(i));
+			f2.close();
+		}		
+		catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 
 	
 }

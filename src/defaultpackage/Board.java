@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -70,6 +71,10 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
      */
     ArrayList<Obiekt>bombList;
     /**
+     * Lista przechowuj¹ca obiekty wybuchu
+     */
+    ArrayList<Obiekt>explosionList;
+    /**
      * obiekt reprezentuj¹cy przejscie do nastêpnego poziomu
      */
     Door door;
@@ -105,6 +110,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
        	enemyList=new ArrayList<>();
        	bombList=new ArrayList<>();
         obstacleList=new ArrayList<>();
+        explosionList=new ArrayList<>();
        	setFocusable(true);
        	panelWidth=0;
        	panelHeight=0;
@@ -159,8 +165,8 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
      * @param x - koordynata x w uk³adzie wspó³rzêdnych
      * @param y -koordynata y w uk³adzie wspó³rzêdnych
      */
-    public void addBomb(int x, int y) {
-		bombList.add(new Bomb(this,x,y, getWidth()/(2*columns), getHeight()/(2*rows)));
+    public void addBomb(int x, int y, int width, int height) {
+		bombList.add(new Bomb(this,x,y, width, height));
 		
 	}
     /**
@@ -175,24 +181,53 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
      */
     @Override
 	public void BombExploded(Bomb bomb) {
+    	showExplosionAnimation(bomb);
     	removeDestructedObjects(bomb);
 		removeBomb(bomb);
+		Thread t1=new Thread(new Runnable(){
+			public void run() {
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				explosionList.clear();
+			}
+		});
+		t1.start();
+	}
+    private void showExplosionAnimation(Bomb bomb) {
+		Rectangle explosionRange=bomb.getExplosionRange();
+		for(int i=0; i<this.floorList.size(); i++){
+			Rectangle floorRect=floorList.get(i).getShape();
+			if(explosionRange.intersects(floorRect))
+				explosionList.add((Obiekt)new Explosion(this, floorRect.x, floorRect.y, floorRect.width, floorRect.height));
+		}
 		
 	}
-    /**
+
+
+	/**
      * metoda usuwaj¹ca obiekty, które zosta³y zniszczone przez bombe
      */
     public void removeDestructedObjects(Bomb bomb){
     	for(Iterator<Obiekt> it=enemyList.iterator(); it.hasNext();){
     		Obiekt enemy=it.next();
-    		if(bomb.isCollided(enemy))
+    		if(bomb.isCollided(enemy)){
     			it.remove();
+    			player.addPoints(Config.getPoints());
+    		}
     	}
     	for(Iterator<Obiekt> iter=obstacleList.iterator(); iter.hasNext();){
     		Obiekt obstacle=iter.next();
     		if(bomb.isCollided(obstacle))
     		iter.remove();
     	}
+    	if(bomb.isCollided(player))
+    		player.callPlayerIsDeadListeners();
+    	
+    		
     	
     }
 
@@ -222,17 +257,17 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     		{
     			switch(str.charAt(i))
     			{
-    				case '0':
+    				case 'f':
     					 floorList.add(new Floor(this, i*width, j*height,Color.white, width,height)); 	
     					 break;
-    				case '1':
+    				case 'w':
     					wallList.add(new Wall(this, i*width, j*height, width, height));   
     					break;
-    				case '2':
+    				case 'e':
     					 floorList.add(new Floor(this, i*width, j*height,Color.white, width,height)); 	
     					 enemyList.add(new Enemy(this, i*width, j*height, width, height));   
     					 break;
-    				case '3':
+    				case 'p':
     					if(player==null){
     						player= new Player(this,i*width,j*height, (int)(0.85*width), (int)(0.85*height), Config.getPlayerSpeed());
     						addKeyListener(player);					
@@ -244,11 +279,11 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     					floorList.add(new Floor(this, i*width, j*height,Color.white, width,height)); 
     					
     					break;
-    				case '4':
+    				case 'o':
     					 floorList.add(new Floor(this, i*width, j*height,Color.white, width,height)); 
     					 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
     					 break;
-    				case '5':
+    				case 'd':
     					 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
     					 door=new Door(this, i*width, j*height,width,height);
     					 
@@ -323,7 +358,8 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 	super.paintComponent(g); 
     g.setColor(Color.white);
    	g.fillRect(0, 0, getWidth(), getHeight());
-   	drawGridOnBoard(g);
+   	//drawGridOnBoard(g);
+   
    	for (Obiekt ob : wallList)
    		ob.draw(g);   	
   	door.draw(g);
@@ -337,6 +373,9 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
    		ob.draw(g);
    	for (Obiekt ob: bombList)
    		ob.draw(g);
+	for (Obiekt ob: explosionList)
+   		ob.draw(g);
+   	
    	player.draw(g);
 
    	
