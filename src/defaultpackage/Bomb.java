@@ -91,6 +91,15 @@ public class Bomb extends Obiekt implements ActionListener{
 	}
 	
 	/**
+	 * zatrzymuje odliczanie czasu do wybuchu. Nale¿y jej u¿yæ w przypadku pauzowania gry.
+	 */
+	public void countDown(Boolean bool){
+		if(bool)
+			timer.stop();
+		else 
+			timer.start();
+	}
+	/**
 	 * metoda ³aduj¹cy dany listener
 	 */
 	public void callBombExplodedListeners(){

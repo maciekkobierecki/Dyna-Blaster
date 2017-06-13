@@ -74,14 +74,21 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 		}
 	}
 	
-
+	/**
+	 * @return zwraca wartoœæ logiczn¹, która mówi czy gra jest zapauzowana
+	 */
 	public Boolean isPaused(){
 		return isPaused;
 	}
+	/**
+	 * W zale¿noœci od wartoœci logicznej podanej w argumencie pauzuje lub wznawia gre
+	 * @param value - wartosc logiczna mówi¹ca czy wznowic gre
+	 */
 	public void pauseGame(Boolean value){
 		if(value==true){
 			timer.stop();
 			isPaused=true;
+			
 		}
 		else{
 			timer.start();
