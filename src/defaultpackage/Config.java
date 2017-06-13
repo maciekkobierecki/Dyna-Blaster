@@ -102,8 +102,10 @@ public class Config {
 	 */
     public static String Cancelbutton;
   
-   
-    
+   /**
+    * pole przechowuj¹ce przedrostek scie¿ki grafik obiektów graficznych
+    */
+    public static String graphicsPath="";
     
     //parametry zwi¹zane z rozgrywka
    /**

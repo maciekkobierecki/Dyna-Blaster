@@ -7,6 +7,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -27,7 +28,10 @@ public class MainWindow extends JFrame implements ActionListener{
 	 */
 	
 	private JButton new_game,rank,config,exit;
-	
+	/**
+	 * checkbox mowiacy o tym, czy tekstury bêd¹ "podstawowe" czy ulepszone
+	 */
+	private JCheckBox simpleTextures;
 	/**
 	 * Konstruktor okna g³ównego. Ustala jego parametry i definiuje przyciski.
 	 */
@@ -44,7 +48,7 @@ public class MainWindow extends JFrame implements ActionListener{
 			}
 		});
 		setLocation(100,100);
-		setLayout(new GridLayout(4, 1));
+		setLayout(new GridLayout(5, 1));
 		new_game = new JButton(Config.newGame);
 		new_game.addActionListener(this);
 		add(new_game);
@@ -57,6 +61,16 @@ public class MainWindow extends JFrame implements ActionListener{
 		config=new JButton(Config.configuration);
 		config.addActionListener(this);
 		add(config);
+		simpleTextures=new JCheckBox("Podstawowe tekstury");
+		add(simpleTextures);
+		simpleTextures.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(simpleTextures.isSelected())
+					Config.graphicsPath="simpleTextures\\";
+				else 
+					Config.graphicsPath="";
+			}
+		});			
 		pack();
 		setVisible(true);
 	}

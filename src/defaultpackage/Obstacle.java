@@ -40,7 +40,7 @@ public class Obstacle extends Obiekt {
 
 		try 
 		{
-		    img=ImageIO.read(new File("obstacle.png"));
+		    img=ImageIO.read(new File(Config.graphicsPath+"obstacle.png"));
 		} 
 		catch (IOException e) 
 		{

@@ -122,7 +122,7 @@ public abstract class Obiekt {
 	public void loadImage(String name){
 		try 
 		{
-		    this.img=ImageIO.read(new File(name+".png"));
+		    this.img=ImageIO.read(new File(Config.graphicsPath+name+".png"));
 		} 
 		catch (IOException e) 
 		{

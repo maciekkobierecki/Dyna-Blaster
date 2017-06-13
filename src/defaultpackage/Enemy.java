@@ -65,7 +65,7 @@ public class Enemy extends Charakter implements ActionListener{
 			
 			try 
 			{
-			    images.add(ImageIO.read(new File("enemy"+i+".png")));
+			    images.add(ImageIO.read(new File(Config.graphicsPath+"enemy"+i+".png")));
 			} 
 			catch (IOException e) 
 			{
@@ -74,7 +74,7 @@ public class Enemy extends Charakter implements ActionListener{
 	}
 		try 
 		{
-		    images.add(ImageIO.read(new File("enemyisdead.png")));
+		    images.add(ImageIO.read(new File(Config.graphicsPath+"enemyisdead.png")));
 		} 
 		catch (IOException e) 
 		{
