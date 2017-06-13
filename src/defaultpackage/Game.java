@@ -71,10 +71,16 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 			this.pointsForEnemyKill=Config.pointsForEnemyDeathAtHardLevel;
 		}
 	}
+	
+
+	public void pauseGame(Boolean value){
+		if(value==true)
+			timer.stop();
+		else timer.start();
+	}
 	/**
 	 * metoda wczytuj¹ca kolejne poziomy
 	 */
-
 	public void runLevel(){
 		timer.stop();
 		readMapNb(level);
@@ -104,11 +110,11 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	 */
 	public void setRemainingTime(int time) { remainingTime=time; }
 	@Override
-	public void playerIsDead() {
-		if(board.getPlayer().getAmountOfLives()==0){
+	public void playerIsDead(int amountOfLives, String name, int score) {
+		if(amountOfLives==0){
 	    	timer.stop();
-	    	JOptionPane.showMessageDialog(null,"KONIEC GRY",null,JOptionPane.WARNING_MESSAGE);
 	    	gameRunning=false;
+	    	Highscores.addScore(board.getPlayer().getName(), board.getPlayer().getScore());
 		}
     	else
     		this.recreateMap();
@@ -126,7 +132,7 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 		timer.stop();
 		board.getPlayer().decrementLive();
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 		}
 		catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();
@@ -191,6 +197,17 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 			 board.getPlayer().callPlayerIsDeadListeners();
 		 board.moveEnemies();
 		 board.repaint();
+	}
+
+
+	public void setInitialSettings() {
+		readMapNb(0);
+		recreateMap();
+		setRemainingTime(Integer.parseInt(Config.levelTime));
+		board.getPlayer().setInitialSettings();
+		timer.start();
+		
+		
 	}
 
 	

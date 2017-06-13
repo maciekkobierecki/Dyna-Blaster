@@ -40,7 +40,7 @@ public class NickWindow extends JFrame implements ActionListener{
 	 * Deklaracja przycisków, u¿ytych w oknie.
 	 */
 	private JButton ok, cancel;
-	public static String a;
+	public static String playerName;
 	
 	/**
 	 * Konstruktor klasy okna wyboru nicku'u.
@@ -95,9 +95,9 @@ public class NickWindow extends JFrame implements ActionListener{
 			dispose();
 			new MainWindow().setVisible(true);
 		}else if(source == ok){
-			a = field.getText();
-			System.out.println(a);
-			if(a.trim().equals("")){
+			playerName = field.getText();
+			System.out.println(playerName);
+			if(playerName.trim().equals("")){
 				JOptionPane.showMessageDialog(null,"Proszê wpisaæ nick!",null,JOptionPane.WARNING_MESSAGE);
 				field.requestFocus();
 			}

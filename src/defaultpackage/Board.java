@@ -158,7 +158,10 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
      * getter zwracaj¹cy referencje do obiektu przejscia do nastepnegu poziomu
      */
     public Door getDoor() { return door; }
-    
+    /**
+     * pole przechowuj¹ce rozmiar jednego pola w grze
+     */
+    Dimension fieldDimension;
     
     /**
      * metoda dodaj¹ca bomby do listy bomb
@@ -198,7 +201,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 		t1.start();
 	}
     private void showExplosionAnimation(Bomb bomb) {
-		Rectangle explosionRange=bomb.getExplosionRange();
+		Rectangle explosionRange=bomb.getExplosionRange(fieldDimension);
 		for(int i=0; i<this.floorList.size(); i++){
 			Rectangle floorRect=floorList.get(i).getShape();
 			if(explosionRange.intersects(floorRect))
@@ -214,17 +217,17 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     public void removeDestructedObjects(Bomb bomb){
     	for(Iterator<Obiekt> it=enemyList.iterator(); it.hasNext();){
     		Obiekt enemy=it.next();
-    		if(bomb.isCollided(enemy)){
+    		if(bomb.isCollided(enemy, fieldDimension)){
     			it.remove();
     			player.addPoints(Config.getPoints());
     		}
     	}
     	for(Iterator<Obiekt> iter=obstacleList.iterator(); iter.hasNext();){
     		Obiekt obstacle=iter.next();
-    		if(bomb.isCollided(obstacle))
+    		if(bomb.isCollided(obstacle, fieldDimension))
     		iter.remove();
     	}
-    	if(bomb.isCollided(player))
+    	if(bomb.isCollided(player, fieldDimension))
     		player.callPlayerIsDeadListeners();
     	
     		
@@ -269,7 +272,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     					 break;
     				case 'p':
     					if(player==null){
-    						player= new Player(this,i*width,j*height, (int)(0.85*width), (int)(0.85*height), Config.getPlayerSpeed());
+    						player= new Player(this,i*width,j*height, (int)(0.85*width), (int)(0.85*height), Config.getPlayerSpeed(), NickWindow.playerName);
     						addKeyListener(player);					
     					}
     					else{
@@ -293,6 +296,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     			}
     		}
     	}
+    	fieldDimension=new Dimension(panelWidth/columns, panelHeight/rows);
        	
     }
     

@@ -1,11 +1,10 @@
 package defaultpackage;
 
-import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.Timer;
@@ -68,9 +67,10 @@ public class Bomb extends Obiekt implements ActionListener{
 	}
 	/**
 	 * metoda zwracaj¹ca prostok¹t, który symbolizuje pole ra¿enia wybuchu bomby
+	 * przyjmuje jako parametr rozmiar jednego pola gry
 	 */
-	public Rectangle getExplosionRange(){
-		return new Rectangle(x+width/2-range/2, y+height/2-range/2, range,range);
+	public Rectangle getExplosionRange(Dimension dim){
+		return new Rectangle(x+width/2-range*(int)dim.getWidth()/2, y+height/2-range*(int)dim.getHeight()/2, range*(int)dim.getWidth(),range*(int)dim.getHeight());
 	}
 	/**
 	 * metoda dodaj¹ca Listener 
@@ -101,9 +101,10 @@ public class Bomb extends Obiekt implements ActionListener{
 	/**
 	 * metoda zwracaj¹ca true gdy obiekt klasy Obiekt jest w zasiêgu
 	 * wybuchu bomby (zasiêg wybuchu definiowany jest w pliku konfiguracyjnym)
+	 * jako paraametr przyjmuje obiekt, z którym sprawdzana jest kolizja oraz wymiar jednego pola na planszy
 	 */
-	public Boolean isCollided(Obiekt ob){
-		Rectangle strikingDistance=new Rectangle(x-range/2,y-range/2,range,range);
+	public Boolean isCollided(Obiekt ob, Dimension dim){
+		Rectangle strikingDistance=getExplosionRange(dim);
 		Rectangle obRect=new Rectangle(ob.x, ob.y, ob.width,ob.height);
 		if(strikingDistance.intersects(obRect))
 			return true;

@@ -1,15 +1,11 @@
 package defaultpackage;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 
@@ -18,7 +14,7 @@ import java.util.ArrayList;
  *
  */
 interface PlayerIsDeadListener {
-	void playerIsDead();
+	void playerIsDead(int amountOfLives, String name, int score);
 }
 
 
@@ -41,6 +37,10 @@ interface PlayerEnemyCollisionListener {
  */
 public class Player extends Charakter implements KeyListener{
 	
+	/**
+	 * pole przechowuj¹ce nazwe gracza
+	 */
+	private String name;
 	/**
 	 * wynik
 	 */
@@ -71,6 +71,8 @@ public class Player extends Charakter implements KeyListener{
 	 */
 	private ArrayList<PlayerEnemyCollisionListener>  collisionListeners;
 	
+	public int value;
+	
 	/**
 	 * Konstruktor klasy.
 	 * @param plansza
@@ -80,19 +82,25 @@ public class Player extends Charakter implements KeyListener{
 	 * @param height
 	 * @param speed
 	 */
-	public Player(Board plansza, int x,int y, int width, int height, int speed)
+	public Player(Board plansza, int x,int y, int width, int height, int speed, String name)
 	{	//ustawia zerow¹ przedkoœæ poczatkowa
 		super(plansza,x,y, width, height,0,0);
 		score=0;
+		this.name=name;
 		this.speed=speed;
 		alive=true;
 		amountOfLives=Config.getAmountOfLives();
 		playerIsDeadListeners=new ArrayList<>();
 		collisionListeners=new ArrayList<>();
 		loadImage("player");
+		Random rand=new Random();
+		value=rand.nextInt();
 		
 	}
-	
+	public void setInitialSettings(){
+		score=0;
+		amountOfLives=Config.getAmountOfLives();
+	}
 	/**
 	 * metoda dodajaca nowy listener
 	 */
@@ -145,7 +153,7 @@ public class Player extends Charakter implements KeyListener{
 	 */
 	public void callPlayerIsDeadListeners(){
 		for(PlayerIsDeadListener listener : playerIsDeadListeners){
-			listener.playerIsDead();
+			listener.playerIsDead(this.amountOfLives, this.name, this.score);
 		}
 	}
 	
@@ -185,7 +193,7 @@ public class Player extends Charakter implements KeyListener{
 	 */
 	public void move()
 	{	
-		if(!willCollide(dx,dy, plansza.getWallList()) && !willCollide(dx,dy,plansza.getObstacleList())){
+	if(!willCollide(dx,dy, plansza.getWallList()) && !willCollide(dx,dy,plansza.getObstacleList())){
 			this.setX(this.getX()+dx);
 			this.setY(this.getY()+dy);			
 		}
@@ -242,6 +250,7 @@ public class Player extends Charakter implements KeyListener{
 		if(c== KeyEvent.VK_D)
 		{
 			this.dx=speed;
+			System.out.println("d"+ value);
 		}
 		
 		if(c==KeyEvent.VK_SPACE)
@@ -269,6 +278,12 @@ public class Player extends Charakter implements KeyListener{
 	 * @return zwraca liczbê punktów uzyskanych przez gracza
 	 */
 	public int getPoints() {
+		return score;
+	}
+	public String getName() {
+		return name;
+	}
+	public int getScore() {
 		return score;
 	}
 	

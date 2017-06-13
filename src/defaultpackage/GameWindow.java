@@ -3,19 +3,16 @@ package defaultpackage;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferStrategy;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 /**
@@ -50,32 +47,61 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 	 */
 	Timer levelTime;
 	/**
+	 * komponent który zawiera informacje o grze oraz przycisk pauzy
+	 */
+	JPanel topPanel;
+	/**
+	 * przycisk obs³uguj¹cy pauzowanie gry
+	 */
+	JButton pauseButton;
+	/**
 	 * Konstruktor klasy.
 	 */
 	public GameWindow()
 	{	
-		nick_text = NickWindow.a;
+		pauseButton=new JButton("Pauza");
+		pauseButton.setFocusable(false);
+		topPanel=new JPanel();
+		topPanel.setBackground(Color.black);
+		topPanel.setLayout(new FlowLayout());
+		nick_text = NickWindow.playerName;
 		Dimension dimension = new Dimension(Config.gameWindowWidth, Config.gameWindowHeight);
 		setPreferredSize(dimension);
 		setBackground(Color.black);
-		game=new Game();
-		this.setLayout(new BorderLayout());
+		this.setLayout(new BorderLayout());	
 		infoLabel=new JLabel(" " + nick_text + " Pozosta³y czas:" + Config.levelTime + " ¿ycia: " + Config.getAmountOfLives());
 		infoLabel.setPreferredSize(new Dimension(200,40));
+		topPanel.add(infoLabel);
+		topPanel.add(pauseButton);
+		this.add(topPanel, BorderLayout.NORTH);
 		infoLabel.setForeground(Color.yellow);
+		infoLabel.setPreferredSize(new Dimension(450,50));
 		infoLabel.setBackground(Color.black);
 		infoLabel.setOpaque(true);
-		this.add(infoLabel, BorderLayout.NORTH);
-		this.add(game.getBoard());		
-		pack();	
-		game.runLevel();
-		game.getBoard().getPlayer().addCollisionListener(this);
-		game.getBoard().getPlayer().addPlayerIsDeadListener(this);
+		game=createNewGame();
+		game.getBoard().requestFocus();
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					
 		levelTime=new Timer(1000, this);
 		levelTime.start();
 		
 		
 		
+	}
+	/**
+	 * metoda odpowiadaj¹ca za stworzenie nowej gry. U¿ywana na przyk³ad, gdy gracz zechce zagraæ 
+	 * od nowa po przegranej
+	 * @return obiekt typu Game - obiekt odpowiadaj¹cy za logikê gry
+	 */
+	public Game createNewGame(){
+		Game game=new Game();
+		infoLabel.setText(" " + nick_text + " Pozosta³y czas:" + Config.levelTime + " ¿ycia: " + Config.getAmountOfLives());
+		this.add(game.getBoard());
+		pack();
+		game.runLevel();
+		game.getBoard().getPlayer().addCollisionListener(this);
+		game.getBoard().getPlayer().addPlayerIsDeadListener(this);
+		return game;
 	}
 
 
@@ -83,9 +109,18 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 	 * Metoda wy³¹czaj¹ca okno w momencie koñca gry.
 	 */
 	@Override
-	public void playerIsDead() {
-		if(game.getBoard().getPlayer().getAmountOfLives()==0)
-		dispose();
+	public void playerIsDead(int amountOfLives, String name, int score) {
+		if(amountOfLives==0){
+			levelTime.stop();
+			int x = JOptionPane.showConfirmDialog(null, "Koniec gry. Twój wynik to: "+ game.getBoard().getPlayer().getPoints()+"\n Czy chcesz rozpocz¹æ ponownie?","", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			if(x == JOptionPane.NO_OPTION){
+				System.exit(0);
+			}
+			else{
+				
+				playAgain();
+			}
+		}
 		
 	}
 
@@ -96,12 +131,32 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 		
 	}
 
+	public void playAgain(){
+		game.setInitialSettings();
+		levelTime.start();
+		
+	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		game.setRemainingTime(game.getRemainingTime()-1);
 		infoLabel.setText(" " +nick_text+" Pozostaly czas: "+ game.getRemainingTime() + " sekund. Liczba ¿yæ: "+ game.getBoard().getPlayer().getAmountOfLives()+ "PUNKTÓW:"+ game.getBoard().getPlayer().getPoints());
-		
+		if(game.getRemainingTime()==0){
+			game.pauseGame(true);
+			//JOptionPane.showMessageDialog(null,"KONIEC GRY! \n Twój wynik to: "+ game.getBoard().getPlayer().getPoints(),null,JOptionPane.WARNING_MESSAGE);
+			//dispose();
+			
+					int x = JOptionPane.showConfirmDialog(null, "Koniec gry. Twój wynik to: "+ game.getBoard().getPlayer().getPoints()+"\n Czy chcesz rozpocz¹æ ponownie?","", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					if(x == JOptionPane.NO_OPTION){
+						System.exit(0);
+						
+					}
+					else{
+						
+						playAgain();
+					}
+		}
 	}
 }
 	
