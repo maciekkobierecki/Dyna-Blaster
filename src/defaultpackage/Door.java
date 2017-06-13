@@ -60,9 +60,9 @@ public class Door extends Obiekt{
 	 * Metoda logiczna obs³uguj¹ca u¿ycie drzwi
 	 */
 	public Boolean playerContains(Player player){
-		Rectangle doorRect=new Rectangle(x,y,width,height);
+		Rectangle doorRect=new Rectangle(x+width/4,y+height/4,width/2,height/2);
 		Rectangle playerRect=new Rectangle(player.x, player.y, player.width,player.height);
-		if(doorRect.contains(playerRect))
+		if(doorRect.intersects(playerRect))
 			return true;
 		return false;
 
