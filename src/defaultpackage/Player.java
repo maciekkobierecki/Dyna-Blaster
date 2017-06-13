@@ -47,7 +47,7 @@ public class Player extends Charakter implements KeyListener{
 	private int score;
 	
 	/**
-	 *prêskoœæ 
+	 *prêdkoœæ 
 	 */
 	private int speed;
 	
@@ -209,6 +209,7 @@ public class Player extends Charakter implements KeyListener{
 	 */
 	public void setSpeed(int speed){ this.speed=speed; }
 	
+	
 	/**
 	 * Metoda odpowiedzialna za rysowanie
 	 */
@@ -286,6 +287,7 @@ public class Player extends Charakter implements KeyListener{
 	public int getScore() {
 		return score;
 	}
+	
 	
 	
 	
