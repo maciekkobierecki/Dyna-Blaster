@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -60,6 +59,7 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 	public GameWindow()
 	{	
 		pauseButton=new JButton("Pauza");
+		
 		pauseButton.setFocusable(false);
 		topPanel=new JPanel();
 		topPanel.setBackground(Color.black);
@@ -81,7 +81,20 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 		game=createNewGame();
 		game.getBoard().requestFocus();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					
+		pauseButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(game.isPaused()){
+					game.pauseGame(false);
+					pauseButton.setText("pauza");
+					levelTime.start();
+				}
+				else {
+					game.pauseGame(true);
+					pauseButton.setText("graj");
+					levelTime.stop();
+				}
+			}
+		});			
 		levelTime=new Timer(1000, this);
 		levelTime.start();
 		

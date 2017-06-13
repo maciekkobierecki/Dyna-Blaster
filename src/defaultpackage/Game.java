@@ -25,6 +25,7 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	 */
 	
 	private Board board;
+	private Boolean isPaused;
 	private int remainingTime;
 	private int levelTime;
 	private int level;
@@ -56,7 +57,8 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 		mapNameList=new ArrayList<String>();
 		configList=new ArrayList<>();
 		loadConfig();
-		board=new Board();		
+		board=new Board();
+		isPaused=false;
 		remainingTime=Integer.parseInt(Config.levelTime);
 		timer=new Timer(15,this);		
 		level=0;
@@ -73,10 +75,18 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	}
 	
 
+	public Boolean isPaused(){
+		return isPaused;
+	}
 	public void pauseGame(Boolean value){
-		if(value==true)
+		if(value==true){
 			timer.stop();
-		else timer.start();
+			isPaused=true;
+		}
+		else{
+			timer.start();
+			isPaused=false;
+		}
 	}
 	/**
 	 * metoda wczytuj¹ca kolejne poziomy
