@@ -16,7 +16,7 @@ import javax.swing.Timer;
 
 /* 
  Klasa zarz¹dzaj¹ca rozgrywk¹
- * 
+ * xD
  * */
  
 public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCollisionListener, NextLevelListener{
