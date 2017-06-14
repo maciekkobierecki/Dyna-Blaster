@@ -48,6 +48,9 @@ public class Bomb extends Obiekt implements ActionListener{
 	 */
 	Timer timer;
 	
+	/**
+	 * zmienna odpowiedzialna za przelicznik ra¿enia (zastosowanie do bonusu)
+	 */
 	private int r=1;
 	
 	/**
@@ -65,6 +68,7 @@ public class Bomb extends Obiekt implements ActionListener{
 		setRange(r);
 		loadImage("bomb");
 	}
+	
 	/**
 	 * metoda zwracaj¹ca prostok¹t, który symbolizuje pole ra¿enia wybuchu bomby
 	 * przyjmuje jako parametr rozmiar jednego pola gry
@@ -72,6 +76,7 @@ public class Bomb extends Obiekt implements ActionListener{
 	public Rectangle getExplosionRange(Dimension dim){
 		return new Rectangle(x+width/2-range*(int)dim.getWidth()/2, y+height/2-range*(int)dim.getHeight()/2, range*(int)dim.getWidth(),range*(int)dim.getHeight());
 	}
+	
 	/**
 	 * metoda dodaj¹ca Listener 
 	 */
@@ -99,6 +104,7 @@ public class Bomb extends Obiekt implements ActionListener{
 			range=Config.mediumLevelBombRange;
 		else range=Config.hardLevelBombRange;
 	}*/
+	
 	/**
 	 * zatrzymuje odliczanie czasu do wybuchu. Nale¿y jej u¿yæ w przypadku pauzowania gry.
 	 */
@@ -108,6 +114,7 @@ public class Bomb extends Obiekt implements ActionListener{
 		else 
 			timer.start();
 	}
+	
 	/**
 	 * metoda ³aduj¹cy dany listener
 	 */
@@ -137,7 +144,10 @@ public class Bomb extends Obiekt implements ActionListener{
 		g.drawImage(img, this.x,this.y, this.width, this.height,null);
 		
 	}
-
+	
+	/**
+	 * metoda obs³uguj¹ca zdarzenie
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		timer.stop();

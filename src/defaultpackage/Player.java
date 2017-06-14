@@ -17,7 +17,6 @@ interface PlayerIsDeadListener {
 	void playerIsDead(int amountOfLives, String name, int score);
 }
 
-
 /**
  * interfejs deklarujacy metode plyerEnemyCollided() 
  *
@@ -41,6 +40,7 @@ public class Player extends Charakter implements KeyListener{
 	 * pole przechowuj¹ce nazwe gracza
 	 */
 	private String name;
+	
 	/**
 	 * wynik
 	 */
@@ -71,6 +71,9 @@ public class Player extends Charakter implements KeyListener{
 	 */
 	private ArrayList<PlayerEnemyCollisionListener>  collisionListeners;
 	
+	/**
+	 * Zmienna typu integer
+	 */
 	public int value;
 	
 	/**
@@ -97,10 +100,15 @@ public class Player extends Charakter implements KeyListener{
 		value=rand.nextInt();
 		
 	}
+	
+	/**
+	 * Metoda ustalaj¹ca parametry domyœlne
+	 */
 	public void setInitialSettings(){
 		score=0;
 		amountOfLives=Config.getAmountOfLives();
 	}
+	
 	/**
 	 * metoda dodajaca nowy listener
 	 */
@@ -130,6 +138,7 @@ public class Player extends Charakter implements KeyListener{
 		if(amountOfLives==0)
 			callPlayerIsDeadListeners();
 	}
+	
 	/**
 	 * getter zwracajacy liczbe ¿yæ
 	 */
@@ -145,7 +154,6 @@ public class Player extends Charakter implements KeyListener{
 		}
 		else
 			amountOfLives=nb;
-		
 	}
 	
 	/**
@@ -165,10 +173,12 @@ public class Player extends Charakter implements KeyListener{
 			listener.playerEnemyCollided();
 		}
 	}
+	
 	/**
 	 * metoda dodaj¹ca punkty do wyniku gracza
 	 */
 	public void addPoints(int amount){ score+=amount; }
+	
 	/**
 	 * Metoda logiczna okreœlaj¹ca kolizjê gracza z potworem
 	 */
@@ -183,7 +193,9 @@ public class Player extends Charakter implements KeyListener{
 		}
 		return false;
 	}
-	
+	/**
+	 * Metoda zwracaj¹ca kszta³t obiektu graficznego
+	 */
 	public Rectangle getShape(){
 		return new Rectangle(x+(int)(1.0/12.0*width),y+(int)(1.0/12.0*height),width*5/6,height*5/6);
 	}
@@ -209,7 +221,6 @@ public class Player extends Charakter implements KeyListener{
 	 */
 	public void setSpeed(int speed){ this.speed=speed; }
 	
-	
 	/**
 	 * Metoda odpowiedzialna za rysowanie
 	 */
@@ -219,6 +230,7 @@ public class Player extends Charakter implements KeyListener{
 			callCollisionListeners();
 		this.move();
 		g.drawImage(img, this.x,this.y,this.width, this.height, null);
+		
 	}
 	/**
 	 * metoda zmieniajaca rozmiar do 0.85 rozmairu kafelka po narysowaniu mapy od nowa
@@ -269,6 +281,9 @@ public class Player extends Charakter implements KeyListener{
 		
 	}
 
+	/**
+	 * Metoda obs³uguj¹ca zdarzenie
+	 */
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
@@ -276,22 +291,25 @@ public class Player extends Charakter implements KeyListener{
 	}
 
 	/**
-	 * @return zwraca liczbê punktów uzyskanych przez gracza
+	 * getter, który zwraca liczbê punktów uzyskanych przez gracza
 	 */
 	public int getPoints() {
 		return score;
 	}
+	
+	/**
+	 * Getter zwracaj¹cy nazwê
+	 */
 	public String getName() {
 		return name;
 	}
+	
+	/**
+	 * Getter zwracaj¹cy wynik
+	 */
 	public int getScore() {
 		return score;
 	}
-	
-	
-	
-	
-	
 	
 }
 

@@ -3,12 +3,10 @@ package defaultpackage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,7 +20,6 @@ import javax.swing.JTextField;
  * @author Maciej Kobierecki
  *
  */
-
 public class NickWindow extends JFrame implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	
@@ -40,6 +37,10 @@ public class NickWindow extends JFrame implements ActionListener{
 	 * Deklaracja przycisków, u¿ytych w oknie.
 	 */
 	private JButton ok, cancel;
+	
+	/**
+	 * Zmienna przechowuj¹ca nazwê gracza
+	 */
 	public static String playerName;
 	
 	/**

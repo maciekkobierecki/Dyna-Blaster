@@ -2,13 +2,10 @@ package defaultpackage;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.Timer;
 
 /**
- * interfejs deklaruj¹cy metode setSpeed()
+ * interfejs deklaruj¹cy metode setNewSpeed()
  *
  */
 interface NewRangeListener{
@@ -26,17 +23,9 @@ interface NewRangeListener{
 public class PowerUpRange extends Obiekt {
 	
 	/**
-	 * Listener nowej prêdkoœci.
+	 * Listener nowego zasiêgu.
 	 */
 	NewRangeListener newRangeListener;
-	
-	
-	/**
-	 * Czas trwania bonusu
-	 */
-	static int time = 5000;
-	
-
 	
 	/**
 	 * Bonusowa prêdkoœæ
@@ -78,8 +67,6 @@ public class PowerUpRange extends Obiekt {
 		newRangeListener.setNewRange();
 	}
 		
-	
-	
 	/**
 	 * zatrzymuje odliczanie czasu do koñca bonusu. Nale¿y jej u¿yæ w przypadku pauzowania gry.
 	 */

@@ -4,11 +4,10 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.Timer;
 
 /**
- * interfejs deklaruj¹cy metode setSpeed()
+ * interfejs deklaruj¹cy metody setNewSpeed() oraz setOldSpeed()
  *
  */
 interface NewSpeedListener{
@@ -65,10 +64,12 @@ public class PowerUpSpeed extends Obiekt implements ActionListener{
 		newSpeedListener.setNewSpeed();
 	}
 	
+	/**
+	 * Metoda wczytuj¹ca listener.
+	 */
 	public void callOldSpeedListener(){
 		newSpeedListener.setOldSpeed();
 	}
-	
 	
 	/**
 	 * zatrzymuje odliczanie czasu do koñca bonusu. Nale¿y jej u¿yæ w przypadku pauzowania gry.
@@ -102,6 +103,9 @@ public class PowerUpSpeed extends Obiekt implements ActionListener{
 		g.drawImage(img, this.x,this.y, this.width, this.height,null);
 	}
 
+	/**
+	 * metoda obs³uguj¹ca zdarzenie
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		timer.stop();
 		callOldSpeedListener();

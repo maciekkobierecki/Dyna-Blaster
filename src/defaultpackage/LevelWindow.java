@@ -102,7 +102,6 @@ public class LevelWindow extends JFrame {
 	}
 	
 	
-		
 	}
 	
 	

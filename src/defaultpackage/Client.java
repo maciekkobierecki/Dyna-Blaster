@@ -15,10 +15,10 @@ import javax.swing.JOptionPane;
 /**
  * klasa implementuj¹ca klienta komunikuj¹cego siê z serwerem w celu pobierania
  * danych takich jak: konfiguracje map, parametry konfiguracyjne programu, ranking
- * @author Maciek
+ * @author Maciek Kobierecki
+ * @author Patryk Gozdera
  *
  */
-
 public class Client {
 
 	/**
@@ -40,7 +40,6 @@ public class Client {
 	 * @param fileName-nazwa pliku
 	 * @return-request protoko³u
 	 */
-	
 	public String translateFileNameToRequest(String fileName){
 		String translatedFileNameToRequest="error";
 		if(fileName.equals("config.properties"))
@@ -83,6 +82,7 @@ public class Client {
 		
 		return "1";
 	}
+	
 	/**
 	 * metoda wysy³aj¹ca ¿¹danie wys³ania danych zawieraj¹cych siê w pliku o danej nazwie
 	 * i wywo³uj¹ca metody zwi¹zane z parsowaniem odebranych danych. Metoda bêdzie czekaæ
@@ -128,6 +128,7 @@ public class Client {
 		}
 		
 	}
+	
 	/**
 	 * metoda inicjuj¹ca wys³anie ¿¹dania wszystkich map, których nazwy
 	 * zawarte s¹ w pliku maps.txt. Gdy Wczeœniej zostanie wys³ane ¿¹danie
@@ -147,13 +148,12 @@ public class Client {
 		    
 		}
 		
-	
-/**
- * metoda zapisuj¹ca/nadpisuj¹ca pliki (konfiguracyjne, rankingu i konfiguracji map)
- * danymi pobranymi z serwera
- * @param fileName- nazwa pliku, do którego zostan¹ zapisane dane konfiguracyjne
- * @param data-Lista danych w postaci ³añcuchów znaków
- */
+	/**
+	 * metoda zapisuj¹ca/nadpisuj¹ca pliki (konfiguracyjne, rankingu i konfiguracji map)
+	 * danymi pobranymi z serwera
+	 * @param fileName- nazwa pliku, do którego zostan¹ zapisane dane konfiguracyjne
+	 * @param data-Lista danych w postaci ³añcuchów znaków
+	 */
 	public void createFileAndWrite(String fileName, ArrayList<String>data){
 		try{
 			PrintWriter writer= new PrintWriter(fileName, "UTF-8");

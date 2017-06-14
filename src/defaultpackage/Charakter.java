@@ -1,6 +1,5 @@
 package defaultpackage;
 
-import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
@@ -101,8 +100,5 @@ public abstract class Charakter extends Obiekt{
 	{
 		dy=value;
 	}
-
-	
-	
 
 }

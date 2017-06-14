@@ -1,9 +1,7 @@
 package defaultpackage;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
+
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -28,9 +26,25 @@ public class Enemy extends Charakter implements ActionListener{
 	 * Prêdkoœæ potwora.
 	 */
 	static int speed;
+	
+	/**
+	 * Lista obrazów
+	 */
 	static ArrayList<BufferedImage> images;
+	
+	/**
+	 * zmienna typu BufferedImage
+	 */
 	BufferedImage img;
+	
+	/**
+	 * zmienna typu int
+	 */
 	private int count;
+	
+	/**
+	 * Timer
+	 */
 	static Timer timer=new Timer(50, null);
 
 	/**
@@ -119,7 +133,9 @@ public class Enemy extends Charakter implements ActionListener{
 		}				
 	}
 
-
+	/**
+	 * metoda obs³uguj¹ca zdarzenie
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		img=images.get(count++%10);

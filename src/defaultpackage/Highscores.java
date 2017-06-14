@@ -1,7 +1,6 @@
 package defaultpackage;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
@@ -13,10 +12,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 /**
@@ -41,7 +38,6 @@ public class Highscores extends JFrame{
 	 * Ustala jego parametry i odpowiada za wczytanie listy TOP10 z pliku tekstowego.
 	 */
 	public Highscores(){
-		
 		super( Config.HighscoreWindowName );
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -73,6 +69,10 @@ public class Highscores extends JFrame{
 			text.setOpaque(true);
 			pack();
 		}
+	/**
+	 * £adowanie najlepszych wyników do listy
+	 * @return
+	 */
 	public static ArrayList<String> loadHighscoresToArrayList(){
 		ArrayList<String> rank=new ArrayList<>();
 		try(BufferedReader br=new BufferedReader(new FileReader("highscores.txt"))) {
@@ -86,6 +86,7 @@ public class Highscores extends JFrame{
 		}
 		return rank;
 	}
+	
 	/**
 	 * Metoda dodaj¹ca punkty po skoñczonej grze. Gdy gracz wyrazi chêc aby
 	 * jego wynik trafi³ na serwer to tak siê dzieje. Gracz wyra¿a tê chêæ 
@@ -122,6 +123,9 @@ public class Highscores extends JFrame{
 		}
 	}
 	
+	/**
+	 * Metoda zapisuj¹ca najlepsze wyniki do pliku tekstowego
+	 */
 	public static void saveHighscoresToFile(ArrayList<String> highscores){
 		File fold = new File("highscores.txt");
 		fold.delete();

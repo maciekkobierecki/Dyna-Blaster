@@ -1,3 +1,5 @@
+asd
+110
 Maciej 
 20
 awdw
@@ -17,6 +19,8 @@ Macius
 awdqwd
 10
 awdawd
+10
+asd
 10
 Benek 
 9

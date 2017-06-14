@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -18,7 +17,6 @@ import javax.swing.JOptionPane;
  * @author Maciej Kobierecki
  *
  */
-
 public class MainWindow extends JFrame implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
@@ -26,16 +24,18 @@ public class MainWindow extends JFrame implements ActionListener{
 	/**
 	 * Przyciski wykorzystywane w MENU.
 	 */
-	
 	private JButton new_game,rank,config,exit;
+	
 	/**
 	 * checkbox mowiacy o tym, czy tekstury bêd¹ "podstawowe" czy ulepszone
 	 */
 	private JCheckBox simpleTextures, synchronizeOnline;
+	
 	/**
 	 * zmienna statyczna mówi¹ca o tym, czy gracz chce synchronizacji online
 	 */
 	private static Boolean synchronize;
+	
 	/**
 	 * Konstruktor okna g³ównego. Ustala jego parametry i definiuje przyciski.
 	 */
@@ -89,12 +89,14 @@ public class MainWindow extends JFrame implements ActionListener{
 		pack();
 		setVisible(true);
 	}
+	
 	/**
 	 * getter zwracaj¹cy wyra¿enie logiczne mówi¹ce czy program ma sie ³¹czyæ z sieci¹
 	 */
 	public static Boolean synchronize(){
 		return synchronize;
 	}
+	
 	/**
 	 * Metoda odpowiedzialna za ustalenie akcji po naciœniêciu w dany przycisk.
 	 */

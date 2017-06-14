@@ -4,11 +4,10 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.Timer;
 
 /**
- * interfejs deklaruj¹cy metode setLowSpeed()
+ * interfejs deklaruj¹cy metode setLowSpeed() oraz setOldSpeed()
  *
  */
 interface LowSpeedListener{
@@ -65,6 +64,9 @@ public class PowerDownSpeed extends Obiekt implements ActionListener{
 		lowSpeedListener.setLowSpeed();
 	}
 	
+	/**
+	 * Metoda wczytuj¹ca listener.
+	 */
 	public void callOldSpeedListener(){
 		lowSpeedListener.setOldSpeed();
 	}	
@@ -102,6 +104,9 @@ public class PowerDownSpeed extends Obiekt implements ActionListener{
 		
 	}
 	
+	/**
+	 * metoda obs³uguj¹ca zdarzenie
+	 */
 	public void actionPerformed(ActionEvent arg0) {
 		timer.stop();
 		callOldSpeedListener();

@@ -1,14 +1,7 @@
 package defaultpackage;
 
-import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 
 /**
  * Klasa œciany labiryntu, dziedzicz¹ca po obiekcie.
@@ -33,9 +26,6 @@ public class Wall extends Obiekt{
 		loadImage("wall");
 	}
 
-	/**
-	 * Metoda odpowiedzialna za rysowanie
-	 */
 	
 	/**
 	 * Metoda odpowiedzialna za rysowanie.
