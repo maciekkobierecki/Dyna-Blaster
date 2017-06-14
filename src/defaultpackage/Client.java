@@ -10,6 +10,8 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 /**
  * klasa implementuj¹ca klienta komunikuj¹cego siê z serwerem w celu pobierania
  * danych takich jak: konfiguracje map, parametry konfiguracyjne programu, ranking
@@ -76,6 +78,7 @@ public class Client {
 		}
 		catch (Exception e){
 			System.err.println("Client exception: "+ e);
+			JOptionPane.showMessageDialog(null,"Blad!",null,JOptionPane.WARNING_MESSAGE);
 		}
 		
 		return "1";
@@ -121,6 +124,7 @@ public class Client {
 		}
 		catch (Exception e){
 			System.err.println("Client exception: "+ e);
+			JOptionPane.showMessageDialog(null,"Blad!",null,JOptionPane.WARNING_MESSAGE);
 		}
 		
 	}
