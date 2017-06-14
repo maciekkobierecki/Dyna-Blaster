@@ -19,7 +19,7 @@ import javax.swing.Timer;
  * 
  * */
  
-public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCollisionListener, NextLevelListener, NewSpeedListener{
+public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCollisionListener, NextLevelListener, NewSpeedListener, LowSpeedListener, NewRangeListener{
 	/**
 	 * Deklaracja pola rozgrywki.
 	 */
@@ -96,37 +96,40 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 		}
 	}
 	
-	//public void addListenerToEveryPowerUP(NewSpeedListener){
-		
-	//}
-	
-	/**
-	 * metoda wczytuj¹ca kolejne poziomy
-	 */
-	public void runLevel(){
-		timer.stop();
-		readMapNb(level);
-
-		board.createMap(configMapData);
-		if(level==0){
-		board.getPlayer().addPlayerIsDeadListener(this);
-		board.getPlayer().addCollisionListener(this);
-		gameRunning=true;
-		}	
-		board.getDoor().addNextLevelListener(this);	
-		for (int i=0; i<=board.getPusList().size()-1;i++){
-			((PowerUpSpeed)(board.getPusList().get(i))).addNewSpeedListener(this);}
-		level++;
-		timer.start();
+	public void setOldSpeed(){
+		if(LevelWindow.level=="easy")
+			board.getPlayer().setSpeed(Integer.parseInt(Config.easyLevelPlayerSpeed));
+		else if(LevelWindow.level=="medium")
+			board.getPlayer().setSpeed(Integer.parseInt(Config.mediumLevelPlayerSpeed));
+		else board.getPlayer().setSpeed(Integer.parseInt(Config.hardLevelPlayerSpeed));
 	}
 	
 	public void setNewSpeed(){
 		if(LevelWindow.level=="easy")
-			board.getPlayer().setSpeed(5);
+			board.getPlayer().setSpeed((Integer.parseInt(Config.easyLevelPlayerSpeed))*2);
 		else if(LevelWindow.level=="medium")
-			board.getPlayer().setSpeed(4);
-		else board.getPlayer().setSpeed(3);
+			board.getPlayer().setSpeed((Integer.parseInt(Config.mediumLevelPlayerSpeed))*2);
+		else board.getPlayer().setSpeed((Integer.parseInt(Config.hardLevelPlayerSpeed))*2);
 		}
+	
+	public void setLowSpeed(){
+		if(LevelWindow.level=="easy")
+			board.getPlayer().setSpeed((Integer.parseInt(Config.easyLevelPlayerSpeed))/2);
+		else if(LevelWindow.level=="medium")
+			board.getPlayer().setSpeed((Integer.parseInt(Config.mediumLevelPlayerSpeed))/2);
+		else board.getPlayer().setSpeed((Integer.parseInt(Config.hardLevelPlayerSpeed))/2);
+		}
+	
+	public void setNewRange(){
+			for(int i=0; i<board.getBombList().size();i++){
+				if(LevelWindow.level=="easy")
+			((Bomb)(board.getBombList().get(i))).setRange(2);
+				else if(LevelWindow.level=="medium")
+			((Bomb)(board.getBombList().get(i))).setRange(1);
+				else ((Bomb)(board.getBombList().get(i))).setRange(1);}
+			
+		//board.getBomb().setBonusRange();
+		}	
 	
 	@Override
 	public void loadNextLevel() {
@@ -158,12 +161,39 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	public void playerEnemyCollided() {
 		recreateMap();
 	}
+	/**
+	 * metoda wczytuj¹ca kolejne poziomy
+	 */
+	public void runLevel(){
+		timer.stop();
+		readMapNb(level);
+		
+		board.createMap(configMapData);
+		if(level==0){
+			board.getPlayer().addPlayerIsDeadListener(this);
+			board.getPlayer().addCollisionListener(this);
+			gameRunning=true;
+		}	
+		board.getDoor().addNextLevelListener(this);	
+		for (int i=0; i<board.getPusList().size();i++){
+			((PowerUpSpeed)(board.getPusList().get(i))).addNewSpeedListener(this);}
+		for (int i=0; i<board.getPdsList().size();i++){
+			((PowerDownSpeed)(board.getPdsList().get(i))).addLowSpeedListener(this);}
+		for (int i=0; i<board.getPurList().size();i++){
+			((PowerUpRange)(board.getPurList().get(i))).addNewRangeListener(this);}
+		level++;
+		timer.start();
+	}
 	
 	public void recreateMap(){
 		board.createMap(configMapData);
 		board.getDoor().addNextLevelListener(this);	
-		for (int i=0; i<=board.getPusList().size()-1;i++){
+		for (int i=0; i<board.getPusList().size();i++){
 			((PowerUpSpeed)(board.getPusList().get(i))).addNewSpeedListener(this);}
+		for (int i=0; i<board.getPdsList().size();i++){
+			((PowerDownSpeed)(board.getPdsList().get(i))).addLowSpeedListener(this);}
+		for (int i=0; i<board.getPurList().size();i++){
+			((PowerUpRange)(board.getPurList().get(i))).addNewRangeListener(this);}
 		timer.stop();
 		board.getPlayer().decrementLive();
 		try {

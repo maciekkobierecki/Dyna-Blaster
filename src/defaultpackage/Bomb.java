@@ -48,7 +48,7 @@ public class Bomb extends Obiekt implements ActionListener{
 	 */
 	Timer timer;
 	
-	
+	private int r=1;
 	
 	/**
 	 * Konstruktor parametryczny klasy.
@@ -62,7 +62,7 @@ public class Bomb extends Obiekt implements ActionListener{
 		super(plansza, x, y, xwidth, xheight);
 		timer=new Timer(timeToExplode, this);
 		timer.start();
-		setRange();		
+		setRange(r);
 		loadImage("bomb");
 	}
 	/**
@@ -82,14 +82,23 @@ public class Bomb extends Obiekt implements ActionListener{
 	/**
 	 * metoda ustalaj¹ca zasiêg wybuchu w zale¿noœci od poziomu trudnoœci
 	 */
-	public void setRange(){
+	public void setRange(int r){
 		if(LevelWindow.level=="easy")
-			range=Config.easyLevelBombRange;
+			range=(Config.easyLevelBombRange)*r;
+		else if(LevelWindow.level=="medium")
+			range=(Config.mediumLevelBombRange)*r;
+		else range=(Config.hardLevelBombRange)*r;
+	}
+	
+	/*public void setBonusRange(){
+		if(LevelWindow.level=="easy")
+			{range=4;
+			System.out.println("elo");
+			}		
 		else if(LevelWindow.level=="medium")
 			range=Config.mediumLevelBombRange;
 		else range=Config.hardLevelBombRange;
-	}
-	
+	}*/
 	/**
 	 * zatrzymuje odliczanie czasu do wybuchu. Nale¿y jej u¿yæ w przypadku pauzowania gry.
 	 */
@@ -133,8 +142,6 @@ public class Bomb extends Obiekt implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		timer.stop();
 		callBombExplodedListeners();
-		
-		
 	}
 	
 }

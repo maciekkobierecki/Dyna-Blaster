@@ -51,6 +51,10 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 	 */
 	private Player player;
 	/**
+	 * obiekt z reprezentacj¹ graficzn¹ gracza
+	 */
+	private Bomb bomb;
+	/**
 	 * lista przetrzymuj¹ca obiekty œcian
 	 */
     ArrayList<Obiekt> wallList;
@@ -80,6 +84,8 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     Door door;
     
     ArrayList<Obiekt>pusList;
+    ArrayList<Obiekt>purList;
+    ArrayList<Obiekt>pdsList;
     /**
      * obraz na którym rysuje siê gra a nastepnie wyœwietlany jest na ekranie
      */
@@ -117,8 +123,11 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
        	panelWidth=0;
        	panelHeight=0;
        	player=null;
+       	bomb=null;
        	door=null;
        	pusList=new ArrayList<>();
+       	pdsList=new ArrayList<>();
+       	purList=new ArrayList<>();
        	Bomb.addBombExplodedListener(this);
        	firstDrawing=true;
        	
@@ -158,6 +167,10 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
      */   
     public Player getPlayer() { return player; }
     /**
+     * getter zwracaj¹cy obiekt klasy Player
+     */   
+    public Bomb getBomb() { return bomb; }
+    /**
      * getter zwracaj¹cy referencje do obiektu przejscia do nastepnegu poziomu
      */
     public Door getDoor() { return door; }
@@ -166,6 +179,20 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
      * getter zwracaj¹cy liste bonusów
      */
     public ArrayList<Obiekt> getPusList() { return pusList; }
+    
+    /**
+     * getter zwracaj¹cy liste bonusów
+     */
+    public ArrayList<Obiekt> getPdsList() { return pdsList; }
+    
+    /**
+     * getter zwracaj¹cy liste bonusów
+     */
+    public ArrayList<Obiekt> getPurList() { return purList; }
+    /**
+     * getter zwracaj¹cy liste bomb
+     */
+    public ArrayList<Obiekt> getBombList() { return bombList; }
     /**
      * pole przechowuj¹ce rozmiar jednego pola w grze
      */
@@ -259,7 +286,8 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 		enemyList.clear();
 		obstacleList.clear();
 		pusList.clear();
-    
+		pdsList.clear();
+		purList.clear();
     	//0 oznacza brak sciany, 1 oznacza, Â¿e jest sciana, 2 oznacza ze jest potwor, 3 player, 4 przeszkoda, 5 przeszkoda a pod ni¹ drzwi do nastepnego poziomu
     	for(int j=0; j<mapData.size(); j++)
     	{
@@ -302,6 +330,14 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
    					 	 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
    					 	 pusList.add(new PowerUpSpeed(this, i*width, j*height,width,height));
     					 break;
+    				case 'q':
+  					 	 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
+  					 	 pdsList.add(new PowerDownSpeed(this, i*width, j*height,width,height));
+  					 	 break;
+    				case 'r':
+  					 	 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
+  					 	 purList.add(new PowerUpRange(this, i*width, j*height,width,height));
+   					 break;
     					
     					
     					
@@ -380,7 +416,11 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
    		ob.draw(g);   	
   	door.draw(g);
   	for (Obiekt ob : pusList)
-   		ob.draw(g);   	
+   		ob.draw(g);
+  	for (Obiekt ob : pdsList)
+   		ob.draw(g);
+  	for (Obiekt ob : purList)
+   		ob.draw(g); 
    	for (Obiekt ob : floorList)
    		ob.draw(g);    	
    	for (Obiekt ob: obstacleList)

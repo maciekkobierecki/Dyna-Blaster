@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 /**
- * interfejs deklaruj¹cy metode setSpeed()
+ * interfejs deklaruj¹cy metode setLowSpeed()
  *
  */
-interface NewSpeedListener{
-	void setNewSpeed();
+interface LowSpeedListener{
+	void setLowSpeed();
 	void setOldSpeed();
 }
 
@@ -24,12 +24,12 @@ interface NewSpeedListener{
  * @author Maciej Kobierecki
  *
  */
-public class PowerUpSpeed extends Obiekt implements ActionListener{
+public class PowerDownSpeed extends Obiekt implements ActionListener{
 	
 	/**
 	 * Listener nowej prêdkoœci.
 	 */
-	NewSpeedListener newSpeedListener;
+	LowSpeedListener lowSpeedListener;
 	
 	/**
 	 * Timer
@@ -44,30 +44,30 @@ public class PowerUpSpeed extends Obiekt implements ActionListener{
 	 * @param xwidth
 	 * @param xheight
 	 */
-	public PowerUpSpeed(Board plansza, int x, int y, int xwidth, int xheight) {
+	public PowerDownSpeed(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);
-		timer=new Timer(Config.powerUpTime, this);
-		newSpeedListener=null;
-		loadImage("pus");
+		timer=new Timer(Config.powerUpTime, this);	
+		lowSpeedListener=null;
+		loadImage("pds");
 	}
 	
 	/**
 	 * Metoda dodaj¹ca nowy listener
 	 */
-	public void addNewSpeedListener(NewSpeedListener listener){
-		newSpeedListener=listener;
+	public void addLowSpeedListener(LowSpeedListener listener){
+		lowSpeedListener=listener;
 	}
 	
 	/**
 	 * Metoda wczytuj¹ca listener.
 	 */
-	public void callNewSpeedListener(){
-		newSpeedListener.setNewSpeed();
+	public void callLowSpeedListener(){
+		lowSpeedListener.setLowSpeed();
 	}
 	
 	public void callOldSpeedListener(){
-		newSpeedListener.setOldSpeed();
-	}
+		lowSpeedListener.setOldSpeed();
+	}	
 	
 	
 	/**
@@ -84,9 +84,9 @@ public class PowerUpSpeed extends Obiekt implements ActionListener{
 	 * Metoda logiczna obs³uguj¹ca u¿ycie bonusu
 	 */
 	public Boolean playerContains(Player player){
-		Rectangle pusRect=new Rectangle(x+width/4,y+height/4,width/2,height/2);
+		Rectangle pdsRect=new Rectangle(x+width/4,y+height/4,width/2,height/2);
 		Rectangle playerRect=new Rectangle(player.x, player.y, player.width,player.height);
-		if(pusRect.intersects(playerRect))
+		if(pdsRect.intersects(playerRect))
 			return true;
 			return false;
 		}
@@ -97,11 +97,11 @@ public class PowerUpSpeed extends Obiekt implements ActionListener{
 	@Override
 	public void draw(Graphics g) {
 		if(playerContains(plansza.getPlayer()))
-			callNewSpeedListener();
-		timer.start();
+			callLowSpeedListener();
 		g.drawImage(img, this.x,this.y, this.width, this.height,null);
+		
 	}
-
+	
 	public void actionPerformed(ActionEvent arg0) {
 		timer.stop();
 		callOldSpeedListener();
