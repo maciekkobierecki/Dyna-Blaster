@@ -86,23 +86,8 @@ public class Highscores extends JFrame{
 		}
 		return rank;
 	}
-	/**
-	 * Metoda dodaj¹ca punkty po skoñczonej grze. Gdy gracz wyrazi chêc aby
-	 * jego wynik trafi³ na serwer to tak siê dzieje. Gracz wyra¿a tê chêæ 
-	 * poprzez zaznaczenie checkboxa w g³ównym oknie aplikacji.
-	 * W przeciwnym razie wynik zapisywany jest w pliku lokalnym.
-	 * @param name
-	 * @param score
-	 */
 	public static void addScore(String name, int score){
-		if(MainWindow.synchronize()){
-			Client client=new Client(false, null);
-			if(client.AddScoreToServer(name, score).equals("GAME SCORE ACCEPTED"))
-				JOptionPane.showMessageDialog(null,"Jesteœ w TOP10!",null,JOptionPane.WARNING_MESSAGE);
-			else
-				JOptionPane.showMessageDialog(null,"Twój wynik jest za niski by znalezæ siê w TOP10!",null,JOptionPane.WARNING_MESSAGE);
-		}
-		else{
+
 		ArrayList<String>rank=loadHighscoresToArrayList();
 		for(int i=0; i<rank.size(); i+=2){
 			if(i+1<rank.size()){
@@ -119,7 +104,6 @@ public class Highscores extends JFrame{
 			}				
 		}
 		saveHighscoresToFile(rank);
-		}
 	}
 	
 	public static void saveHighscoresToFile(ArrayList<String> highscores){
