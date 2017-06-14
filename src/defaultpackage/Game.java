@@ -16,10 +16,10 @@ import javax.swing.Timer;
 
 /* 
  Klasa zarz¹dzaj¹ca rozgrywk¹
- * 
+ * xD
  * */
  
-public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCollisionListener, NextLevelListener, NewSpeedListener{
+public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCollisionListener, NextLevelListener{
 	/**
 	 * Deklaracja pola rozgrywki.
 	 */
@@ -28,7 +28,7 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	private Boolean isPaused;
 	private int remainingTime;
 	private int levelTime;
-	private int level,speed;
+	private int level;
 	private int pointsForEnemyKill;
 	Boolean gameRunning;
 	/**
@@ -95,11 +95,6 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 			isPaused=false;
 		}
 	}
-	
-	//public void addListenerToEveryPowerUP(NewSpeedListener){
-		
-	//}
-	
 	/**
 	 * metoda wczytuj¹ca kolejne poziomy
 	 */
@@ -113,20 +108,10 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 		board.getPlayer().addCollisionListener(this);
 		gameRunning=true;
 		}	
-		board.getDoor().addNextLevelListener(this);	
-		for (int i=0; i<=board.getPusList().size()-1;i++){
-			((PowerUpSpeed)(board.getPusList().get(i))).addNewSpeedListener(this);}
+		board.getDoor().addNextLevelListener(this);		
 		level++;
 		timer.start();
 	}
-	
-	public void setNewSpeed(){
-		if(LevelWindow.level=="easy")
-			board.getPlayer().setSpeed(5);
-		else if(LevelWindow.level=="medium")
-			board.getPlayer().setSpeed(4);
-		else board.getPlayer().setSpeed(3);
-		}
 	
 	@Override
 	public void loadNextLevel() {
@@ -137,7 +122,6 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	 * getter zwracaj¹cy poosta³y czas gry
 	 */
 	public int getRemainingTime() { return remainingTime; }	
-	
 	/**
 	 * setter ustawij¹cy pozosta³y czas gry
 	 */
@@ -161,9 +145,7 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	
 	public void recreateMap(){
 		board.createMap(configMapData);
-		board.getDoor().addNextLevelListener(this);	
-		for (int i=0; i<=board.getPusList().size()-1;i++){
-			((PowerUpSpeed)(board.getPusList().get(i))).addNewSpeedListener(this);}
+		board.getDoor().addNextLevelListener(this);		
 		timer.stop();
 		board.getPlayer().decrementLive();
 		try {
@@ -177,7 +159,7 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	}
 	
 	public void readMapNb(int nb){
-		read(mapNameList.get(nb), configMapData);
+		read(mapNameList.get(nb)+".txt", configMapData);
 		//read("game.txt", configList);
 	}
 	

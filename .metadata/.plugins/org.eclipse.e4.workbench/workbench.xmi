@@ -113,9 +113,9 @@
           </children>
         </children>
       </children>
-      <children xsi:type="basic:PartStack" xmi:id="_83O71TlOEeeX3eAtXeUpVA" elementId="stickyFolderRight" toBeRendered="false" containerData="2500">
+      <children xsi:type="basic:PartStack" xmi:id="_83O71TlOEeeX3eAtXeUpVA" elementId="stickyFolderRight" containerData="2500" selectedElement="_83O71zlOEeeX3eAtXeUpVA">
         <children xsi:type="advanced:Placeholder" xmi:id="_83O71jlOEeeX3eAtXeUpVA" elementId="org.eclipse.help.ui.HelpView" toBeRendered="false" ref="_83O70DlOEeeX3eAtXeUpVA"/>
-        <children xsi:type="advanced:Placeholder" xmi:id="_83O71zlOEeeX3eAtXeUpVA" elementId="org.eclipse.ui.internal.introview" toBeRendered="false" ref="_83O70TlOEeeX3eAtXeUpVA"/>
+        <children xsi:type="advanced:Placeholder" xmi:id="_83O71zlOEeeX3eAtXeUpVA" elementId="org.eclipse.ui.internal.introview" ref="_83O70TlOEeeX3eAtXeUpVA"/>
         <children xsi:type="advanced:Placeholder" xmi:id="_83O72DlOEeeX3eAtXeUpVA" elementId="org.eclipse.ui.cheatsheets.views.CheatSheetView" toBeRendered="false" ref="_83O70jlOEeeX3eAtXeUpVA"/>
       </children>
     </children>
@@ -136,7 +136,7 @@
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
       </menus>
-      <toolbar xmi:id="_95uTkTlOEeeX3eAtXeUpVA" elementId="org.eclipse.ui.internal.introview" visible="false"/>
+      <toolbar xmi:id="_95uTkTlOEeeX3eAtXeUpVA" elementId="org.eclipse.ui.internal.introview"/>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_83O70jlOEeeX3eAtXeUpVA" elementId="org.eclipse.ui.cheatsheets.views.CheatSheetView" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Cheat Sheets" iconURI="platform:/plugin/org.eclipse.ui.cheatsheets/icons/view16/cheatsheet_view.gif" tooltip="" closeable="true">
       <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.internal.cheatsheets.views.CheatSheetView"/>
@@ -176,7 +176,7 @@
     <sharedElements xsi:type="basic:Part" xmi:id="_9Gm0qTlOEeeX3eAtXeUpVA" elementId="org.eclipse.ui.navigator.ProjectExplorer" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Project Explorer" iconURI="platform:/plugin/org.eclipse.ui.navigator.resources/icons/full/eview16/resource_persp.gif" tooltip="" closeable="true">
       <persistedState key="originalCompatibilityViewClass" value="org.eclipse.ui.navigator.resources.ProjectExplorer"/>
       <persistedState key="originalCompatibilityViewBundle" value="org.eclipse.ui.navigator.resources"/>
-      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view CommonNavigator.LINKING_ENABLED=&quot;0&quot; currentWorkingSetName=&quot;Aggregate for window 1494839693560&quot; org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets=&quot;0&quot;/>"/>
+      <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xD;&#xA;&lt;view CommonNavigator.LINKING_ENABLED=&quot;0&quot; org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets=&quot;0&quot;/>"/>
       <tags>View</tags>
       <tags>categoryTag:General</tags>
       <tags>active</tags>
@@ -290,7 +290,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_85lsQjlOEeeX3eAtXeUpVA" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_EhMQwFBOEeeOMaZb44XlEQ" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_8VikIDlOEeeX3eAtXeUpVA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_-1HvYDlPEeeu9psJb92HKA" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_8VikIDlOEeeX3eAtXeUpVA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_85lsQzlOEeeX3eAtXeUpVA" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -311,7 +311,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_85lsRzlOEeeX3eAtXeUpVA" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_EhOF8VBOEeeOMaZb44XlEQ" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_8VgHxzlOEeeX3eAtXeUpVA"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_-1Q5VDlPEeeu9psJb92HKA" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_8VgHxzlOEeeX3eAtXeUpVA"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_85lsSDlOEeeX3eAtXeUpVA" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -2173,23 +2173,6 @@
   <commands xmi:id="_82mpsjlOEeeX3eAtXeUpVA" elementId="AUTOGEN:::org.eclipse.mylyn.tasks.ui.actions.view/org.eclipse.mylyn.tasks.ui.open.repositories.view" commandName="Show Task Repositories View" description="Show Task Repositories View" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
   <commands xmi:id="_82nQwDlOEeeX3eAtXeUpVA" elementId="AUTOGEN:::org.eclipse.mylyn.tasks.ui.actions.view/org.eclipse.mylyn.doc.legend.show.action" commandName="Show UI Legend" description="Show Tasks UI Legend" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
   <commands xmi:id="_82nQwTlOEeeX3eAtXeUpVA" elementId="AUTOGEN:::org.eclipse.mylyn.tasks.ui.actions.view/org.eclipse.mylyn.context.ui.actions.tasklist.focus" commandName="Focus on Workweek" description="Focus on Workweek" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUOy0VBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.hotfixPublish" commandName="Publish Hotfix" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUOy0lBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.replaceWithDevelop" commandName="Replace with develop branch" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUOy01BOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.featurePublish" commandName="Publish Feature" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUOy1FBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.featureCheckout" commandName="Checkout Feature" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUOy1VBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.featureFinish" commandName="Finish Feature" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUOy1lBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.ui.team.CompareWithRef" commandName="Compare with Branch, Tag or Reference..." category="_8VUhkDlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUOy11BOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.developCheckout" commandName="Checkout Develop" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUOy2FBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.hotfixFinish" commandName="Finish Hotfix" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUOy2VBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.releasePublish" commandName="Publish Release" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUOy2lBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.releaseFinish" commandName="Finish Release" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUOy21BOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.hotfixStart" commandName="Start Hotfix" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUOy3FBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.featureTrack" commandName="Track Feature" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUPZ4FBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.init" commandName="Init Git Flow" category="_8VUhkDlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUPZ4VBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.releaseStart" commandName="Start Release" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUPZ4lBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.compareWithDevelop" commandName="Compare with develop branch" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUPZ41BOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.featureStart" commandName="Start Feature" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
-  <commands xmi:id="_EUPZ5FBOEeeOMaZb44XlEQ" elementId="org.eclipse.egit.gitflow.ui.command.featureRebase" commandName="Rebase Feature" category="_8VUhlzlOEeeX3eAtXeUpVA"/>
   <addons xmi:id="_8UVqKzlOEeeX3eAtXeUpVA" elementId="org.eclipse.e4.core.commands.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_8UVqLDlOEeeX3eAtXeUpVA" elementId="org.eclipse.e4.ui.contexts.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_8UVqLTlOEeeX3eAtXeUpVA" elementId="org.eclipse.e4.ui.bindings.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
@@ -2201,7 +2184,7 @@
   <addons xmi:id="_8UWRMjlOEeeX3eAtXeUpVA" elementId="MinMax Addon" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.minmax.MinMaxAddon"/>
   <addons xmi:id="_8UWRMzlOEeeX3eAtXeUpVA" elementId="org.eclipse.ui.workbench.addon.0" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
   <addons xmi:id="_8UhQUDlOEeeX3eAtXeUpVA" elementId="SplitterAddon" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.addons.swt/org.eclipse.e4.ui.workbench.addons.splitteraddon.SplitterAddon"/>
-  <addons xmi:id="_IYS0IKimEeS11vbz3f9ezw" elementId="org.eclipse.ui.ide.addon.0" contributorURI="platform:/plugin/org.eclipse.ui.ide" contributionURI="bundleclass://org.eclipse.ui.ide/org.eclipse.ui.internal.ide.addons.SaveAllDirtyPartsAddon"/>
+  <addons xmi:id="_-Mm94TlPEeeu9psJb92HKA" elementId="org.eclipse.ui.ide.addon.0" contributionURI="bundleclass://org.eclipse.ui.ide/org.eclipse.ui.internal.ide.addons.SaveAllDirtyPartsAddon"/>
   <addons xmi:id="_dz0JgGOlEeSMMaPQU2nlzw" elementId="org.eclipse.ui.ide.application.addon.0" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.ui.ide.application/org.eclipse.ui.internal.ide.application.addons.ModelCleanupAddon"/>
   <categories xmi:id="_8VTTcDlOEeeX3eAtXeUpVA" elementId="org.eclipse.team.ui.category.team" name="Team" description="Actions that apply when working with a Team"/>
   <categories xmi:id="_8VT6gDlOEeeX3eAtXeUpVA" elementId="org.eclipse.ui.category.views" name="Views" description="Commands for opening views"/>
