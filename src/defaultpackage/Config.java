@@ -139,15 +139,15 @@ public class Config {
     /** 
      * przechowuje predkosc poczatkowa predkosc gracza na latwym poziomie
      */
-    private static String easyLevelPlayerSpeed;
+    public static String easyLevelPlayerSpeed;
     /** 
      * przechowuje predkosc poczatkowa predkosc gracza na srednim poziomie
      */
-    private static String mediumLevelPlayerSpeed;
+    public static String mediumLevelPlayerSpeed;
     /** 
      * przechowuje predkosc poczatkowa predkosc gracza na trudnym poziomie
      */
-    private static String hardLevelPlayerSpeed;
+    public static String hardLevelPlayerSpeed;
     
     /**
      * czas trwania poziomu
@@ -158,11 +158,17 @@ public class Config {
      * liczba zyc gracza
      */
     private static String amountOfLives;
+    
     /**
      * czas od postawienia bomby do wybuchu
      */
-    
     public static int timeToExplodeBomb;
+    
+    /**
+     * czas trwania bonusu
+     */
+    public static int powerUpTime;
+    
     /**
      * zasieg bomby na srednim poziomie
      */
@@ -272,6 +278,7 @@ public class Config {
         levelTime=config.getProperty("levelTime");
         amountOfLives=config.getProperty("amountOfLives");
         timeToExplodeBomb=Integer.parseInt(config.getProperty("timeToExplodeBomb"));
+        powerUpTime=Integer.parseInt(config.getProperty("powerUpTime"));
         easyLevelBombRange=Integer.parseInt(config.getProperty("easyLevelBombRange"));
         mediumLevelBombRange=Integer.parseInt(config.getProperty("mediumLevelBombRange"));
         hardLevelBombRange=Integer.parseInt(config.getProperty("hardLevelBombRange"));
