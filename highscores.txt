@@ -44,6 +44,8 @@ dasd
 10
 Patryk
 10
+sd
+10
 MACKO 
 9
 MACIULEK 

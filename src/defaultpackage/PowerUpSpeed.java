@@ -115,12 +115,6 @@ public class PowerUpSpeed extends Obiekt /*implements ActionListener */{
 		
 	}
 
-	
-	/*public void actionPerformed(ActionEvent arg0) {
-		timer.stop();
-		if(playerContains(plansza.getPlayer()))
-			callNewSpeedListener();
-		*/
 	}
 	
 
