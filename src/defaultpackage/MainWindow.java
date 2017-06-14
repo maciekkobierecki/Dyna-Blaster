@@ -31,7 +31,11 @@ public class MainWindow extends JFrame implements ActionListener{
 	/**
 	 * checkbox mowiacy o tym, czy tekstury bêd¹ "podstawowe" czy ulepszone
 	 */
-	private JCheckBox simpleTextures;
+	private JCheckBox simpleTextures, synchronizeOnline;
+	/**
+	 * zmienna statyczna mówi¹ca o tym, czy gracz chce synchronizacji online
+	 */
+	private static Boolean synchronize;
 	/**
 	 * Konstruktor okna g³ównego. Ustala jego parametry i definiuje przyciski.
 	 */
@@ -47,8 +51,9 @@ public class MainWindow extends JFrame implements ActionListener{
 				}
 			}
 		});
+		synchronize=false;
 		setLocation(100,100);
-		setLayout(new GridLayout(5, 1));
+		setLayout(new GridLayout(6, 1));
 		new_game = new JButton(Config.newGame);
 		new_game.addActionListener(this);
 		add(new_game);
@@ -62,7 +67,9 @@ public class MainWindow extends JFrame implements ActionListener{
 		config.addActionListener(this);
 		add(config);
 		simpleTextures=new JCheckBox("Podstawowe tekstury");
+		synchronizeOnline=new JCheckBox("synchronizacja online");
 		add(simpleTextures);
+		add(synchronizeOnline);
 		simpleTextures.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				if(simpleTextures.isSelected())
@@ -70,11 +77,24 @@ public class MainWindow extends JFrame implements ActionListener{
 				else 
 					Config.graphicsPath="";
 			}
-		});			
+		});
+		synchronizeOnline.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				if(synchronizeOnline.isSelected())
+					synchronize=true;
+				else 
+					synchronize=false;
+			}
+		});
 		pack();
 		setVisible(true);
 	}
-
+	/**
+	 * getter zwracaj¹cy wyra¿enie logiczne mówi¹ce czy program ma sie ³¹czyæ z sieci¹
+	 */
+	public static Boolean synchronize(){
+		return synchronize;
+	}
 	/**
 	 * Metoda odpowiedzialna za ustalenie akcji po naciœniêciu w dany przycisk.
 	 */
@@ -91,7 +111,7 @@ public class MainWindow extends JFrame implements ActionListener{
 			dispose();
 		}else if(source ==config){
 			String[] files={"maps", "highscores","config.properties"};
-			Client client=new Client(files);
+			Client client=new Client(true, files);
 		}
 		
 	}

@@ -20,14 +20,65 @@ import java.util.ArrayList;
 public class Client {
 
 	/**
-	 * konstruktor przyjmuj¹cy za parametr tablicê nazw plików, które maj¹ zostaæ pobrane z serwera 
-	 * i zaktualizowane (lub jeœli nie istniej¹, utworozne)
+	 * konstruktor przyjmuj¹cy za parametr wartoœæ logiczn¹, która mówi
+	 * czy wysy³aæ od razu zapytania na serwer oraz  tablicê nazw plików, 
+	 * które maj¹ zostaæ pobrane z serwera 
+	 * i zaktualizowane (lub jeœli nie istniej¹, utworzne)
 	 * @param fileNames-nazwy plików, które chcemy pobraæ z serwera
 	 */
-	Client(String[] fileNames){
+	Client(Boolean requestImmediately, String[] fileNames){
+		if(requestImmediately)
 		for(int i=0; i<fileNames.length; i++){
 			getDataFromServer(fileNames[i]);
 		}
+	}
+	
+	/**
+	 * metoda t³umacz¹ca nazwy plików an requesty protoko³u
+	 * @param fileName-nazwa pliku
+	 * @return-request protoko³u
+	 */
+	
+	public String translateFileNameToRequest(String fileName){
+		String translatedFileNameToRequest="error";
+		if(fileName.equals("config.properties"))
+			translatedFileNameToRequest="GET CONFIG PROPERTIES";
+		else if(fileName.equals("highscores"))
+			translatedFileNameToRequest="GET HIGHSCORES";
+		else if(fileName.equals("maps"))
+			translatedFileNameToRequest="GET MAPLIST";
+		else if(fileName.substring(0,3).equals("map"))
+			translatedFileNameToRequest="GET LEVEL INFO "+ fileName.substring(3, fileName.length());
+			return translatedFileNameToRequest;
+	}
+	/**
+	 * metoda wysy³aj¹ca na serwer wynik gracza
+	 * @return "GAME SCORE ACCEPTED"- gdy wynik znalaz³ siê w top10
+	 * "GAME SCORE NOT ACCEPTED"- gdy wynik nie znalaz³ siê w top10
+	 */
+	public String AddScoreToServer(String name, int score){
+		try {
+			Socket socket=new Socket(Config.serverAddress, Config.port);
+			OutputStream os=socket.getOutputStream();
+			PrintWriter pw= new PrintWriter(os, true);
+			pw.println("GAME SCORE");
+			pw.println(name);
+			pw.println(score);
+			InputStream is=socket.getInputStream();
+			BufferedReader br=new BufferedReader(new InputStreamReader(is));
+			String answer=br.readLine();
+			socket.close();
+			return answer;
+		
+		}
+		catch(SocketTimeoutException e){
+			System.out.println("przekroczono czas oczekiwania");
+		}
+		catch (Exception e){
+			System.err.println("Client exception: "+ e);
+		}
+		
+		return "1";
 	}
 	/**
 	 * metoda wysy³aj¹ca ¿¹danie wys³ania danych zawieraj¹cych siê w pliku o danej nazwie
@@ -42,7 +93,8 @@ public class Client {
 			//socket.setSoTimeout(2000);
 			OutputStream os=socket.getOutputStream();
 			PrintWriter pw= new PrintWriter(os, true);
-			pw.println(fileName);
+			String translatedFileNameToRequest=translateFileNameToRequest(fileName);			
+			pw.println(translatedFileNameToRequest);
 			InputStream is=socket.getInputStream();
 			BufferedReader br=new BufferedReader(new InputStreamReader(is));
 			String line;
@@ -59,7 +111,8 @@ public class Client {
 			case "highscores":
 				createFileAndWrite("highscores.txt", recievedData);
 			default:
-				createFileAndWrite(fileName, recievedData);
+				createFileAndWrite(fileName+".txt", recievedData);
+				
 			}
 			socket.close();
 	}

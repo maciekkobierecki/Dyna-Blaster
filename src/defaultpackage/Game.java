@@ -159,7 +159,7 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	}
 	
 	public void readMapNb(int nb){
-		read(mapNameList.get(nb), configMapData);
+		read(mapNameList.get(nb)+".txt", configMapData);
 		//read("game.txt", configList);
 	}
 	
