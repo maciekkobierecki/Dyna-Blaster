@@ -391,8 +391,8 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
    		ob.draw(g);
    	for (Obiekt ob: bombList)
    		ob.draw(g);
-	for (Obiekt ob: explosionList)
-   		ob.draw(g);
+   	for(int i=0; i<explosionList.size(); i++)
+   		explosionList.get(i).draw(g);
    	
    	player.draw(g);
 

@@ -127,7 +127,8 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 			levelTime.stop();
 			int x = JOptionPane.showConfirmDialog(null, "Koniec gry. Twój wynik to: "+ game.getBoard().getPlayer().getPoints()+"\n Czy chcesz rozpocz¹æ ponownie?","", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			if(x == JOptionPane.NO_OPTION){
-				System.exit(0);
+				new MainWindow();
+				dispose();
 			}
 			else{
 				
