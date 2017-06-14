@@ -7,10 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
-import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 
@@ -207,7 +204,7 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	}
 	
 	public void readMapNb(int nb){
-		read(mapNameList.get(nb), configMapData);
+		read(mapNameList.get(nb)+".txt", configMapData);
 		//read("game.txt", configList);
 	}
 	

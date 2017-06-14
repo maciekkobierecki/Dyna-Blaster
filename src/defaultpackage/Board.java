@@ -24,10 +24,6 @@ import javax.swing.JPanel;
  * <p>
  * Odpowiada za tworzenie mapy oraz poruszanie gracza.
  * 
-<<<<<<< HEAD
- * 
-=======
->>>>>>> origin/master
  * @author Patryk Gozdera
  * @author Maciej Kobierecki
  *
@@ -431,8 +427,8 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
    		ob.draw(g);
    	for (Obiekt ob: bombList)
    		ob.draw(g);
-	for (Obiekt ob: explosionList)
-   		ob.draw(g);
+   	for(int i=0; i<explosionList.size(); i++)
+   		explosionList.get(i).draw(g);
    	
    	player.draw(g);
 
