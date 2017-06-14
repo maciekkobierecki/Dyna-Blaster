@@ -78,6 +78,8 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
      * obiekt reprezentuj¹cy przejscie do nastêpnego poziomu
      */
     Door door;
+    
+    ArrayList<Obiekt>pusList;
     /**
      * obraz na którym rysuje siê gra a nastepnie wyœwietlany jest na ekranie
      */
@@ -116,6 +118,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
        	panelHeight=0;
        	player=null;
        	door=null;
+       	pusList=new ArrayList<>();
        	Bomb.addBombExplodedListener(this);
        	firstDrawing=true;
        	
@@ -158,6 +161,11 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
      * getter zwracaj¹cy referencje do obiektu przejscia do nastepnegu poziomu
      */
     public Door getDoor() { return door; }
+    
+    /**
+     * getter zwracaj¹cy liste bonusów
+     */
+    public ArrayList<Obiekt> getPusList() { return pusList; }
     /**
      * pole przechowuj¹ce rozmiar jednego pola w grze
      */
@@ -231,7 +239,6 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     		player.callPlayerIsDeadListeners();
     	
     		
-    	
     }
 
   /**
@@ -251,6 +258,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 		wallList.clear();
 		enemyList.clear();
 		obstacleList.clear();
+		pusList.clear();
     
     	//0 oznacza brak sciany, 1 oznacza, Â¿e jest sciana, 2 oznacza ze jest potwor, 3 player, 4 przeszkoda, 5 przeszkoda a pod ni¹ drzwi do nastepnego poziomu
     	for(int j=0; j<mapData.size(); j++)
@@ -289,7 +297,11 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     				case 'd':
     					 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
     					 door=new Door(this, i*width, j*height,width,height);
-    					 
+    					 break;
+    				case 's':
+   					 	 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
+   					 	 pusList.add(new PowerUpSpeed(this, i*width, j*height,width,height));
+    					 break;
     					
     					
     					
@@ -367,6 +379,8 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
    	for (Obiekt ob : wallList)
    		ob.draw(g);   	
   	door.draw(g);
+  	for (Obiekt ob : pusList)
+   		ob.draw(g);   	
    	for (Obiekt ob : floorList)
    		ob.draw(g);    	
    	for (Obiekt ob: obstacleList)
