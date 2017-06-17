@@ -87,9 +87,14 @@ public class Config {
     public static String HighscoreWindowName;
     
     /**
-	 * Nazwa okna wybotu nick;u.
+	 * Nazwa okna wyboru nick;u.
 	 */
     public static String NickWindowName;
+    
+    /**
+  	 * Nazwa okna instrukcji.
+  	 */
+      public static String InstructionWindowName;
     
     /**
 	 * Przycisk OK.
@@ -116,7 +121,6 @@ public class Config {
      * wysokosc okna gry
      */
      public static int gameWindowHeight;
-     
      
      
     /**
@@ -283,6 +287,7 @@ public class Config {
         level3 = config.getProperty("level3");
         HighscoreWindowName = config.getProperty("HighscoreWindowName");
         NickWindowName = config.getProperty("NickWindowName");
+        InstructionWindowName = config.getProperty("InstructionWindowName");
         OkButton = config.getProperty("OkButton");
         Cancelbutton = config.getProperty("CancelButton");
         easyLevelEnemySpeed=config.getProperty("easyLevelEnemySpeed");

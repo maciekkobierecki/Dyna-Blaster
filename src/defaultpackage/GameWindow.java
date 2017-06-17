@@ -163,7 +163,7 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		game.setRemainingTime(game.getRemainingTime()-1);
-		infoLabel.setText(" " +nick_text+" Pozostaly czas: "+ game.getRemainingTime() + " sekund. Liczba ¿yæ: "+ game.getBoard().getPlayer().getAmountOfLives()+ "PUNKTÓW:"+ game.getBoard().getPlayer().getPoints());
+		infoLabel.setText(" " +nick_text+" |"+" Pozostaly czas: "+ game.getRemainingTime() + " sekund. | Liczba ¿yæ: "+ game.getBoard().getPlayer().getAmountOfLives()+" |"+ " PUNKTÓW: "+ game.getBoard().getPlayer().getPoints());
 		if(game.getRemainingTime()==0){
 			game.pauseGame(true);
 			//JOptionPane.showMessageDialog(null,"KONIEC GRY! \n Twój wynik to: "+ game.getBoard().getPlayer().getPoints(),null,JOptionPane.WARNING_MESSAGE);

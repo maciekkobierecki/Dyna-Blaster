@@ -24,7 +24,7 @@ public class MainWindow extends JFrame implements ActionListener{
 	/**
 	 * Przyciski wykorzystywane w MENU.
 	 */
-	private JButton new_game,rank,config,exit;
+	private JButton new_game,rank,instruction,config,exit;
 	
 	/**
 	 * checkbox mowiacy o tym, czy tekstury bêd¹ "podstawowe" czy ulepszone
@@ -53,19 +53,22 @@ public class MainWindow extends JFrame implements ActionListener{
 		});
 		synchronize=false;
 		setLocation(100,100);
-		setLayout(new GridLayout(6, 1));
+		setLayout(new GridLayout(7, 1));
 		new_game = new JButton(Config.newGame);
 		new_game.addActionListener(this);
 		add(new_game);
 		rank = new JButton(Config.rank);
 		rank.addActionListener(this);
 		add(rank);
-		exit = new JButton(Config.exit);
-		exit.addActionListener(this);
-		add(exit);
+		instruction = new JButton(Config.InstructionWindowName);
+		instruction.addActionListener(this);
+		add(instruction);
 		config=new JButton(Config.configuration);
 		config.addActionListener(this);
 		add(config);
+		exit = new JButton(Config.exit);
+		exit.addActionListener(this);
+		add(exit);
 		simpleTextures=new JCheckBox("Podstawowe tekstury");
 		synchronizeOnline=new JCheckBox("synchronizacja online");
 		add(simpleTextures);
@@ -114,6 +117,9 @@ public class MainWindow extends JFrame implements ActionListener{
 		}else if(source ==config){
 			String[] files={"maps", "highscores","config.properties"};
 			Client client=new Client(true, files);
+		}else if (source == instruction){
+			new Instruction().setVisible(true);
+			dispose();
 		}
 		
 	}
