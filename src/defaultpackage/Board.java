@@ -412,67 +412,47 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     	}
     }
 
-    /**
-     * Rysowanie
-     * 
-     */
-    public void paint(Graphics g)
-    {
- 	   /*if(firstDrawing){
- 		   bufferedImage=new BufferedImage(panelWidth, panelHeight,BufferedImage.TYPE_INT_ARGB);
- 		   dbg=bufferedImage.createGraphics();
- 		   paintComponent(dbg);
- 		   firstDrawing=false;
- 	   } 
- 	   else{
- 		  paintComponent(dbg);
- 	 	  g.drawImage(bufferedImage, 0, 0,getWidth(), getHeight(), this);
- 	   }
- 	   */
-    	  BufferedImage dbImage=new BufferedImage(panelWidth, panelHeight,BufferedImage.TYPE_INT_ARGB);
-   	   Graphics dbg=dbImage.createGraphics();
-   	   paintComponent(dbg);
-   	   
-   	   BufferedImage scaled=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
-   	   Graphics2D gg=scaled.createGraphics();
-   	   gg.drawImage(dbImage, 0, 0, getWidth(), getHeight(), null);
-   	   g.drawImage(scaled, 0, 0, this);
- 	   
-    }
+   
     
    /**
     * metoda odpowiedzialna za rysowanie obiektów
     */
    public void paintComponent(Graphics g)
    {
-	super.paintComponent(g); 
-    g.setColor(Color.white);
-   	g.fillRect(0, 0, getWidth(), getHeight());
+	BufferedImage dbImage=new BufferedImage(panelWidth, panelHeight,BufferedImage.TYPE_INT_ARGB);
+    Graphics dbg=dbImage.createGraphics();
+	super.paintComponent(dbg); 
+    dbg.setColor(Color.white);
+   	dbg.fillRect(0, 0, getWidth(), getHeight());
    	//drawGridOnBoard(g);
    
    	for (Obiekt ob : wallList)
-   		ob.draw(g);   	
-  	door.draw(g);
+   		ob.draw(dbg);   	
+  	door.draw(dbg);
   	for (Obiekt ob : pusList)
-   		ob.draw(g);
+   		ob.draw(dbg);
   	for (Obiekt ob : pdsList)
-   		ob.draw(g);
+   		ob.draw(dbg);
   	for (Obiekt ob : purList)
-   		ob.draw(g); 
+   		ob.draw(dbg); 
    	for (Obiekt ob : floorList)
-   		ob.draw(g);    	
+   		ob.draw(dbg);    	
    	for (Obiekt ob: obstacleList)
-   		ob.draw(g);
+   		ob.draw(dbg);
    	for (Obiekt ob: enemyList)
-   		ob.draw(g);
+   		ob.draw(dbg);
    	for (Obiekt ob: obstacleList)
-   		ob.draw(g);
+   		ob.draw(dbg);
    	for (Obiekt ob: bombList)
-   		ob.draw(g);
+   		ob.draw(dbg);
    	for(int i=0; i<explosionList.size(); i++)
-   		explosionList.get(i).draw(g);
+   		explosionList.get(i).draw(dbg);   	
+   	player.draw(dbg);
+   	BufferedImage scaled=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+	   Graphics gg=scaled.createGraphics();
+	   gg.drawImage(dbImage,0, 0, getWidth(), getHeight(),null);
+	   g.drawImage(scaled,0,0, this);
    	
-   	player.draw(g);
    }
    
     /**
