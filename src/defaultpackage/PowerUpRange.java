@@ -53,7 +53,7 @@ public class PowerUpRange extends Obiekt implements ActionListener {
 		timer=new Timer(Config.powerUpTime, this);
 		timer.start();	
 		newRangeListener=null;
-		loadImage("pur");
+		loadImage("pur2");
 	}
 	
 	/**

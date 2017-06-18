@@ -16,6 +16,14 @@ interface LowSpeedListener{
 }
 
 /**
+ * interfejs deklaruj¹cy metodê Collected2()
+ *
+ */
+interface Bonus2IsOverListener{
+	void Collected2(PowerDownSpeed power2);
+}
+
+/**
  * Klasa bonusu - zwiêksza prêdkoœæ gracza zale¿nie od poziomu.
  * <p>
  * 
@@ -29,6 +37,11 @@ public class PowerDownSpeed extends Obiekt implements ActionListener{
 	 * Listener nowej prêdkoœci.
 	 */
 	LowSpeedListener lowSpeedListener;
+	
+	/**
+	 * Listener usuniêcia bonusu
+	 */
+	static Bonus2IsOverListener bonus2IsOverListener;
 	
 	/**
 	 * Timer
@@ -58,6 +71,13 @@ public class PowerDownSpeed extends Obiekt implements ActionListener{
 	}
 	
 	/**
+	 * Metoda dodaj¹ca nowy listener
+	 */
+	public static void addBonus2IsOverListener(Bonus2IsOverListener listener){
+		bonus2IsOverListener=listener;
+	}
+	
+	/**
 	 * Metoda wczytuj¹ca listener.
 	 */
 	public void callLowSpeedListener(){
@@ -71,7 +91,12 @@ public class PowerDownSpeed extends Obiekt implements ActionListener{
 		lowSpeedListener.setOldSpeed();
 	}	
 	
-	
+	/**
+	 * Metoda wczytuj¹ca listener.
+	 */
+	public void callBonus2IsOver(){
+		bonus2IsOverListener.Collected2(this);
+	}
 	/**
 	 * zatrzymuje odliczanie czasu do koñca bonusu. Nale¿y jej u¿yæ w przypadku pauzowania gry.
 	 */
@@ -98,8 +123,11 @@ public class PowerDownSpeed extends Obiekt implements ActionListener{
 	 */
 	@Override
 	public void draw(Graphics g) {
-		if(playerContains(plansza.getPlayer()))
+		if(playerContains(plansza.getPlayer())){
 			callLowSpeedListener();
+			callBonus2IsOver();
+		}
+		timer.start();
 		g.drawImage(img, this.x,this.y, this.width, this.height,null);
 		
 	}

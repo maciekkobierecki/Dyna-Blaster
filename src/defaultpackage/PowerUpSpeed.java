@@ -16,6 +16,14 @@ interface NewSpeedListener{
 }
 
 /**
+ * interfejs deklaruj¹cy metodê Collected()
+ *
+ */
+interface BonusIsOverListener{
+	void Collected(PowerUpSpeed power);
+}
+
+/**
  * Klasa bonusu - zwiêksza prêdkoœæ gracza zale¿nie od poziomu.
  * <p>
  * 
@@ -29,6 +37,11 @@ public class PowerUpSpeed extends Obiekt implements ActionListener{
 	 * Listener nowej prêdkoœci.
 	 */
 	NewSpeedListener newSpeedListener;
+	
+	/**
+	 * Listener usuniêcia bonusu
+	 */
+	static BonusIsOverListener bonusIsOverListener;
 	
 	/**
 	 * Timer
@@ -58,6 +71,13 @@ public class PowerUpSpeed extends Obiekt implements ActionListener{
 	}
 	
 	/**
+	 * Metoda dodaj¹ca nowy listener
+	 */
+	public static void addBonusIsOverListener(BonusIsOverListener listener){
+		bonusIsOverListener=listener;
+	}
+	
+	/**
 	 * Metoda wczytuj¹ca listener.
 	 */
 	public void callNewSpeedListener(){
@@ -71,6 +91,12 @@ public class PowerUpSpeed extends Obiekt implements ActionListener{
 		newSpeedListener.setOldSpeed();
 	}
 	
+	/**
+	 * Metoda wczytuj¹ca listener.
+	 */
+	public void callBonusIsOver(){
+		bonusIsOverListener.Collected(this);
+	}
 	/**
 	 * zatrzymuje odliczanie czasu do koñca bonusu. Nale¿y jej u¿yæ w przypadku pauzowania gry.
 	 */
@@ -97,8 +123,10 @@ public class PowerUpSpeed extends Obiekt implements ActionListener{
 	 */
 	@Override
 	public void draw(Graphics g) {
-		if(playerContains(plansza.getPlayer()))
+		if(playerContains(plansza.getPlayer())){
 			callNewSpeedListener();
+			callBonusIsOver();
+		}
 		timer.start();
 		g.drawImage(img, this.x,this.y, this.width, this.height,null);
 	}

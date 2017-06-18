@@ -34,7 +34,7 @@ public class Bomb extends Obiekt implements ActionListener{
 	static int timeToExplode=Config.timeToExplodeBomb;
 	
 	/**
-	 * Lista
+	 * Lista s³uchaczy
 	 */
 	private static ArrayList<BombExplodedListener> bombExplodedListeners=new ArrayList<>();
 	
