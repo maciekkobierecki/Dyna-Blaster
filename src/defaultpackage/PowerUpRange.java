@@ -53,7 +53,7 @@ public class PowerUpRange extends Obiekt implements ActionListener {
 		timer=new Timer(Config.powerUpTime, this);
 		timer.start();	
 		newRangeListener=null;
-		loadImage("pur2");
+		loadImage("pur");
 	}
 	
 	/**
@@ -84,7 +84,7 @@ public class PowerUpRange extends Obiekt implements ActionListener {
 	 * Metoda logiczna obs³uguj¹ca u¿ycie bonusu
 	 */
 	public Boolean playerContains(Player player){
-		Rectangle purRect=new Rectangle(x,y,width,height);
+		Rectangle purRect=new Rectangle(x+width/4,y+height/4,width/2,height/2);
 		Rectangle playerRect=new Rectangle(player.x, player.y, player.width,player.height);
 		if(purRect.intersects(playerRect))
 			return true;

@@ -158,16 +158,12 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	 * Metoda ustawiaj¹ca nowy zasiêg ra¿enia bomby
 	 */
 	public void setNewRange(){
-			//for(int i=0; i<board.getBombList().size();i++){
 				if(LevelWindow.level=="easy")
 					Bomb.range=7;
 				else if(LevelWindow.level=="medium")
 					Bomb.range=1;
 				else 
 					Bomb.range=1;
-			
-		//board.getBomb().setBonusRange();
-		//}	
 	}
 	/**
 	 * Metoda ³aduj¹ca nowy poziom
@@ -249,8 +245,10 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 		catch(InterruptedException ex) {
 		    Thread.currentThread().interrupt();
 		} 
-		if(gameRunning)
+		if(gameRunning){
 		timer.start();
+		System.out.println("gamerunning");
+		}
 	}
 	
 	/**
@@ -320,6 +318,7 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	public void setInitialSettings() {
 		readMapNb(0);
 		recreateMap();
+		gameRunning=true;
 		setRemainingTime(Integer.parseInt(Config.levelTime));
 		board.getPlayer().setInitialSettings();
 		timer.start();

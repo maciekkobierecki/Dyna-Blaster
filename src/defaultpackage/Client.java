@@ -69,6 +69,8 @@ public class Client {
 			BufferedReader br=new BufferedReader(new InputStreamReader(is));
 			String answer=br.readLine();
 			socket.close();
+			os.close();
+			pw.close();
 			return answer;
 		
 		}
@@ -118,6 +120,9 @@ public class Client {
 				
 			}
 			socket.close();
+			os.close();
+			pw.close();
+			
 	}
 		catch(SocketTimeoutException e){
 			System.out.println("przekroczono czas oczekiwania");

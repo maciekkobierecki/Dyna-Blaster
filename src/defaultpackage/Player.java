@@ -99,14 +99,15 @@ public class Player extends Charakter implements KeyListener{
 		Random rand=new Random();
 		value=rand.nextInt();
 		
-	}
-	
+	}	
 	/**
 	 * Metoda ustalaj¹ca parametry domyœlne
 	 */
 	public void setInitialSettings(){
 		score=0;
 		amountOfLives=Config.getAmountOfLives();
+		this.setDX(0);
+		this.setDY(0);
 	}
 	
 	/**

@@ -3,16 +3,11 @@ package defaultpackage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-<<<<<<< HEAD
-import java.awt.Graphics2D;
-||||||| merged common ancestors
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Graphics2D;
-=======
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
->>>>>>> origin/master
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
