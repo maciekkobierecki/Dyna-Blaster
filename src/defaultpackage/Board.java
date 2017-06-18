@@ -3,10 +3,11 @@ package defaultpackage;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -449,7 +450,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
    		explosionList.get(i).draw(dbg);   	
    	player.draw(dbg);
    	BufferedImage scaled=new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
-	   Graphics gg=scaled.createGraphics();
+	   Graphics2D gg=scaled.createGraphics();
 	   gg.drawImage(dbImage,0, 0, getWidth(), getHeight(),null);
 	   g.drawImage(scaled,0,0, this);
    	

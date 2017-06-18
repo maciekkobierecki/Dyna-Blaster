@@ -2,6 +2,9 @@ package defaultpackage;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.Timer;
 
 /**
@@ -20,7 +23,7 @@ interface NewRangeListener{
  * @author Maciej Kobierecki
  *
  */
-public class PowerUpRange extends Obiekt {
+public class PowerUpRange extends Obiekt implements ActionListener {
 	
 	/**
 	 * Listener nowego zasiêgu.
@@ -47,8 +50,8 @@ public class PowerUpRange extends Obiekt {
 	 */
 	public PowerUpRange(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);
-		//timer=new Timer(time, this);
-		//timer.start();	
+		timer=new Timer(Config.powerUpTime, this);
+		timer.start();	
 		newRangeListener=null;
 		loadImage("pur");
 	}
@@ -81,7 +84,7 @@ public class PowerUpRange extends Obiekt {
 	 * Metoda logiczna obs³uguj¹ca u¿ycie bonusu
 	 */
 	public Boolean playerContains(Player player){
-		Rectangle purRect=new Rectangle(x+width/4,y+height/4,width/2,height/2);
+		Rectangle purRect=new Rectangle(x,y,width,height);
 		Rectangle playerRect=new Rectangle(player.x, player.y, player.width,player.height);
 		if(purRect.intersects(playerRect))
 			return true;
@@ -99,6 +102,16 @@ public class PowerUpRange extends Obiekt {
 		
 	}
 
-	}
+	
+
+/**
+ * metoda obs³uguj¹ca zdarzenie
+ */
+public void actionPerformed(ActionEvent arg0) {
+	timer.stop();
+	callNewRangeListener();
+}
+}
+
 	
 

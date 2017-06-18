@@ -158,16 +158,17 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	 * Metoda ustawiaj¹ca nowy zasiêg ra¿enia bomby
 	 */
 	public void setNewRange(){
-			for(int i=0; i<board.getBombList().size();i++){
+			//for(int i=0; i<board.getBombList().size();i++){
 				if(LevelWindow.level=="easy")
-			((Bomb)(board.getBombList().get(i))).setRange(2);
+					Bomb.range=7;
 				else if(LevelWindow.level=="medium")
-			((Bomb)(board.getBombList().get(i))).setRange(1);
-				else ((Bomb)(board.getBombList().get(i))).setRange(1);}
+					Bomb.range=1;
+				else 
+					Bomb.range=1;
 			
 		//board.getBomb().setBonusRange();
-		}	
-	
+		//}	
+	}
 	/**
 	 * Metoda ³aduj¹ca nowy poziom
 	 */

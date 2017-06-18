@@ -41,7 +41,7 @@ public class Bomb extends Obiekt implements ActionListener{
 	/**
 	 * Zasiêg wybuchu
 	 */
-	private int range;
+	public static int range;
 	
 	/**
 	 * Timer

@@ -11,3 +11,8 @@
 /MainWindow$2.class
 /MainWindow$3.class
 /MainWindow.class
+/Bomb.class
+/BombExplodedListener.class
+/Game.class
+/NewRangeListener.class
+/PowerUpRange.class
