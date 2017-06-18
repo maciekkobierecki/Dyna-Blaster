@@ -50,7 +50,7 @@ public class PowerUpRange extends Obiekt {
 		//timer=new Timer(time, this);
 		//timer.start();	
 		newRangeListener=null;
-		loadImage("pur");
+		loadImage("pur2");
 	}
 	
 	/**

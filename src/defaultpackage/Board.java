@@ -5,12 +5,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import javax.swing.JPanel;
 
 /**
@@ -22,12 +20,11 @@ import javax.swing.JPanel;
  * @author Maciej Kobierecki
  *
  */
-public class Board extends JPanel implements ActionListener, BombExplodedListener{
+public class Board extends JPanel implements ActionListener, BombExplodedListener, BonusIsOverListener, Bonus2IsOverListener{
 
 
 	private static final long serialVersionUID = 1L;
-
-
+	
 	/**
 	 * iloœæ rzêdów
 	 */
@@ -148,6 +145,9 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
        	pdsList=new ArrayList<>();
        	purList=new ArrayList<>();
        	Bomb.addBombExplodedListener(this);
+        PowerUpSpeed.addBonusIsOverListener(this);
+        PowerDownSpeed.addBonus2IsOverListener(this);
+       	
        	firstDrawing=true;
        	
    }
@@ -237,6 +237,20 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 		bombList.add(new Bomb(this,x,y, width, height));
 		
 	}
+    
+    /**
+     * metoda usuwaj¹ca z planszy bonus po zjedzeniu
+     */
+    public void Collected(PowerUpSpeed power){
+    	pusList.remove(power);
+    }
+    
+    /**
+     * metoda usuwaj¹ca z planszy bonus po zjedzeniu
+     */
+    public void Collected2(PowerDownSpeed power2){
+    	pdsList.remove(power2);
+    }
     
     /**
      * metoda usuwaj¹ca bombe przekazywan¹ w parametrze
@@ -371,15 +385,18 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     					 door=new Door(this, i*width, j*height,width,height);
     					 break;
     				case 's':
-   					 	 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
+    					 floorList.add(new Floor(this, i*width, j*height,Color.white, width,height)); 
+    					 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
    					 	 pusList.add(new PowerUpSpeed(this, i*width, j*height,width,height));
     					 break;
     				case 'q':
-  					 	 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
+    					 floorList.add(new Floor(this, i*width, j*height,Color.white, width,height)); 
+    					 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
   					 	 pdsList.add(new PowerDownSpeed(this, i*width, j*height,width,height));
   					 	 break;
     				case 'r':
-  					 	 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
+    					 floorList.add(new Floor(this, i*width, j*height,Color.white, width,height)); 
+    					 obstacleList.add(new Obstacle(this, i*width, j*height, width,height));
   					 	 purList.add(new PowerUpRange(this, i*width, j*height,width,height));
    					 break;
     					
@@ -429,13 +446,13 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
    	for (Obiekt ob : wallList)
    		ob.draw(dbg);   	
   	door.draw(dbg);
-  	for (Obiekt ob : pusList)
-   		ob.draw(dbg);
-  	for (Obiekt ob : pdsList)
-   		ob.draw(dbg);
-  	for (Obiekt ob : purList)
+  	for (Obiekt ob : floorList)
    		ob.draw(dbg); 
-   	for (Obiekt ob : floorList)
+  	for (int i=0; i<pusList.size();i++)
+   		pusList.get(i).draw(dbg);
+  	for (int i=0; i<pdsList.size();i++)
+   		pdsList.get(i).draw(dbg);
+  	for (Obiekt ob : purList)
    		ob.draw(dbg);    	
    	for (Obiekt ob: obstacleList)
    		ob.draw(dbg);
@@ -480,6 +497,8 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 		
 	}
 
+
+	
 
 
 	
