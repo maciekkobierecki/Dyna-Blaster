@@ -56,8 +56,7 @@ public class PowerUpRange extends Obiekt implements ActionListener {
 	 */
 	public PowerUpRange(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);
-		timer=new Timer(Config.powerUpTime, this);
-		timer.start();	
+		timer=new Timer(Config.powerUpTime, this);	
 		newRangeListener=null;
 		loadImage("pur2");
 	}
@@ -118,9 +117,9 @@ public class PowerUpRange extends Obiekt implements ActionListener {
 	public void draw(Graphics g) {
 		if(playerContains(plansza.getPlayer())){
 			callNewRangeListener();
-			callBonus3IsOver();
+		    callBonus3IsOver();
+		    timer.start();
 		}
-		timer.start();
 		g.drawImage(img, this.x,this.y, this.width, this.height,null);
 	}
 

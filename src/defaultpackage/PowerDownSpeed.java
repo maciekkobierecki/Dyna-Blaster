@@ -119,8 +119,8 @@ public class PowerDownSpeed extends Obiekt implements ActionListener{
 		if(playerContains(plansza.getPlayer())){
 			callLowSpeedListener();
 			callBonus2IsOver();
+			timer.start();
 		}
-		timer.start();
 		g.drawImage(img, this.x,this.y, this.width, this.height,null);
 		
 	}
