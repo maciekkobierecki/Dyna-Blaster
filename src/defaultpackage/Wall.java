@@ -14,11 +14,6 @@ public class Wall extends Obiekt{
 	
 	/**
 	 * Konstruktor klasy.
-	 * @param gameField
-	 * @param x
-	 * @param y
-	 * @param xwidth
-	 * @param xheight
 	 */
 	public Wall(Board gameField, int x, int y,int xwidth, int xheight)
 	{

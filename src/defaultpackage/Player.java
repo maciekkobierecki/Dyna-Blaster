@@ -78,12 +78,6 @@ public class Player extends Charakter implements KeyListener{
 	
 	/**
 	 * Konstruktor klasy.
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param speed
 	 */
 	public Player(Board plansza, int x,int y, int width, int height, int speed, String name)
 	{	//ustawia zerow¹ przedkoœæ poczatkowa
@@ -250,8 +244,6 @@ public class Player extends Charakter implements KeyListener{
 		if(c== KeyEvent.VK_W)
 		{
 			this.dy=-speed;
-				
-
 		}
 		if(c== KeyEvent.VK_S)
 		{

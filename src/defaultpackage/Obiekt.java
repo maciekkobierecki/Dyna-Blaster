@@ -55,11 +55,6 @@ public abstract class Obiekt {
 	
 	/**
 	 * Konstruktor klasy.
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param xwidth
-	 * @param xheight
 	 */
 	public Obiekt(Board plansza,int x, int y,int xwidth,int xheight)
 	{
@@ -79,7 +74,7 @@ public abstract class Obiekt {
 		}
 
 	/**
-	 * metoda ystalaj¹ca wymiary
+	 * metoda ustalaj¹ca wymiary
 	 */
 	public void setDimension(int xwidth, int xheight)
 	{ 

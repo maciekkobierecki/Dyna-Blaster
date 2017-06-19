@@ -11,12 +11,24 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
+/**
+ * Klasa okna instrukcji gry
+ * @author Patryk Gozdera
+ * @author Maciej Kobierecki
+ */
 public class Instruction extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Pole tekstowe
+	 */
 	JTextArea text;
 	
+	/**
+	 * Konstruktor klasy
+	 * Odpowiada za sczytanie instrukcji z pliku 
+	 */
 	public Instruction(){
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {

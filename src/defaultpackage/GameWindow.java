@@ -62,7 +62,6 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 	public GameWindow()
 	{	
 		pauseButton=new JButton("Pauza");
-		
 		pauseButton.setFocusable(false);
 		topPanel=new JPanel();
 		topPanel.setBackground(Color.black);
