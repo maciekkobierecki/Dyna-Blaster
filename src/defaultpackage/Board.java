@@ -26,7 +26,7 @@ import javax.swing.JPanel;
  * @author Maciej Kobierecki
  *
  */
-public class Board extends JPanel implements ActionListener, BombExplodedListener, BonusIsOverListener, Bonus2IsOverListener{
+public class Board extends JPanel implements ActionListener,Bonus3IsOverListener, BombExplodedListener, BonusIsOverListener, Bonus2IsOverListener{
 
 
 	private static final long serialVersionUID = 1L;
@@ -153,6 +153,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
        	Bomb.addBombExplodedListener(this);
         PowerUpSpeed.addBonusIsOverListener(this);
         PowerDownSpeed.addBonus2IsOverListener(this);
+        PowerUpRange.addBonus3IsOverListener(this);
        	
        	firstDrawing=true;
        	
@@ -500,6 +501,13 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
+		
+	}
+
+
+	@Override
+	public void Collected3(PowerUpRange power3) {
+		purList.remove(power3);
 		
 	}
 
