@@ -24,11 +24,6 @@ public class Obstacle extends Obiekt {
 	
 	/**
 	 * Konstruktor klasy.
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param xwidth
-	 * @param xheight
 	 */
 	public Obstacle(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);

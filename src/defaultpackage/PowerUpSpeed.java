@@ -8,7 +8,6 @@ import javax.swing.Timer;
 
 /**
  * interfejs deklaruj¹cy metody setNewSpeed() oraz setOldSpeed()
- *
  */
 interface NewSpeedListener{
 	void setNewSpeed();
@@ -17,7 +16,6 @@ interface NewSpeedListener{
 
 /**
  * interfejs deklaruj¹cy metodê Collected()
- *
  */
 interface BonusIsOverListener{
 	void Collected(PowerUpSpeed power);
@@ -97,6 +95,7 @@ public class PowerUpSpeed extends Obiekt implements ActionListener{
 	public void callBonusIsOver(){
 		bonusIsOverListener.Collected(this);
 	}
+	
 	/**
 	 * zatrzymuje odliczanie czasu do koñca bonusu. Nale¿y jej u¿yæ w przypadku pauzowania gry.
 	 */

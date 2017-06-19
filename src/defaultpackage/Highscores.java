@@ -35,7 +35,7 @@ public class Highscores extends JFrame{
 	/**
 	 * Konstruktor klasy okna najlepszych wyników.
 	 * <p>
-	 * Ustala jego parametry i odpowiada za wczytanie listy TOP10 z pliku tekstowego.
+	 * Ustala jego parametry i odpowiada za sczytanie listy TOP10 z pliku tekstowego.
 	 */
 	public Highscores(){
 		super( Config.HighscoreWindowName );

@@ -49,11 +49,6 @@ public class Enemy extends Charakter implements ActionListener{
 
 	/**
 	 * Konstruktor klasy.
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
 	 */
 	public Enemy(Board plansza, int x, int y, int width, int height) {
 		super(plansza, x, y, width, height, speed,0);	
@@ -70,6 +65,7 @@ public class Enemy extends Charakter implements ActionListener{
 	void draw(Graphics g) {	
 		g.drawImage(img, this.x,this.y,this.width, this.height, null);		
 	}	
+	
 	/**
 	 * metoda ³aduj¹ca kolejn¹ klatke reprezentacji graficznej obiektu
 	 */
@@ -95,6 +91,7 @@ public class Enemy extends Charakter implements ActionListener{
 		    e.printStackTrace();
 		}
 	}
+	
 	/**
 	 * Metoda ustalaj¹ca szybkoœæ potwora.
 	 */

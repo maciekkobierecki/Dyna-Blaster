@@ -174,12 +174,12 @@ public class Game implements ActionListener, PlayerIsDeadListener,PlayerEnemyCol
 	}
 	
 	/**
-	 * getter zwracaj鉍y poosta造 czas gry
+	 * getter zwracaj鉍y pozosta造 czas gry
 	 */
 	public int getRemainingTime() { return remainingTime; }	
 	
 	/**
-	 * setter ustawij鉍y pozosta造 czas gry
+	 * setter ustawiaj鉍y pozosta造 czas gry
 	 */
 	public void setRemainingTime(int time) { remainingTime=time; }
 	@Override

@@ -55,11 +55,6 @@ public class Bomb extends Obiekt implements ActionListener{
 	
 	/**
 	 * Konstruktor parametryczny klasy.
-	 * @param plansza
-	 * @param x 
-	 * @param y 
-	 * @param xwidth
-	 * @param xheight
 	 */
 	public Bomb(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);

@@ -26,7 +26,7 @@ import javax.swing.JPanel;
  * @author Maciej Kobierecki
  *
  */
-public class Board extends JPanel implements ActionListener, BombExplodedListener, BonusIsOverListener, Bonus2IsOverListener{
+public class Board extends JPanel implements ActionListener, BombExplodedListener, BonusIsOverListener, Bonus2IsOverListener, Bonus3IsOverListener{
 
 
 	private static final long serialVersionUID = 1L;
@@ -153,6 +153,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
        	Bomb.addBombExplodedListener(this);
         PowerUpSpeed.addBonusIsOverListener(this);
         PowerDownSpeed.addBonus2IsOverListener(this);
+        PowerUpRange.addBonus3IsOverListener(this);
        	
        	firstDrawing=true;
        	
@@ -259,6 +260,13 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
     }
     
     /**
+     * metoda usuwaj¹ca z planszy bonus po zjedzeniu
+     */
+    public void Collected3(PowerUpRange br){
+    	purList.remove(br);
+    }
+    
+    /**
      * metoda usuwaj¹ca bombe przekazywan¹ w parametrze
      */
     public void removeBomb(Bomb bomb){
@@ -334,7 +342,7 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
    * d - tworzenie drzwi
    * s - powerUp zwiêkszaj¹cy prêdkoœæ
    * q - powerUp zmiejszaj¹cy prêdkoœæ
-   * s - powerUp zwiêkszaj¹cy si³ê ra¿enia bomby
+   * r - powerUp zwiêkszaj¹cy si³ê ra¿enia bomby
    */
     public void createMap(ArrayList<String> mapData)
     {
@@ -458,8 +466,8 @@ public class Board extends JPanel implements ActionListener, BombExplodedListene
    		pusList.get(i).draw(dbg);
   	for (int i=0; i<pdsList.size();i++)
    		pdsList.get(i).draw(dbg);
-  	for (Obiekt ob : purList)
-   		ob.draw(dbg);    	
+  	for (int i=0; i<purList.size();i++)
+   		purList.get(i).draw(dbg);  	
    	for (Obiekt ob: obstacleList)
    		ob.draw(dbg);
    	for (Obiekt ob: enemyList)

@@ -18,13 +18,6 @@ public class Floor extends Obiekt {
 	private Color color;
 	
 	/**
-	 * Konstruktor klasy.
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param color
-	 * @param xwidth
-	 * @param xheight
 	 * 
 	 */
 	public Floor(Board plansza, int x, int y, Color color, int xwidth, int xheight) 

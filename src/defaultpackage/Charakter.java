@@ -25,13 +25,6 @@ public abstract class Charakter extends Obiekt{
 	
 	/**
 	 * Konstruktor klasy
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param xwidth
-	 * @param xheight
-	 * @param dx
-	 * @param dy
 	 */
 	public Charakter(Board plansza, int x, int y, int xwidth, int xheight,int dx,int dy) {
 		super(plansza, x, y, xwidth, xheight);

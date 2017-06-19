@@ -9,10 +9,16 @@ import javax.swing.Timer;
 
 /**
  * interfejs deklaruj¹cy metode setNewSpeed()
- *
  */
 interface NewRangeListener{
 	void setNewRange();
+}
+
+/**
+ * interfejs deklaruj¹cy metodê Collected3()
+ */
+interface Bonus3IsOverListener{
+	void Collected3(PowerUpRange br);
 }
 
 /**
@@ -31,6 +37,11 @@ public class PowerUpRange extends Obiekt implements ActionListener {
 	NewRangeListener newRangeListener;
 	
 	/**
+	 * Listener usuniêcia bonusu
+	 */
+	static Bonus3IsOverListener bonus3IsOverListener;
+	
+	/**
 	 * Bonusowa prêdkoœæ
 	 */
 	public int range;
@@ -42,18 +53,13 @@ public class PowerUpRange extends Obiekt implements ActionListener {
 	
 	/**
 	 * Konstruktor parametryczny bonusu 
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param xwidth
-	 * @param xheight
 	 */
 	public PowerUpRange(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);
 		timer=new Timer(Config.powerUpTime, this);
 		timer.start();	
 		newRangeListener=null;
-		loadImage("pur");
+		loadImage("pur2");
 	}
 	
 	/**
@@ -61,6 +67,20 @@ public class PowerUpRange extends Obiekt implements ActionListener {
 	 */
 	public void addNewRangeListener(NewRangeListener listener){
 		newRangeListener=listener;
+	}
+	
+	/**
+	 * Metoda dodaj¹ca nowy listener
+	 */
+	public static void addBonus3IsOverListener(Bonus3IsOverListener listener){
+		bonus3IsOverListener=listener;
+	}
+	
+	/**
+	 * Metoda wczytuj¹ca listener.
+	 */
+	public void callBonus3IsOver(){
+		bonus3IsOverListener.Collected3(this);
 	}
 	
 	/**
@@ -96,10 +116,12 @@ public class PowerUpRange extends Obiekt implements ActionListener {
 	 */
 	@Override
 	public void draw(Graphics g) {
-		if(playerContains(plansza.getPlayer()))
+		if(playerContains(plansza.getPlayer())){
 			callNewRangeListener();
+			callBonus3IsOver();
+		}
+		timer.start();
 		g.drawImage(img, this.x,this.y, this.width, this.height,null);
-		
 	}
 
 	

@@ -8,7 +8,6 @@ import javax.swing.Timer;
 
 /**
  * interfejs deklaruj¹cy metode setLowSpeed() oraz setOldSpeed()
- *
  */
 interface LowSpeedListener{
 	void setLowSpeed();
@@ -17,7 +16,6 @@ interface LowSpeedListener{
 
 /**
  * interfejs deklaruj¹cy metodê Collected2()
- *
  */
 interface Bonus2IsOverListener{
 	void Collected2(PowerDownSpeed power2);
@@ -49,12 +47,7 @@ public class PowerDownSpeed extends Obiekt implements ActionListener{
 	Timer timer;
 	
 	/**
-	 * Konstruktor parametryczny bonusu 
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param xwidth
-	 * @param xheight
+	 * Konstruktor parametryczny bonusu
 	 */
 	public PowerDownSpeed(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);
