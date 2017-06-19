@@ -126,8 +126,9 @@ public class PowerUpSpeed extends Obiekt implements ActionListener{
 		if(playerContains(plansza.getPlayer())){
 			callNewSpeedListener();
 			callBonusIsOver();
+			timer.start();
 		}
-		timer.start();
+
 		g.drawImage(img, this.x,this.y, this.width, this.height,null);
 	}
 
