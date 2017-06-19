@@ -10,13 +10,15 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 /**
  * klasa implementuj¹ca klienta komunikuj¹cego siê z serwerem w celu pobierania
  * danych takich jak: konfiguracje map, parametry konfiguracyjne programu, ranking
- * @author Maciek
+ * @author Maciek Kobierecki
+ * @author Patryk Gozdera
  *
  */
-
 public class Client {
 
 	/**
@@ -38,7 +40,6 @@ public class Client {
 	 * @param fileName-nazwa pliku
 	 * @return-request protoko³u
 	 */
-	
 	public String translateFileNameToRequest(String fileName){
 		String translatedFileNameToRequest="error";
 		if(fileName.equals("config.properties"))
@@ -68,6 +69,8 @@ public class Client {
 			BufferedReader br=new BufferedReader(new InputStreamReader(is));
 			String answer=br.readLine();
 			socket.close();
+			os.close();
+			pw.close();
 			return answer;
 		
 		}
@@ -76,10 +79,12 @@ public class Client {
 		}
 		catch (Exception e){
 			System.err.println("Client exception: "+ e);
+			JOptionPane.showMessageDialog(null,"Blad!",null,JOptionPane.WARNING_MESSAGE);
 		}
 		
 		return "1";
 	}
+	
 	/**
 	 * metoda wysy³aj¹ca ¿¹danie wys³ania danych zawieraj¹cych siê w pliku o danej nazwie
 	 * i wywo³uj¹ca metody zwi¹zane z parsowaniem odebranych danych. Metoda bêdzie czekaæ
@@ -115,15 +120,20 @@ public class Client {
 				
 			}
 			socket.close();
+			os.close();
+			pw.close();
+			
 	}
 		catch(SocketTimeoutException e){
 			System.out.println("przekroczono czas oczekiwania");
 		}
 		catch (Exception e){
 			System.err.println("Client exception: "+ e);
+			JOptionPane.showMessageDialog(null,"Blad!",null,JOptionPane.WARNING_MESSAGE);
 		}
 		
 	}
+	
 	/**
 	 * metoda inicjuj¹ca wys³anie ¿¹dania wszystkich map, których nazwy
 	 * zawarte s¹ w pliku maps.txt. Gdy Wczeœniej zostanie wys³ane ¿¹danie
@@ -143,13 +153,12 @@ public class Client {
 		    
 		}
 		
-	
-/**
- * metoda zapisuj¹ca/nadpisuj¹ca pliki (konfiguracyjne, rankingu i konfiguracji map)
- * danymi pobranymi z serwera
- * @param fileName- nazwa pliku, do którego zostan¹ zapisane dane konfiguracyjne
- * @param data-Lista danych w postaci ³añcuchów znaków
- */
+	/**
+	 * metoda zapisuj¹ca/nadpisuj¹ca pliki (konfiguracyjne, rankingu i konfiguracji map)
+	 * danymi pobranymi z serwera
+	 * @param fileName- nazwa pliku, do którego zostan¹ zapisane dane konfiguracyjne
+	 * @param data-Lista danych w postaci ³añcuchów znaków
+	 */
 	public void createFileAndWrite(String fileName, ArrayList<String>data){
 		try{
 			PrintWriter writer= new PrintWriter(fileName, "UTF-8");

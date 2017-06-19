@@ -45,21 +45,23 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 	 * zegar liczacy czas rozgrywki poziomu
 	 */
 	Timer levelTime;
+	
 	/**
 	 * komponent który zawiera informacje o grze oraz przycisk pauzy
 	 */
 	JPanel topPanel;
+	
 	/**
 	 * przycisk obs³uguj¹cy pauzowanie gry
 	 */
 	JButton pauseButton;
+	
 	/**
 	 * Konstruktor klasy.
 	 */
 	public GameWindow()
 	{	
 		pauseButton=new JButton("Pauza");
-		
 		pauseButton.setFocusable(false);
 		topPanel=new JPanel();
 		topPanel.setBackground(Color.black);
@@ -97,10 +99,9 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 		});			
 		levelTime=new Timer(1000, this);
 		levelTime.start();
-		
-		
-		
+
 	}
+	
 	/**
 	 * metoda odpowiadaj¹ca za stworzenie nowej gry. U¿ywana na przyk³ad, gdy gracz zechce zagraæ 
 	 * od nowa po przegranej
@@ -116,7 +117,6 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 		game.getBoard().getPlayer().addPlayerIsDeadListener(this);
 		return game;
 	}
-
 
 	/**
 	 * Metoda wy³¹czaj¹ca okno w momencie koñca gry.
@@ -137,24 +137,31 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 		
 	}
 
-
+	/**
+	 * Metoda obs³uguj¹ca kolizjê gracza z potworem 
+	 */
 	@Override
 	public void playerEnemyCollided() {
 		infoLabel.setText(" " +nick_text+" Pozostaly czas "+ game.getRemainingTime() + " sekund. Liczba ¿yæ: "+ game.getBoard().getPlayer().getAmountOfLives());
 		
 	}
 
+	/**
+	 * Metoda umo¿liwiaj¹ca ponown¹ rozgrywkê 
+	 */
 	public void playAgain(){
 		game.setInitialSettings();
 		levelTime.start();
 		
 	}
 	
-
+	/**
+	 * Metoda obs³uguj¹ca zdarzenie
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		game.setRemainingTime(game.getRemainingTime()-1);
-		infoLabel.setText(" " +nick_text+" Pozostaly czas: "+ game.getRemainingTime() + " sekund. Liczba ¿yæ: "+ game.getBoard().getPlayer().getAmountOfLives()+ "PUNKTÓW:"+ game.getBoard().getPlayer().getPoints());
+		infoLabel.setText(" " +nick_text+" |"+" Pozostaly czas: "+ game.getRemainingTime() + " sekund. | Liczba ¿yæ: "+ game.getBoard().getPlayer().getAmountOfLives()+" |"+ " PUNKTÓW: "+ game.getBoard().getPlayer().getPoints());
 		if(game.getRemainingTime()==0){
 			game.pauseGame(true);
 			//JOptionPane.showMessageDialog(null,"KONIEC GRY! \n Twój wynik to: "+ game.getBoard().getPlayer().getPoints(),null,JOptionPane.WARNING_MESSAGE);
@@ -172,37 +179,4 @@ public class GameWindow extends JFrame implements PlayerEnemyCollisionListener, 
 		}
 	}
 }
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	

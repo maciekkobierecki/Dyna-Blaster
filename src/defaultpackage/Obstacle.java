@@ -1,11 +1,9 @@
 package defaultpackage;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 /**
@@ -19,14 +17,13 @@ import javax.imageio.ImageIO;
  */
 public class Obstacle extends Obiekt {
 	
+	/**
+	 * Zmienna typu BufferedImage
+	 */
 	BufferedImage img;
+	
 	/**
 	 * Konstruktor klasy.
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param xwidth
-	 * @param xheight
 	 */
 	public Obstacle(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);
@@ -47,6 +44,7 @@ public class Obstacle extends Obiekt {
 		    e.printStackTrace();
 		}
 	}
+	
 	/**
 	 * Metoda odpowiedzialna za rysowanie.
 	 */

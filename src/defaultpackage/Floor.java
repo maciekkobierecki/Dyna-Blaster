@@ -1,15 +1,7 @@
 package defaultpackage;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 /**
  * Klasa pod³o¿a, dziedzicz¹ca po obiekcie.
@@ -26,13 +18,6 @@ public class Floor extends Obiekt {
 	private Color color;
 	
 	/**
-	 * Konstruktor klasy.
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param color
-	 * @param xwidth
-	 * @param xheight
 	 * 
 	 */
 	public Floor(Board plansza, int x, int y, Color color, int xwidth, int xheight) 
@@ -42,10 +27,6 @@ public class Floor extends Obiekt {
 		width=xwidth;
 		height=xheight;
 		loadImage("floor");
-		
-
-	
-		
 	}
 
 	/**

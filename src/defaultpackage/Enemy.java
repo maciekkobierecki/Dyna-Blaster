@@ -1,9 +1,7 @@
 package defaultpackage;
 
-import java.awt.AlphaComposite;
-import java.awt.Color;
+
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -28,18 +26,29 @@ public class Enemy extends Charakter implements ActionListener{
 	 * Prêdkoœæ potwora.
 	 */
 	static int speed;
+	
+	/**
+	 * Lista obrazów
+	 */
 	static ArrayList<BufferedImage> images;
+	
+	/**
+	 * zmienna typu BufferedImage
+	 */
 	BufferedImage img;
+	
+	/**
+	 * zmienna typu int
+	 */
 	private int count;
+	
+	/**
+	 * Timer
+	 */
 	static Timer timer=new Timer(50, null);
 
 	/**
 	 * Konstruktor klasy.
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
 	 */
 	public Enemy(Board plansza, int x, int y, int width, int height) {
 		super(plansza, x, y, width, height, speed,0);	
@@ -56,6 +65,7 @@ public class Enemy extends Charakter implements ActionListener{
 	void draw(Graphics g) {	
 		g.drawImage(img, this.x,this.y,this.width, this.height, null);		
 	}	
+	
 	/**
 	 * metoda ³aduj¹ca kolejn¹ klatke reprezentacji graficznej obiektu
 	 */
@@ -81,6 +91,7 @@ public class Enemy extends Charakter implements ActionListener{
 		    e.printStackTrace();
 		}
 	}
+	
 	/**
 	 * Metoda ustalaj¹ca szybkoœæ potwora.
 	 */
@@ -119,7 +130,9 @@ public class Enemy extends Charakter implements ActionListener{
 		}				
 	}
 
-
+	/**
+	 * metoda obs³uguj¹ca zdarzenie
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		img=images.get(count++%10);

@@ -1,9 +1,7 @@
 package defaultpackage;
 
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 /**
  * interfejs deklaruj¹cy metode loadNextLevel()
@@ -30,11 +28,6 @@ public class Door extends Obiekt{
 	
 	/**
 	 * Konstruktor klasy.
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param xwidth
-	 * @param xheight
 	 */
 	public Door(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);
@@ -71,7 +64,6 @@ public class Door extends Obiekt{
 	/**
 	 *metoda odpowiedzialn a za rysowanie reprezentacji graficznej obiektu
 	 */
-
 	public void draw(Graphics g)
 	{
 		if(playerContains(plansza.getPlayer()))
@@ -79,7 +71,6 @@ public class Door extends Obiekt{
 		g.drawImage(img, this.x,this.y,this.width, this.height,  null);
 		
 	}
-	
 	
 
 }

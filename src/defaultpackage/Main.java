@@ -2,6 +2,8 @@ package defaultpackage;
 
 import java.io.IOException;
 import java.util.Properties;
+
+import javax.swing.JOptionPane;
 /**
  * Dyna Blaster
  * <p>
@@ -28,17 +30,17 @@ public class Main {
 		 * Wczytywanie danych z pliku konfiguracyjnego
 		 * i u¿ycie ich w programie.
 		 * Tworzenie okna g³ównego.
-		 */
+		 */		
 				String configPath = "config.properties";
 				ReadConfig readConfig = new ReadConfig();
 				try{
 				Properties prop = readConfig.getProperties(configPath);
                 Config.readConstants(prop);
+                new MainWindow();
 				
-				new MainWindow();
 				} catch (IOException e) {
+					JOptionPane.showMessageDialog(null,"exception",null,JOptionPane.WARNING_MESSAGE);
 		            System.out.println(e);
 		        }
 		}
 	}
-

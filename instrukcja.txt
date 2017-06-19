@@ -1,0 +1,20 @@
+INSTRUKCJA DO GRY DYNA BLASTER
+
+Gra Dyna Blaster polega na walce naszego bohatera z obecnymi na planszy przeciwnikami. 
+G³ównym celem rozgrywki jest ukoñczenie ka¿dego z poziomów,
+jednak warto równie¿ rozprawiæ siê z potworami, za co zostaniemy nagrodzeni 
+dan¹ iloœci¹ punktów.
+
+W grze mamy dostêpne 3 poziomy trudnoœci: ³atwy, œredni oraz trudny. Ró¿ni¹ 
+siê one m. in. szybkoœci¹ poruszania gracza i potworów, zasiêgiem ra¿enia bomb, 
+wygl¹dem i zaawansowanie planszy. 
+
+Po uzyskaniu odpowiedniej iloœci punktów, mo¿emy znaleŸæ siê na liœcie najlepszych wyników - zawiera ona 10 pozycji.
+
+Sterowanie graczem odbywa siê za pomoc¹ klawiszy WSAD (W - ruch do przodu, 
+S - do ty³u, A - w lewo, D - w prawo). Aby postawiæ bombê nale¿y wcisn¹æ SPACJÊ.
+Pzejœcie do nastêpnego poziomu odbywa siê przez specjalne "drzwi", ukryte pod
+mo¿liwymi do zniszczenia przeszkodami.
+
+¯YCZYMY MI£EJ ROZGRYWKI!
+AUTORZY

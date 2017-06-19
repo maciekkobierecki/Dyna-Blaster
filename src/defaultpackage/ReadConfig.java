@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.swing.JOptionPane;
+
 /**
  * Klasa zwi¹zana z wczytywaniem pliku konfiguracyjnego.
  * 	
@@ -28,12 +30,11 @@ public class ReadConfig {
         try (InputStream inputStream = new FileInputStream(propFilePath)) {
             prop.load(inputStream);
         } catch (Exception e) {
+        	JOptionPane.showMessageDialog(null,e,null,JOptionPane.WARNING_MESSAGE);
             e.printStackTrace();
         }
         return prop;
-        
-        
-        
+ 
     }
     
     /**

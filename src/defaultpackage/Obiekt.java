@@ -1,19 +1,11 @@
 package defaultpackage;
 
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-import javax.swing.JComponent;
-
-import java.awt.Color;
-import javafx.scene.image.*;
 
 
 
@@ -59,15 +51,10 @@ public abstract class Obiekt {
 	/**
 	 * reprezentacja graficzna obiektu
 	 */
-	
 	BufferedImage img;
+	
 	/**
 	 * Konstruktor klasy.
-	 * @param plansza
-	 * @param x
-	 * @param y
-	 * @param xwidth
-	 * @param xheight
 	 */
 	public Obiekt(Board plansza,int x, int y,int xwidth,int xheight)
 	{
@@ -78,6 +65,7 @@ public abstract class Obiekt {
 		width=xwidth;
 		height=xheight;		
 	}
+	
 	/**
 	 * metoda, która zwraca prostok¹t o koordynatach i rozmiarach obiektu graficznego
 	 */
@@ -86,7 +74,7 @@ public abstract class Obiekt {
 		}
 
 	/**
-	 * metoda ystalaj¹ca wymiary
+	 * metoda ustalaj¹ca wymiary
 	 */
 	public void setDimension(int xwidth, int xheight)
 	{ 
@@ -119,6 +107,9 @@ public abstract class Obiekt {
 	 */
 	public int getY() { return y; }
 	
+	/**
+	 * Metoda ³aduj¹ca obraz o danej nazwie w formacie png
+	 */
 	public void loadImage(String name){
 		try 
 		{

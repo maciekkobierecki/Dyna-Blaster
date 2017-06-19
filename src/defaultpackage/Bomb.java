@@ -34,37 +34,36 @@ public class Bomb extends Obiekt implements ActionListener{
 	static int timeToExplode=Config.timeToExplodeBomb;
 	
 	/**
-	 * Lista
+	 * Lista s³uchaczy
 	 */
 	private static ArrayList<BombExplodedListener> bombExplodedListeners=new ArrayList<>();
 	
 	/**
 	 * Zasiêg wybuchu
 	 */
-	private int range;
+	public static int range;
 	
 	/**
 	 * Timer
 	 */
 	Timer timer;
 	
-	
+	/**
+	 * zmienna odpowiedzialna za przelicznik ra¿enia (zastosowanie do bonusu)
+	 */
+	private int r=1;
 	
 	/**
 	 * Konstruktor parametryczny klasy.
-	 * @param plansza
-	 * @param x 
-	 * @param y 
-	 * @param xwidth
-	 * @param xheight
 	 */
 	public Bomb(Board plansza, int x, int y, int xwidth, int xheight) {
 		super(plansza, x, y, xwidth, xheight);
 		timer=new Timer(timeToExplode, this);
 		timer.start();
-		setRange();		
+		setRange(r);
 		loadImage("bomb");
 	}
+	
 	/**
 	 * metoda zwracaj¹ca prostok¹t, który symbolizuje pole ra¿enia wybuchu bomby
 	 * przyjmuje jako parametr rozmiar jednego pola gry
@@ -72,6 +71,7 @@ public class Bomb extends Obiekt implements ActionListener{
 	public Rectangle getExplosionRange(Dimension dim){
 		return new Rectangle(x+width/2-range*(int)dim.getWidth()/2, y+height/2-range*(int)dim.getHeight()/2, range*(int)dim.getWidth(),range*(int)dim.getHeight());
 	}
+	
 	/**
 	 * metoda dodaj¹ca Listener 
 	 */
@@ -82,13 +82,23 @@ public class Bomb extends Obiekt implements ActionListener{
 	/**
 	 * metoda ustalaj¹ca zasiêg wybuchu w zale¿noœci od poziomu trudnoœci
 	 */
-	public void setRange(){
+	public void setRange(int r){
 		if(LevelWindow.level=="easy")
-			range=Config.easyLevelBombRange;
+			range=(Config.easyLevelBombRange)*r;
+		else if(LevelWindow.level=="medium")
+			range=(Config.mediumLevelBombRange)*r;
+		else range=(Config.hardLevelBombRange)*r;
+	}
+	
+	/*public void setBonusRange(){
+		if(LevelWindow.level=="easy")
+			{range=4;
+			System.out.println("elo");
+			}		
 		else if(LevelWindow.level=="medium")
 			range=Config.mediumLevelBombRange;
 		else range=Config.hardLevelBombRange;
-	}
+	}*/
 	
 	/**
 	 * zatrzymuje odliczanie czasu do wybuchu. Nale¿y jej u¿yæ w przypadku pauzowania gry.
@@ -99,6 +109,7 @@ public class Bomb extends Obiekt implements ActionListener{
 		else 
 			timer.start();
 	}
+	
 	/**
 	 * metoda ³aduj¹cy dany listener
 	 */
@@ -128,13 +139,14 @@ public class Bomb extends Obiekt implements ActionListener{
 		g.drawImage(img, this.x,this.y, this.width, this.height,null);
 		
 	}
-
+	
+	/**
+	 * metoda obs³uguj¹ca zdarzenie
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		timer.stop();
 		callBombExplodedListeners();
-		
-		
 	}
 	
 }

@@ -1,6 +1,5 @@
 package defaultpackage;
 
-import java.util.ArrayList;
 import java.util.Properties;
 
 /**
@@ -88,9 +87,14 @@ public class Config {
     public static String HighscoreWindowName;
     
     /**
-	 * Nazwa okna wybotu nick;u.
+	 * Nazwa okna wyboru nick;u.
 	 */
     public static String NickWindowName;
+    
+    /**
+  	 * Nazwa okna instrukcji.
+  	 */
+      public static String InstructionWindowName;
     
     /**
 	 * Przycisk OK.
@@ -113,12 +117,10 @@ public class Config {
     */
     public static int gameWindowWidth;
     
-    
     /**
      * wysokosc okna gry
      */
      public static int gameWindowHeight;
-     
      
      
     /**
@@ -139,15 +141,15 @@ public class Config {
     /** 
      * przechowuje predkosc poczatkowa predkosc gracza na latwym poziomie
      */
-    private static String easyLevelPlayerSpeed;
+    public static String easyLevelPlayerSpeed;
     /** 
      * przechowuje predkosc poczatkowa predkosc gracza na srednim poziomie
      */
-    private static String mediumLevelPlayerSpeed;
+    public static String mediumLevelPlayerSpeed;
     /** 
      * przechowuje predkosc poczatkowa predkosc gracza na trudnym poziomie
      */
-    private static String hardLevelPlayerSpeed;
+    public static String hardLevelPlayerSpeed;
     
     /**
      * czas trwania poziomu
@@ -158,31 +160,42 @@ public class Config {
      * liczba zyc gracza
      */
     private static String amountOfLives;
+    
     /**
      * czas od postawienia bomby do wybuchu
      */
-    
     public static int timeToExplodeBomb;
+    
+    /**
+     * czas trwania bonusu
+     */
+    public static int powerUpTime;
+    
     /**
      * zasieg bomby na srednim poziomie
      */
     public static int mediumLevelBombRange;
+    
     /**
      * zasieg bomby na trudnym poziomie
      */
     public static int hardLevelBombRange;
+    
     /**
      * zasieg bomby na latwym poziomie
      */
     public static int easyLevelBombRange;
+    
     /**
      * punkty dodawane graczowi za zabicie potwora na latwym poziomie
      */
     public static int pointsForEnemyDeathAtEasyLevel;
+    
     /**
      * punkty dodawane graczowi za zabicie potwora na srednim poziomie
      */
     public static int pointsForEnemyDeathAtMediumLevel;
+    
     /**
      * punkty dodawane graczowi za zabicie potwora na trudnym poziomie
      */
@@ -206,7 +219,10 @@ public class Config {
     		
     		
     }
-    	
+    
+    /**
+     * getter zwracaj¹cy prêdkoœæ potwora
+     */
     public static int getEnemySpeed(){
     	switch(LevelWindow.level)
     	{
@@ -222,10 +238,16 @@ public class Config {
     	}
     }
     
+    /**
+     * getter zwracaj¹cy liczbê ¿yæ
+     */
     public static int getAmountOfLives(){
     	return Integer.parseInt(amountOfLives);
     }
-    	 
+    
+    /**
+     * getter zwracaj¹cy czas poziomu
+     */
     public static int getLevelTime() { return Integer.parseInt(levelTime); }
     
     /**
@@ -243,6 +265,10 @@ public class Config {
     		return pointsForEnemyDeathAtEasyLevel;
     	}
     }
+    
+    /**
+     * metoda sczytuj¹ca sta³e 
+     */
     public static void readConstants(Properties config) {
 
         gameName = config.getProperty("gameName");
@@ -261,6 +287,7 @@ public class Config {
         level3 = config.getProperty("level3");
         HighscoreWindowName = config.getProperty("HighscoreWindowName");
         NickWindowName = config.getProperty("NickWindowName");
+        InstructionWindowName = config.getProperty("InstructionWindowName");
         OkButton = config.getProperty("OkButton");
         Cancelbutton = config.getProperty("CancelButton");
         easyLevelEnemySpeed=config.getProperty("easyLevelEnemySpeed");
@@ -272,6 +299,7 @@ public class Config {
         levelTime=config.getProperty("levelTime");
         amountOfLives=config.getProperty("amountOfLives");
         timeToExplodeBomb=Integer.parseInt(config.getProperty("timeToExplodeBomb"));
+        powerUpTime=Integer.parseInt(config.getProperty("powerUpTime"));
         easyLevelBombRange=Integer.parseInt(config.getProperty("easyLevelBombRange"));
         mediumLevelBombRange=Integer.parseInt(config.getProperty("mediumLevelBombRange"));
         hardLevelBombRange=Integer.parseInt(config.getProperty("hardLevelBombRange"));
@@ -283,12 +311,6 @@ public class Config {
         
           
     }
-
-	
-
-
-    
-
 
 }
 
